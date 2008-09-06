@@ -1,0 +1,10 @@
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\bin\Release\Wikify.exe
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\bin\Release\Wikify.pdb
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\bin\Release\Wikify.xml
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Release\Wikify.Form1.resources
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Release\Wikify.Resources.resources
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Release\Wikify.vbproj.GenerateResource.Cache
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Release\Wikify.exe
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Release\Wikify.xml
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Release\Wikify.pdb

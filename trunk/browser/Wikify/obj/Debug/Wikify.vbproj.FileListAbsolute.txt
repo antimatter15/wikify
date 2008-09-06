@@ -1,0 +1,20 @@
+C:\Users\Kevin\AppData\Local\Temporary Projects\Wikify\bin\Debug\Wikify.exe
+C:\Users\Kevin\AppData\Local\Temporary Projects\Wikify\bin\Debug\Wikify.pdb
+C:\Users\Kevin\AppData\Local\Temporary Projects\Wikify\bin\Debug\Wikify.xml
+C:\Users\Kevin\AppData\Local\Temporary Projects\Wikify\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Kevin\AppData\Local\Temporary Projects\Wikify\obj\Debug\Wikify.Form1.resources
+C:\Users\Kevin\AppData\Local\Temporary Projects\Wikify\obj\Debug\Wikify.Resources.resources
+C:\Users\Kevin\AppData\Local\Temporary Projects\Wikify\obj\Debug\Wikify.vbproj.GenerateResource.Cache
+C:\Users\Kevin\AppData\Local\Temporary Projects\Wikify\obj\Debug\Wikify.exe
+C:\Users\Kevin\AppData\Local\Temporary Projects\Wikify\obj\Debug\Wikify.xml
+C:\Users\Kevin\AppData\Local\Temporary Projects\Wikify\obj\Debug\Wikify.pdb
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Debug\Wikify.exe
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Debug\Wikify.xml
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Debug\Wikify.pdb
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\bin\Debug\Wikify.exe
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\bin\Debug\Wikify.pdb
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\bin\Debug\Wikify.xml
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Debug\Wikify.Form1.resources
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Debug\Wikify.Resources.resources
+C:\Users\Kevin\Documents\Visual Studio 2008\Projects\Wikify\Wikify\obj\Debug\Wikify.vbproj.GenerateResource.Cache

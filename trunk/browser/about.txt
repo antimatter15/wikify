@@ -1,0 +1,1 @@
+A sample web browser that automatically runs Read-Only Wikify on every page visited
