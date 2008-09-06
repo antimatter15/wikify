@@ -1,0 +1,1 @@
+copy ..\core.js webwikify\static\core.js
