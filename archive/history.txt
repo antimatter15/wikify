@@ -1,0 +1,16 @@
+Prototype 1 (core.js)
+First prototype, initial server archetecture, most code. Includes absoltuely no UI, very glitchy.
+
+Prototype 2 (c2.js)
+Rewrite, designed for real use. Edit UI that did not function properlly, very glitchy.
+
+Prototype 2 Revision 2 (AKA 2.1) (c2.1.js)
+Removed Edit UI into a logging UI. Functions less glitchy than previous, but still very glitchy.
+
+Prototype 3 (c3.js)
+Beginnings of a finished project. Instead of using designMode="on" on whole document, which
+disables all script-access, it clones the document onto a full-page iframe and enables 
+the Edit UI.
+
+Prototype 3 Revision 5 (c3.js)
+Thourough testing, usable product.
