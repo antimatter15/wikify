@@ -5,8 +5,8 @@ from google.appengine.ext import db
 
 
 class WikifyDB(db.Model):
-  url = db.TextProperty()
-  data = db.StringProperty()
+  url = db.StringProperty()
+  data = db.TextProperty()
   date = db.DateTimeProperty(auto_now_add=True)
   ip = db.StringProperty()
 
