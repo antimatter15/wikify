@@ -20,7 +20,7 @@ version: "Prototype 4, Revision 1",
 DOMSnapshot: {}, //snapshot of document contents
 UIFrame: null, //user interface
 DWin: null, //the hack frame pointing to the same location as this page
-
+log: [],
 
 getID: function(e){ //gets a special identifier for elements
 var a=[]; //declare array
@@ -45,6 +45,7 @@ return e; //return element
 
 
 sendData: function(url,params){ //create a JSONP request
+Wikify.log.push(url+params);
 var script = document.createElement("script"); //create script tag
 var head = document.getElementsByTagName("head")[0]; //get head element
 var cbk = function(){
@@ -115,7 +116,6 @@ save: function(){ //save data to server
 Wikify.setEditable(false)
 var a = Wikify.diff(); //get diff
 if(a != ""){ //if it's not empty
-//console.log("SAVED");
 Wikify.setEditable(false)
 setTimeout(function(){
 Wikify.setEditable(false)
