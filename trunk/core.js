@@ -164,12 +164,6 @@ return s; //return snapshot
 
 save: function(){ //save data to server
 Wikify.setEditable(false)
-var k = function(){ //callback
-Wikify.setEditable(false);
-setTimeout(function(){
-Wikify.uisaved()
-},100);
-};
 var a = Wikify.diff(); //get diff
 Wikify.log.push("Diff Size: "+a.length);
 if(a != ""){ //if it's not empty
@@ -178,10 +172,15 @@ setTimeout(function(){
 Wikify.setEditable(false)
 if(escape(escape(a)).length < 1500){
 Wikify.log.push("SubmitType: JSONP");
-Wikify.sendData(Wikify_Config.saveurl, "url="+escape(window.location.href)+"&dat="+escape(escape(a)),k);
+Wikify.sendData(Wikify_Config.saveurl, "url="+escape(window.location.href)+"&dat="+escape(escape(a)));
 }else{
 Wikify.log.push("SubmitType: Iframe");
-Wikify.cdSendData(Wikify_Config.saveurl, {url:escape(window.location.href),dat:escape(escape(a))},k);
+Wikify.cdSendData(Wikify_Config.saveurl, {url:escape(window.location.href),dat:escape(escape(a))},function(){ //callback
+Wikify.setEditable(false);
+setTimeout(function(){
+Wikify.uisaved()
+},100);
+};);
 }
 
 },100);
