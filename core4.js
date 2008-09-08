@@ -12,10 +12,14 @@ loadurl: "http://loadurl.com/loadurl"
 }
 */
 
+Wikify_Config = {
+saveurl: "http://localhost/wikify/php/save2.php",
+loadurl: "http://localhost/wikify/php/load2.php"
+}
 
 if(!window.Wikify){window.Wikify = {
 
-version: "Prototype 4, Revision 1"
+version: "Prototype 4, Revision 1",
 
 
 DOMSnapshot: {}, //snapshot of document contents
@@ -75,16 +79,17 @@ var s = Wikify.capture(), v=[], i=[]; //get DOM snapshot, diff list, ignore list
 for(var x in s){ //loop through snaphsot elements
 if(i.indexOf(x) == -1 && //make sure it's not on the ignore list
 s[x] != Wikify.DOMSnapshot[x]){ //check for changes
-var b = Wikify.fromID(x).getElementsByTagName("*"); //get all children
-for(var u = 0; u < b.length; u++) //loop children
-i.push(Wikify.getID(b[u])); //expel them from school :)
-//end evil-principalling
-v.push(x+"[[]]"+s[x]);
+var t = Wikify.fromID(x.split("</,/>").slice(1),x.split("</,/>")[0]), b=t.getElementsByTagName("*"); //get all children
+for(var u = 0; u < b.length; u++){ //loop children
+var k = Wikify.getID(b[u])
+i.push(k[1]+"</,/>"+k[0].join("</,/>")); //expel them from school :)
+}//end evil-principalling
+v.push(x+"[[]]"+t.innerHTML);
 }//end check for changes
 }//end loop
 Wikify.DOMSnapshot = s; //update snapshot
 //console.log(v);
-return v; //return diff
+return v.join("<!!!>"); //return diff
 },
 
 
