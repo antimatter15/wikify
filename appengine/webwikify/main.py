@@ -20,6 +20,19 @@ class Save(webapp.RequestHandler):
       self.response.out.write("/*SAVED DATA*/\n")
     else:
         self.response.out.write("/*INVALID DATA*/\n")
+    self.response.out.write("""
+    Wikify.setEditable(false);
+    setTimeout(function(){
+      Wikify.uisaved()
+    },100);""")
+  def post(self):
+    if self.request.get("url") and self.request.get("dat"):
+      WikifyDB(url = self.request.get("url"),
+               data = self.request.get("dat"),
+               ip = self.request.remote_addr).put()
+      self.response.out.write("SAVED DATA")
+    else:
+        self.response.out.write("INVALID DATA")
 
 
 class Load(webapp.RequestHandler):
