@@ -115,6 +115,7 @@ return s; //return snapshot
 save: function(){ //save data to server
 Wikify.setEditable(false)
 var a = Wikify.diff(); //get diff
+Wikify.log.push("Diff Size: "+a.length);
 if(a != ""){ //if it's not empty
 Wikify.setEditable(false)
 setTimeout(function(){
