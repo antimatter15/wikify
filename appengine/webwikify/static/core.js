@@ -85,7 +85,7 @@ if(callback){
 callback();
 }
 setTimeout(function(){
-document.body.removeChild(w); //bye bye!
+//document.body.removeChild(w); //bye bye!
 },100);
 }; //set callback!
 f.submit(); //submit!
@@ -180,7 +180,7 @@ Wikify.setEditable(false);
 setTimeout(function(){
 Wikify.uisaved()
 },100);
-};);
+});
 }
 
 },100);
