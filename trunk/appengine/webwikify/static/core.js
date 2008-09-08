@@ -1,6 +1,6 @@
 /* Wikify Core
  * (c) Copyright 2008 Antimatter15
- * Prototype 4, Revision 1
+ * Prototype 4, Revision 3
  */
 
 /*
@@ -14,7 +14,7 @@ loadurl: "http://loadurl.com/loadurl"
 
 if(!window.Wikify){window.Wikify = {
 
-version: "Prototype 4, Revision 1",
+version: "Prototype 4, Revision 3",
 
 
 DOMSnapshot: {}, //snapshot of document contents
@@ -224,7 +224,7 @@ alert(Wikify.version+"\n(C) Antimatter15 2008\n By using Project Wikify, you agr
 
 
 uihelp: function(){
-alert("Run the bookmarklet from any web page. Be warned, it's terribly glitchy, edits won't be stored if they involve deleting an element or if it's in a paragraph with images or other HTML tags in it.");
+alert("Run the bookmarklet from any web page. Be warned, it's glitchy, and it's likely much contributed information will be dumped eventually due to DB updates, or the information might not be submitted if there is a data size max. Of course, it's getting stabler every day.");
 },
 
 
