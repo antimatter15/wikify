@@ -20,11 +20,6 @@ class Save(webapp.RequestHandler):
       self.response.out.write("/*SAVED DATA*/\n")
     else:
         self.response.out.write("/*INVALID DATA*/\n")
-    self.response.out.write("""
-    Wikify.setEditable(false);
-    setTimeout(function(){
-      Wikify.uisaved()
-    },100);""")
 
 
 class Load(webapp.RequestHandler):

@@ -43,13 +43,63 @@ e = e.childNodes[a.splice(0,1)]; //set e to child of itself
 return e; //return element
 },
 
+cdSendData: function(url,params, callback){
+var i = document.createElement("iframe"), //submit target
+f = document.createElement("form"), //create new form
+d = "xif"+Math.ceil(Math.random()*1337*1337) //random iframe ID
 
-sendData: function(url,params){ //create a JSONP request
+i.id = d; //set iframe id
+i.name = d; //set iframe name
+i.style.display = "none"; //ssh! it's secret!
+
+f.action = url; //set form action
+f.method = "post"; //set form method
+f.target = d; //make form submit to iframe
+f.style.display = "none"; //ssh! it's secret!
+
+for(var q in params){
+var b = document.createElement("input"); //create new input
+b.type = "hidden"; //it's hidden! SSH!!!!
+b.name = q; //set name
+b.value = params[q]; //set value
+f.appendChild(b); //add to form
+}
+
+var w = document.createElement("div"); //create container
+/*Area51 secrecy!!!*/
+w.style.display = "none"; 
+w.style.height = "1px";
+w.style.width = "1px";
+w.style.position = "absolute";
+w.style.top = "-100px";
+w.style.left = "-100px";
+/*Declassified*/
+
+w.appendChild(i); //append to container
+w.appendChild(f); //ditto
+
+document.body.appendChild(w); //add to document
+
+i.onload = function(){
+if(callback){
+callback();
+}
+setTimeout(function(){
+document.body.removeChild(w); //bye bye!
+},100);
+}; //set callback!
+f.submit(); //submit!
+},
+
+sendData: function(url,params,callback){ //create a JSONP request
 Wikify.log.push(url+params);
 var script = document.createElement("script"); //create script tag
 var head = document.getElementsByTagName("head")[0]; //get head element
 var cbk = function(){
 head.removeChild(script);
+if(callback){
+callback();
+}
 }
 script.type = "text/javascript"; //set element type
 script.src = url+"?"+params; //set src, kill cache
@@ -114,13 +164,26 @@ return s; //return snapshot
 
 save: function(){ //save data to server
 Wikify.setEditable(false)
+var k = function(){ //callback
+Wikify.setEditable(false);
+setTimeout(function(){
+Wikify.uisaved()
+},100);
+};
 var a = Wikify.diff(); //get diff
 Wikify.log.push("Diff Size: "+a.length);
 if(a != ""){ //if it's not empty
 Wikify.setEditable(false)
 setTimeout(function(){
 Wikify.setEditable(false)
-Wikify.sendData(Wikify_Config.saveurl, "url="+escape(window.location.href)+"&dat="+escape(escape(a)));
+if(escape(escape(a)).length < 1500){
+Wikify.log.push("SubmitType: JSONP");
+Wikify.sendData(Wikify_Config.saveurl, "url="+escape(window.location.href)+"&dat="+escape(escape(a)),k);
+}else{
+Wikify.log.push("SubmitType: Iframe");
+Wikify.cdSendData(Wikify_Config.saveurl, {url:escape(window.location.href),dat:escape(escape(a))},k);
+}
+
 },100);
 }else{
 return true
