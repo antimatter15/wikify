@@ -85,7 +85,7 @@ if(callback){
 callback();
 }
 setTimeout(function(){
-document.body.removeChild(w); //bye bye!
+//document.body.removeChild(w); //bye bye!
 },100);
 }; //set callback!
 f.submit(); //submit!
@@ -175,12 +175,12 @@ Wikify.log.push("SubmitType: JSONP");
 Wikify.sendData(Wikify_Config.saveurl, "url="+escape(window.location.href)+"&dat="+escape(escape(a)));
 }else{
 Wikify.log.push("SubmitType: Iframe");
-Wikify.cdSendData(Wikify_Config.saveurl, {url:escape(window.location.href),dat:escape(escape(a))},function(){ //callback
+Wikify.cdSendData(Wikify_Config.saveurl, {url:window.location.href,dat:escape(a)},function(){ //callback
 Wikify.setEditable(false);
 setTimeout(function(){
 Wikify.uisaved()
 },100);
-};);
+});
 }
 
 },100);
