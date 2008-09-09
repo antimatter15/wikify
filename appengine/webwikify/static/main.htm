@@ -38,8 +38,8 @@ Drag and drop the above "Wikify" link to the bookmarks bar.<br>
 Right click on the above "Wikify" link and select "Add to Favorites".<br>
 <b>Opera</b><br>
 Right click on the above "Wikify" link and select "Bookmark Link".<br><br>
-<a onclick="alert('Drag this link to your bookmarks toolbar!');return false" href='javascript:(function(){window.Wikify_Config={coreurl:"http://wikify.antimatter15.com/static/core.js",saveurl:"http://wikify.antimatter15.com/server/save",loadurl:"http://wikify.antimatter15.com/server/load"};if(window.Wikify){Wikify.uisave()}else{var A=document.createElement("script");A.src=Wikify_Config.coreurl;document.getElementsByTagName("head")[0].appendChild(A)}})()'>Wikify</a>
-<br>You can use the plugin by clicking on it from your bookmarks.
+<a style="font-size: x-large" onclick="alert('Drag this link to your bookmarks toolbar!');return false" href='javascript:(function(){window.Wikify_Config={coreurl:"http://wikify.antimatter15.com/static/core.js",saveurl:"http://wikify.antimatter15.com/server/save",loadurl:"http://wikify.antimatter15.com/server/load"};if(window.Wikify){Wikify.uisave()}else{var A=document.createElement("script");A.src=Wikify_Config.coreurl;document.getElementsByTagName("head")[0].appendChild(A)}})()'>Wikify</a>
+<br><br>You can use the plugin by clicking on it from your bookmarks.
 </p>
 
 <h2>Read-Only Wikify</h2>
@@ -54,10 +54,18 @@ Project Wikify is designed in such a way to only store user-contributed portions
 <p>
 Project Wikify is mostly in javascript, the server is very simple, and it just stores and retrieves data. Only two attributes are required, the URL of the page, and the data (patch) from the client. A PHP flat-file reference implementation is available from google code. <a href="http://wikify.googlecode.com/">http://wikify.googlecode.com/</a>
 </p>
+<h2>Wikify Bookmarklet/Userscript</h2>
+<p>
+Project Wikify (RWK) is available as a userscript, allowing it to automatically execute on page load. On Firefox, you must install GreaseMonkey, and may work on other platforms such as Opera, but only Fx/GM are officially supported.<br>
+To install, visit <a href="/static/wikify.user.js">this</a>. A pop-up should appear prompting you whether you are sure you want to install the userscript, click Continue, and you should be able to read the Wikified versions of any site seamlessly.<br>
+<br><a style="font-size: x-large"  href="/static/wikify.user.js">Wikify Userscript</a>
+</p> 
 <h2>Wikify Browser</h2>
 <p>
 A crude Wikify browser which does the equivalent of running the RWK bookmarklet on every page load is available <a href="http://wikify.googlecode.com/svn/trunk/browser/Wikify/bin/Release/Wikify.exe">here</a> (Note, may require .NET 3.5 runtime, though code should be compilable in VS 2003).<br>
-It is possible that a more feasable GreaseMonkey/Userscript could be created.
 </p>
+<div style="font-size: xx-small">
+Copyright (C) Antimatter15 2008
+</div>
 </body>
 </html>
