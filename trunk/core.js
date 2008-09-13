@@ -22,6 +22,7 @@ UIFrame: null, //user interface
 DWin: null, //the hack frame pointing to the same location as this page
 log: [], //the log for the system
 oldHTML: "", //the old html of the document
+
 links: { //link menu config
 "Save": "javascript:Wikify.uisave()",
 "Update": "javascript:Wikify.uiload()",
@@ -156,7 +157,6 @@ v.push(x+"[[]]"+t.innerHTML);
 }//end loop
 Wikify.DOMSnapshot = s; //update snapshot
 //console.log(v);
-alert(v.join("<!!!>"));
 return v.join("<!!!>"); //return diff
 },
 
@@ -252,10 +252,9 @@ Wikify.oldHTML = document.getElementsByTagName("html")[0].innerHTML
 
 document.title += " - Wikify";
 
-
 var links="";for(var v in Wikify.links){links+='<a style="text-decoration:none;color:#fff" href="'+Wikify.links[v]+'">'+v+'</a> '}
 
-var divstyle = "width:280px;height:25px;position:absolute;top:0;right:0;background-color:#0099FF;font:16px 'Times New Roman'"
+var divstyle = "width:300px;height:25px;position:absolute;top:0;right:0;background-color:#265cc8;font:16px 'Times New Roman'"
 
 var wikifyexec = '<script type="text/javascript">try{if(window.top.Wikify){window.top.Wikify.load()}}catch(err){}</script>';
 
