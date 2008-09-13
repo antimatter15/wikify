@@ -20,8 +20,16 @@ version: "Prototype 4, Revision 3",
 DOMSnapshot: {}, //snapshot of document contents
 UIFrame: null, //user interface
 DWin: null, //the hack frame pointing to the same location as this page
-log: [],
+log: [], //the log for the system
+oldHTML: "", //the old html of the document
+links: {
+"Save": "javascript:Wikify.uisave()",
+"Update": "javascript:Wikify.uiload()",
+"About":" javascript:Wikify.uiabout()",
+"Help": "javascript:Wikify.uihelp()"
+},
 
+/*Core Functions*/
 getID: function(e){ //gets a special identifier for elements
 var a=[]; //declare array
 while(e!=Wikify.DWin.document.body && !e.id){ //loop until the element has an id
@@ -33,7 +41,6 @@ return [a.reverse(),(e.id?e.id:"_xdby")]; //format output
 },
 
 
-
 fromID: function(a,b){ //get element from identifier
 var e = (b=="_xdby")?Wikify.DWin.document.body:Wikify.DWin.document.getElementById(b); //get origin
 if((a[0]=="" && a.length == 1) || !a){return e}
@@ -42,21 +49,21 @@ e = e.childNodes[a.splice(0,1)]; //set e to child of itself
 //end while loop
 return e; //return element
 },
+/*End Core*/
+
+
 
 cdSendData: function(url,params, callback){
 var i = document.createElement("iframe"), //submit target
 f = document.createElement("form"), //create new form
-d = "xif"+Math.ceil(Math.random()*1337*1337) //random iframe ID
-
+d = "wk_xif"+Math.ceil(Math.random()*1337*1337) //random iframe ID
 i.id = d; //set iframe id
 i.name = d; //set iframe name
 i.style.display = "none"; //ssh! it's secret!
-
 f.action = url; //set form action
 f.method = "post"; //set form method
 f.target = d; //make form submit to iframe
 f.style.display = "none"; //ssh! it's secret!
-
 for(var q in params){
 var b = document.createElement("input"); //create new input
 b.type = "hidden"; //it's hidden! SSH!!!!
@@ -64,42 +71,41 @@ b.name = q; //set name
 b.value = params[q]; //set value
 f.appendChild(b); //add to form
 }
-
 var w = document.createElement("div"); //create container
 /*Area51 secrecy!!!*/
-w.style.display = "none"; 
-w.style.height = "1px";
-w.style.width = "1px";
-w.style.position = "absolute";
-w.style.top = "-100px";
-w.style.left = "-100px";
+w.style.display = "none"; w.style.height = "1px";
+w.style.width = "1px"; w.style.position = "absolute";
+w.style.top = "-100px"; w.style.left = "-100px";
 /*Declassified*/
-
 w.appendChild(i); //append to container
 w.appendChild(f); //ditto
-
 document.body.appendChild(w); //add to document
-
 i.onload = function(){
-if(callback){
-callback();
-}
+if(callback){callback();}
 setTimeout(function(){
-//document.body.removeChild(w); //bye bye!
+if(w.parentNode){
+document.body.removeChild(w); //bye bye!
+}
 },100);
 }; //set callback!
 f.submit(); //submit!
 },
 
+
+
 sendData: function(url,params,callback){ //create a JSONP request
-Wikify.log.push(url+params);
+Wikify.log.push(url+"?"+params);
 var script = document.createElement("script"); //create script tag
 var head = document.getElementsByTagName("head")[0]; //get head element
 var cbk = function(){
-head.removeChild(script);
 if(callback){
 callback();
 }
+setTimeout(function(){
+if(script.parentNode){
+head.removeChild(script);
+}
+},100)
 }
 script.type = "text/javascript"; //set element type
 script.src = url+"?"+params; //set src, kill cache
@@ -204,6 +210,8 @@ try{ //ignore errors
 var f = w[i].split("[[]]"), //split contnet
 u = f[0].split("</,/>") //decrypt ID
 Wikify.fromID(u.slice(1),u[0]).innerHTML = f[1]; //set element contents
+Wikify.log.push(">>>"+f[0]+"<<<");
+Wikify.log.push(f[1]);
 }catch(err){
 //console.error(err)
 }; //ignore errors
@@ -212,60 +220,38 @@ Wikify.fromID(u.slice(1),u[0]).innerHTML = f[1]; //set element contents
 
 
 setEditable: function(option){
-if(!Wikify.DWin) return
+if(!Wikify.DWin) return; //phailz when theres no DWin!
 if(option==true){
-Wikify.DWin.document.designMode = "on";
-Wikify.DWin.document.body.contentEditable=true
+Wikify.DWin.document.designMode = "on"; //everything
+Wikify.DWin.document.body.contentEditable=true; //IE
 }else if(option == false){
-Wikify.DWin.document.designMode = "off";
-Wikify.DWin.document.body.contentEditable=false
+Wikify.DWin.document.designMode = "off"; //everything
+Wikify.DWin.document.body.contentEditable=false; //IE
 }
 },
 
 
 createUI: function(){ //EXPERIMENTAL!
-var dochtml = document.getElementsByTagName("html")[0].innerHTML
-document.body.innerHTML = "";
+Wikify.oldHTML = document.getElementsByTagName("html")[0].innerHTML
+var links="";for(var v in Wikify.links){links+='<a style="text-decoration:none;color:#fff" href="'+Wikify.links[v]+'">'+v+'</a> '}
 
-var p = document.createElement("iframe");
-p.setAttribute("style","border:0;position:absolute;left: 0;top:0;width:100%;height:100%;background-color:#fff");
-p.width = "100%";
-p.height = "100%";
-p.frameborder = "0";
+var divstyle = "width:280px;height:25px;position:absolute;top:0;right:0;background-color:#0099FF;font:16px 'Times New Roman'"
 
-document.body.appendChild(p);
+document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0" frameborder="0" marginwidth="0" style="top:0;left:0;position:absolute;width:100%;height:100%" width="100%" height="100%"></iframe><div style="'+divstyle+'"><span style="left:0;position:absolute"><span style="color:#FFFF00">&nbsp;Wikify&nbsp;-&nbsp;</span><span id="Wikify_Status" style="color:#66FF00">Loaded</span></span><span style="right:3px;position:absolute">'+links+'</span></div>'
+
+var p = document.getElementById("Wikify_Frame");
 p = (p.contentWindow)? p.contentWindow: (p.contentDocument.document)? p.contentDocument.document: p.contentDocument
 p.document.open();
-p.document.write(dochtml.replace(/script/g,"noscript")+"<script>window.top.Wikify.load();</script>"); //murder scripts
+p.document.write(Wikify.oldHTML.replace(/script/g,"noscript")+"<script>window.top.Wikify.load();</script>"); //murder scripts
 p.document.close();
 
 Wikify.DWin = p
-
-var links="",linksrc = {
-"Save":"javascript:Wikify.uisave()",
-"Update": "javascript:Wikify.uiload()",
-"About":"javascript:Wikify.uiabout()",
-"Help":"javascript:Wikify.uihelp()"
-}
-for(var v in linksrc){
-links+='<a style="text-decoration:none;color:#fff" href="'+linksrc[v]+'">'+v+'</a> '
-}
-
-var i = document.createElement("div");
-i.setAttribute("style","width: 280px; height: 25px; position: absolute; top: 0; right: 0; background-color: #0099FF; font: 16px 'Times New Roman'");
-
-document.body.bgcolor = "#0099FF";
-document.body.style.backgroundColor = "#0099FF";
-i.innerHTML = '<span style="left:0;position:absolute"><span style="color:#FFFF00">&nbsp;Wikify&nbsp;-&nbsp;</span><span id="Wikify_Status" style="color:#66FF00">Loaded</span></span><span style="right:3px;position:absolute">'+links+'</span>'
-
-document.body.appendChild(i);
 },
 
 
 status: function(text){
 document.getElementById("Wikify_Status").innerHTML = text
 },
-
 
 uisave: function(){
 Wikify.status("Saving")
