@@ -20,11 +20,6 @@ class Save(webapp.RequestHandler):
       self.response.out.write("/*SAVED DATA*/\n")
     else:
       self.response.out.write("/*INVALID DATA*/\n")
-    self.response.out.write("""
-    Wikify.setEditable(false);
-    setTimeout(function(){
-      Wikify.uisaved()
-    },100);""")
     
   def post(self):
     if self.request.get("url") and self.request.get("dat"):
@@ -40,20 +35,18 @@ class Save(webapp.RequestHandler):
 class Load(webapp.RequestHandler):
   def get(self):
     self.response.headers["Content-Type"] = "text/javascript"
-    self.response.out.write("Wikify.setEditable(false);\nsetTimeout(function(){\n")
+    self.response.out.write("Wikify.loadhistory([")
     changes = WikifyDB.gql("WHERE url=:url ORDER BY date ASC", url=self.request.get("url"))
     if changes.count() > 0:
       for edit in changes:
-        self.response.out.write("Wikify.parse('"+edit.data+"');\n")
+        self.response.out.write("['"+edit.data+"'],\n")
     else:
-      self.response.out.write("/*NO DATA ON URL!*/\n")
+      self.response.out.write("/*NO DATA ON URL!*/'ENDPARSE', \n")
     self.response.out.write("""
-      setTimeout(function(){
-        Wikify.setEditable(true);
-        Wikify.DOMSnapshot = Wikify.capture();
-        Wikify.uiloaded()
-      },100)
-    },100);""")
+      "ENDPARSE"]);
+      
+      Wikify.autoparse();
+      """)
     
 class Import(webapp.RequestHandler):
   def get(self):
