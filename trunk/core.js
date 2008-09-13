@@ -1,6 +1,6 @@
 /* Wikify Core
  * (c) Copyright 2008 Antimatter15
- * Prototype 4, Revision 3
+ * Prototype 4, Revision 6
  */
 
 /*
@@ -14,7 +14,7 @@ loadurl: "http://loadurl.com/loadurl"
 
 if(!window.Wikify){window.Wikify = {
 
-version: "Prototype 4, Revision 3",
+version: "Prototype 4, Revision 6",
 
 
 DOMSnapshot: {}, //snapshot of document contents
@@ -22,7 +22,7 @@ UIFrame: null, //user interface
 DWin: null, //the hack frame pointing to the same location as this page
 log: [], //the log for the system
 oldHTML: "", //the old html of the document
-links: {
+links: { //link menu config
 "Save": "javascript:Wikify.uisave()",
 "Update": "javascript:Wikify.uiload()",
 "About":" javascript:Wikify.uiabout()",
@@ -30,10 +30,25 @@ links: {
 },
 
 /*Core Functions*/
+arrayIndex: function(v, a){
+for(var i = a.length; i-- && a[i] != v;);
+return i;
+},
+
+getChildren: function(e){ //element
+var m = [];
+for(var x = 0; x < e.childNodes.length; x++){
+if(e.childNodes[x].nodeType != 3){
+m.push(e.childNodes[x])
+}
+}
+return m;
+},
+
 getID: function(e){ //gets a special identifier for elements
 var a=[]; //declare array
 while(e!=Wikify.DWin.document.body && !e.id){ //loop until the element has an id
-for(var i=0;e.parentNode.childNodes[i]!=e;i++){}//find parent index
+for(var i=0;Wikify.getChildren(e.parentNode)[i]!=e;i++){}//find parent index
 a.push(i);//add to array
 e = e.parentNode; //set parent
 } //end loop
@@ -45,7 +60,7 @@ fromID: function(a,b){ //get element from identifier
 var e = (b=="_xdby")?Wikify.DWin.document.body:Wikify.DWin.document.getElementById(b); //get origin
 if((a[0]=="" && a.length == 1) || !a){return e}
 while(a.length>0) //loop while a (from id) is not empty
-e = e.childNodes[a.splice(0,1)]; //set e to child of itself
+e = Wikify.getChildren(e)[a.splice(0,1)]; //set e to child of itself
 //end while loop
 return e; //return element
 },
@@ -86,7 +101,7 @@ setTimeout(function(){
 if(w.parentNode){
 document.body.removeChild(w); //bye bye!
 }
-},100);
+},5000);
 }; //set callback!
 f.submit(); //submit!
 },
@@ -105,7 +120,7 @@ setTimeout(function(){
 if(script.parentNode){
 head.removeChild(script);
 }
-},100)
+},5000)
 }
 script.type = "text/javascript"; //set element type
 script.src = url+"?"+params; //set src, kill cache
@@ -119,7 +134,7 @@ getText: function(el){ //vague name. I know
 var y = ""; //where the output will be stored
 for(var i = 0; i < el.childNodes.length; i++){ //loop children
 if(el.childNodes[i].nodeType == 3){
-y+=el.childNodes[i].textContent; //add to output
+y+=el.childNodes[i].nodeValue; //add to output
 } //end if
 } //end loop
 return y; //return output
@@ -129,7 +144,7 @@ return y; //return output
 diff: function(){
 var s = Wikify.capture(), v=[], i=[]; //get DOM snapshot, diff list, ignore list
 for(var x in s){ //loop through snaphsot elements
-if(i.indexOf(x) == -1 && //make sure it's not on the ignore list
+if(Wikify.arrayIndex(x, i) == -1 && //make sure it's not on the ignore list
 s[x] != Wikify.DOMSnapshot[x]){ //check for changes
 var t = Wikify.fromID(x.split("</,/>").slice(1),x.split("</,/>")[0]), b=t.getElementsByTagName("*"); //get all children
 for(var u = 0; u < b.length; u++){ //loop children
@@ -141,6 +156,7 @@ v.push(x+"[[]]"+t.innerHTML);
 }//end loop
 Wikify.DOMSnapshot = s; //update snapshot
 //console.log(v);
+alert(v.join("<!!!>"));
 return v.join("<!!!>"); //return diff
 },
 
@@ -233,19 +249,27 @@ Wikify.DWin.document.body.contentEditable=false; //IE
 
 createUI: function(){ //EXPERIMENTAL!
 Wikify.oldHTML = document.getElementsByTagName("html")[0].innerHTML
+
+document.title += " - Wikify";
+
+
 var links="";for(var v in Wikify.links){links+='<a style="text-decoration:none;color:#fff" href="'+Wikify.links[v]+'">'+v+'</a> '}
 
 var divstyle = "width:280px;height:25px;position:absolute;top:0;right:0;background-color:#0099FF;font:16px 'Times New Roman'"
+
+var wikifyexec = '<script type="text/javascript">try{if(window.top.Wikify){window.top.Wikify.load()}}catch(err){}</script>';
 
 document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0" frameborder="0" marginwidth="0" style="top:0;left:0;position:absolute;width:100%;height:100%" width="100%" height="100%"></iframe><div style="'+divstyle+'"><span style="left:0;position:absolute"><span style="color:#FFFF00">&nbsp;Wikify&nbsp;-&nbsp;</span><span id="Wikify_Status" style="color:#66FF00">Loaded</span></span><span style="right:3px;position:absolute">'+links+'</span></div>'
 
 var p = document.getElementById("Wikify_Frame");
 p = (p.contentWindow)? p.contentWindow: (p.contentDocument.document)? p.contentDocument.document: p.contentDocument
 p.document.open();
-p.document.write(Wikify.oldHTML.replace(/script/g,"noscript")+"<script>window.top.Wikify.load();</script>"); //murder scripts
+p.document.write(Wikify.oldHTML.replace(/<script/ig,"<noscript").replace(/<\/script/ig,"</noscript")+wikifyexec); //murder scripts
 p.document.close();
 
 Wikify.DWin = p
+
+
 },
 
 
@@ -253,41 +277,27 @@ status: function(text){
 document.getElementById("Wikify_Status").innerHTML = text
 },
 
+uiabout: function(){
+alert(Wikify.version+"\n(C) Antimatter15 2008\n By using Project Wikify, you agree that all of your (the user) contributions are/will be under the Creative Commons 3.0 Share Alike license, and is fully responsible for all content created by yourself.\n Project Wikify source is under GPLv3 (Acessible Via Google Code SVN).");
+},
+uihelp: function(){
+alert("Run the bookmarklet from any web page. Be warned, it's glitchy, and it's likely much contributed information will be dumped eventually due to DB updates, or the information might not be submitted if there is a data size max. Of course, it's getting stabler every day.");
+},
+
+uiloaded: function(){Wikify.status("Loaded")},
+uiload: function(){Wikify.status("Loading");Wikify.load();},
 uisave: function(){
 Wikify.status("Saving")
 if(Wikify.save()==true)
 Wikify.uisaved() //it's already saved if its empty
 },
 
-
 uisaved: function(){
-Wikify.status("Saved");
-Wikify.setEditable(true)
-},
-
-
-uiabout: function(){
-alert(Wikify.version+"\n(C) Antimatter15 2008\n By using Project Wikify, you agree that all of your (the user) contributions are/will be under the Creative Commons 3.0 Share Alike license, and is fully responsible for all content created by yourself.\n Project Wikify source is under GPLv3 (Acessible Via Google Code SVN).");
-},
-
-
-uihelp: function(){
-alert("Run the bookmarklet from any web page. Be warned, it's glitchy, and it's likely much contributed information will be dumped eventually due to DB updates, or the information might not be submitted if there is a data size max. Of course, it's getting stabler every day.");
-},
-
-
-uiloaded: function(){
-Wikify.status("Loaded")
-},
-
-
-uiload: function(){
-Wikify.status("Loading")
-Wikify.load();
+Wikify.status("Saved");Wikify.setEditable(true)
 }
 }
 
-if(window.top == window){
+if(window.top == window && !window.NO_WIKIFY_UI){
 Wikify.createUI();
 }
 
