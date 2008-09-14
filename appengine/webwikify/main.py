@@ -74,7 +74,11 @@ class RWK(webapp.RequestHandler):
     u = f[0].split("</,/>")
     var e = (u[0]=="_xdby")?document.body:document.getElementById(u[0]), a=u.slice(1);
     if(!(a[0]=="" && a.length == 1) && a){
-    while(a.length>0) e=e.childNodes[a.splice(0,1)];
+    var m = [];
+    for(var x = 0; x < e.childNodes.length; x++){
+    if(e.childNodes[x].nodeType != 3){
+    m.push(e.childNodes[x])}}
+    while(a.length>0) e=m.childNodes[a.splice(0,1)];
     }
     e.innerHTML = f[1]
     }catch(err){}}};""");

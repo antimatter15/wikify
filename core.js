@@ -159,7 +159,7 @@ var x = Wikify.DWin.document.getElementsByTagName("*"), s = {}; //declare variab
 for(var i = 0; i < x.length; i++){ //loop through all document elements
 if(x[i] != Wikify.DWin.document.body && //exclude document body
 x[i].id.indexOf("firebug") == -1 &&  //exclude firebug
-"script,noscript,style,link,iframe,br".indexOf(x[i].tagName.toLowerCase()) == -1
+"script,noscript,style,link,iframe,br".indexOf(x[i].tagName.toLowerCase()) != -1
 ){ //make sure it has no children
 //console.log(x[i]);
 try{ //continue even on error
@@ -253,7 +253,7 @@ var divstyle = "width:300px;height:25px;position:absolute;top:0;right:20px;backg
 
 var wikifyexec = '<script type="text/javascript">try{if(window.top.Wikify){window.top.Wikify.load()}}catch(err){}</script>';
 
-document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0" frameborder="0" marginwidth="0" style="top:0;left:0;position:absolute;width:100%;height:100%" width="100%" height="100%"></iframe><div id="Wikify_Mask" style="width:100%;height:100%;position:absolute;left:0;top:0;opacity:0.4;filter:alpha(opacity=40);background-color:#ACACAC"></div><div style="'+divstyle+'"><span style="left:0;position:absolute"><span style="color:#FFFF00">&nbsp;Wikify&nbsp;-&nbsp;</span><span id="Wikify_Status" style="color:#66FF00">Loading</span></span><span style="right:3px;position:absolute">'+links+'</span></div>'
+document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0" frameborder="0" marginwidth="0" style="top:0;left:0;position:absolute;width:100%;height:100%" width="100%" height="100%"></iframe><div id="Wikify_Mask" style="width:100%;height:100%;position:absolute;left:0;top:0;opacity:0.8;filter:alpha(opacity=80);background-color:#DDDDDD"></div><div style="'+divstyle+'"><span style="left:0;position:absolute"><span style="color:#FFFF00">&nbsp;Wikify&nbsp;-&nbsp;</span><span id="Wikify_Status" style="color:#66FF00">Loading</span></span><span style="right:3px;position:absolute">'+links+'</span></div>'
 
 var p = document.getElementById("Wikify_Frame");
 p = (p.contentWindow)? p.contentWindow: (p.contentDocument.document)? p.contentDocument.document: p.contentDocument
