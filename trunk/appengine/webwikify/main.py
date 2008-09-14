@@ -23,7 +23,7 @@ class Save(webapp.RequestHandler):
       self.response.out.write("SAVED DATA (IFRAME) "+self.request.get("url"))
     else:
       self.response.out.write("INVALID DATA (IFRAME) "+self.request.get("url"))
-    self.response.out.write("DONE") 
+    self.response.out.write(" DONE") 
 
 
 class Load(webapp.RequestHandler):
