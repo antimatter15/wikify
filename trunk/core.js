@@ -273,7 +273,7 @@ document.getElementById("Wikify_MaskInfo").innerHTML = "It looks like the Projec
 
 status: function(text){document.getElementById("Wikify_Status").innerHTML = text},
 mask: function(mode){
-if(!mode){return document.getElementById("Wikify_Mask")}
+if(mode==null){return document.getElementById("Wikify_Mask")}
 Wikify.mask().style.display=(mode==true)?"block":"none";},
 
 uiinfo: function(){
