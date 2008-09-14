@@ -8,23 +8,17 @@ class WikifyDB(db.Model):
   url = db.StringProperty()
   data = db.TextProperty()
   date = db.DateTimeProperty(auto_now_add=True)
+  channel = db.StringProperty()
   ip = db.StringProperty()
 
 class Save(webapp.RequestHandler):
   def get(self):
-    self.response.headers["Content-Type"] = "text/javascript"
-    if self.request.get("url") and self.request.get("dat"):
-      WikifyDB(url = self.request.get("url"),
-               data = self.request.get("dat"),
-               ip = self.request.remote_addr).put()
-      self.response.out.write("/*SAVED DATA*/\n")
-    else:
-      self.response.out.write("/*INVALID DATA*/\n")
-    
+    self.response.out.write("This server only accepts POST.")
   def post(self):
     if self.request.get("url") and self.request.get("dat"):
       WikifyDB(url = self.request.get("url"),
                data = self.request.get("dat"),
+               channel = self.request.get("channel"),
                ip = self.request.remote_addr).put()
       self.response.out.write("SAVED DATA (IFRAME) "+self.request.get("url"))
     else:
@@ -82,7 +76,7 @@ class RWK(webapp.RequestHandler):
     }
     e.innerHTML = f[1]
     }catch(err){}}};""");
-    changes = WikifyDB.gql("WHERE url=:url ORDER BY date ASC", url=self.request.get("url"))
+    changes = WikifyDB.gql("WHERE url=:url AND channel=:channel ORDER BY date ASC", url=self.request.get("url"))
     if changes.count() > 0:
       for edit in changes:
         self.response.out.write("\ng('"+edit.data+"');\n")
