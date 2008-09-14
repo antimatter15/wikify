@@ -23,7 +23,7 @@ DWin: null, //the hack frame pointing to the same location as this page
 log: [], //the log for the system
 history: [], //history stuffs
 oldHTML: "", //the old html of the document
-docedit: false,
+docedit: false, //blah
 
 links: { //link menu config
 "Save": "javascript:Wikify.uisave()",
@@ -272,7 +272,7 @@ Wikify.DWin = (p.contentWindow)? p.contentWindow: (p.contentDocument.document)? 
 Wikify.writeFrame();
 
 setTimeout(function(){
-if(Wikify.mask().style.display!="none" && Wikify.history == []){
+if(Wikify.mask().style.display!="none" && Wikify.history.length == 0){
 document.getElementById("Wikify_MaskInfo").innerHTML = "It looks like the Project Wikify can't connect to the patch server. This could happen if the patch contains too much data and/or your internet connection is slow, or if the bookmarklet is misconfigured.<br>You can try to press the &quot;Update&quot; button after whatever problems are resolved."
 }
 },8000);
