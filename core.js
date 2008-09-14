@@ -253,7 +253,7 @@ var divstyle = "width:300px;height:25px;position:absolute;top:0;right:20px;backg
 
 var wikifyexec = '<script type="text/javascript">try{if(window.top.Wikify){window.top.Wikify.load()}}catch(err){}</script>';
 
-document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0" frameborder="0" marginwidth="0" style="top:0;left:0;position:absolute;width:100%;height:100%" width="100%" height="100%"></iframe><div id="Wikify_Mask" style="width:100%;height:100%;position:absolute;left:0;top:0;opacity:0.85;filter:alpha(opacity=85);background-color:#DDDDDD"><h1 style="padding-left:50px">Please Wait...</h1><div id="Wikify_MaskInfo" style="padding-left:40px"></div></div><div style="'+divstyle+'"><span style="left:0;position:absolute"><span style="color:#FFFF00">&nbsp;Wikify&nbsp;-&nbsp;</span><span id="Wikify_Status" style="color:#66FF00">Loading</span></span><span style="right:3px;position:absolute">'+links+'</span></div>'
+document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0" frameborder="0" marginwidth="0" style="top:0;left:0;position:absolute;width:100%;height:100%" width="100%" height="100%"></iframe><div id="Wikify_Mask" style="width:100%;height:100%;position:absolute;left:0;top:0;opacity:0.85;filter:alpha(opacity=85);background-color:#DDDDDD"><h1 style="padding-left:50px">Please Wait...</h1><br><br><div id="Wikify_MaskInfo" style="padding-left:40px"></div></div><div style="'+divstyle+'"><span style="left:0;position:absolute"><span style="color:#FFFF00">&nbsp;Wikify&nbsp;-&nbsp;</span><span id="Wikify_Status" style="color:#66FF00">Loading</span></span><span style="right:3px;position:absolute">'+links+'</span></div>'
 
 var p = document.getElementById("Wikify_Frame");
 p = (p.contentWindow)? p.contentWindow: (p.contentDocument.document)? p.contentDocument.document: p.contentDocument
@@ -264,7 +264,7 @@ Wikify.DWin = p
 
 setTimeout(function(){
 if(Wikify.mask().style.display!="none"){
-document.getElementById("Wikify_MaskInfo").innerHTML = "It looks like the Project Wikify can't connect to the patch server. This could happen if the patch contains too much data and/or your internet connection is slow, or if the bookmarklet is misconfigured."
+document.getElementById("Wikify_MaskInfo").innerHTML = "It looks like the Project Wikify can't connect to the patch server. This could happen if the patch contains too much data and/or your internet connection is slow, or if the bookmarklet is misconfigured.<br>You can try to press the &quot;Update&quot; button after whatever problems are resolved."
 }
 },8000);
 
