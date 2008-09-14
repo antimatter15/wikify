@@ -41,19 +41,6 @@ class Load(webapp.RequestHandler):
       
       Wikify.autoparse();
       """)
-    
-class Import(webapp.RequestHandler):
-  def get(self):
-    self.response.out.write("""<form>
-    <input type='text' name='url' style="width: 100%"><br>
-    <textarea style="width: 100%; height: 500px" name='data'></textarea><br>
-    <input type='submit' value='Import Page'>
-    </form>""")
-  def post(self):
-    for x in self.request.get("data").split("<<(X)>>"):
-      WikifyDB(url = self.request.get("url"),
-           data = x,
-           ip = "NOT AVAILABLE").put()
 
 class RWK(webapp.RequestHandler):
   def get(self):
@@ -76,7 +63,9 @@ class RWK(webapp.RequestHandler):
     }
     e.innerHTML = f[1]
     }catch(err){}}};""");
-    changes = WikifyDB.gql("WHERE url=:url AND channel=:channel ORDER BY date ASC", url=self.request.get("url"), channel=self.request.get("channel"))
+    changes = WikifyDB.gql("WHERE url=:url AND channel=:channel ORDER BY date ASC", 
+                              url=self.request.get("url"), 
+                              channel=self.request.get("channel"))
     if changes.count() > 0:
       for edit in changes:
         self.response.out.write("\ng('"+edit.data+"');\n")
@@ -88,7 +77,6 @@ def main():
   application = webapp.WSGIApplication(
                                       [('/server/save',Save),
                                        ('/server/load',Load),
-                                       ('/server/import',Import),
                                        ('/server/rwk',RWK)],
                                       debug=True)
   wsgiref.handlers.CGIHandler().run(application)
