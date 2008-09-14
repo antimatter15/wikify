@@ -76,7 +76,7 @@ class RWK(webapp.RequestHandler):
     }
     e.innerHTML = f[1]
     }catch(err){}}};""");
-    changes = WikifyDB.gql("WHERE url=:url AND channel=:channel ORDER BY date ASC", url=self.request.get("url"))
+    changes = WikifyDB.gql("WHERE url=:url AND channel=:channel ORDER BY date ASC", url=self.request.get("url"), channel=self.request.get("channel"))
     if changes.count() > 0:
       for edit in changes:
         self.response.out.write("\ng('"+edit.data+"');\n")
