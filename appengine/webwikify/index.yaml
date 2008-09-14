@@ -13,6 +13,13 @@ indexes:
 # Used once in query history.
 - kind: WikifyDB
   properties:
+  - name: channel
+  - name: url
+  - name: date
+
+# Used 3 times in query history.
+- kind: WikifyDB
+  properties:
   - name: url
   - name: date
 
