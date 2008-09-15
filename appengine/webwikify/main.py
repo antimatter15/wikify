@@ -30,7 +30,9 @@ class Load(webapp.RequestHandler):
   def get(self):
     self.response.headers["Content-Type"] = "text/javascript"
     self.response.out.write("Wikify.loadhistory([")
-    changes = WikifyDB.gql("WHERE url=:url ORDER BY date ASC", url=self.request.get("url"))
+    changes = WikifyDB.gql("WHERE url=:url AND channel=:channel ORDER BY date ASC",
+                           url=self.request.get("url"),
+                           channel=self.request.get("channel"))
     if changes.count() > 0:
       for edit in changes:
         self.response.out.write("['"+edit.data+"'],\n")
