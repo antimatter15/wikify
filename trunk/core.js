@@ -36,11 +36,12 @@ oldHTML: "", //the old html of the document
 docedit: false, //blah
 
 links: { //link menu config
-"Save": "javascript:Wikify.uisave()",
-"Update": "javascript:Wikify.uiload()",
-"Toggle": "javascript:Wikify.uitoggle()",
-"Info":" javascript:Wikify.uiinfo()",
-"Help": "javascript:Wikify.uihelp()"
+"Save": ["javascript:Wikify.uisave()","Save Contributions"],
+"Update": ["javascript:Wikify.uiload()","Update Wikified Page"],
+"Toggle": ["javascript:Wikify.uitoggle()","Toggle Edit Mode On/Off"],
+"Switch": ["javascript:Wikify.uiswitch()","Switch To Different Channel"],
+"Info": ["javascript:Wikify.uiinfo()","Display Page/Edit Info"],
+"Help": ["javascript:Wikify.uihelp()","Display Project Wikify Help"]
 },
 
 /*Core Functions*/
@@ -190,7 +191,7 @@ Wikify.log.push("Diff Size: "+a.length);
 if(a != ""){ //if it's not empty
 Wikify.editable(false)
 
-Wikify.sendData(Wikify.config.saveurl, {url:window.location.href,channel:Wikify.config.channel,dat:escape(a)}, function(){
+Wikify.sendData(Wikify.config.saveurl, {url:window.location.href,channel:Wikify.config.channel.toLowerCase(),dat:escape(a)}, function(){
 Wikify.uisaved()
 });
 
@@ -203,7 +204,7 @@ return true;
 load: function(){ //try getting/loading data from server
 Wikify.mask(true);
 Wikify.editable(false);
-Wikify.loadData(Wikify.config.loadurl, {url: window.location.href, channel: Wikify.config.channel});
+Wikify.loadData(Wikify.config.loadurl, {url: window.location.href, channel: Wikify.config.channel.toLowerCase()});
 },
 
 
@@ -233,6 +234,7 @@ Wikify.history = u;
 },
 
 autoparse: function(){
+Wikify.writeFrame();
 for(var i = 0; i < Wikify.history.length; i++){
 Wikify.parse(Wikify.history[i][0]);
 }
@@ -242,7 +244,7 @@ Wikify.uiloaded()
 },
 
 
-createUI: function(){ //EXPERIMENTAL!
+createUI: function(){
 Wikify.oldHTML = document.getElementsByTagName("html")[0].innerHTML
 document.title += " - Wikify";
 
@@ -250,7 +252,7 @@ var links="";
 for(var v in Wikify.links){
 links+='&nbsp;<a style="text-decoration:none;color:#fff" href="'+Wikify.links[v]+'">'+v+'</a>&nbsp;'}
 
-var divstyle = "width:350px;height:25px;position:absolute;top:0;right:20px;background-color:#265cc8;font:16px 'Times New Roman'"
+var divstyle = "width:390px;height:25px;position:absolute;top:0;right:20px;background-color:#265cc8;font:16px 'Times New Roman'"
 
 document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0" frameborder="0" marginwidth="0" style="top:0;left:0;position:absolute;width:100%;height:100%" width="100%" height="100%"></iframe><div id="Wikify_Mask" style="width:100%;height:100%;position:absolute;left:0;top:0;opacity:0.85;filter:alpha(opacity=85);background-color:#DDDDDD"><h1 style="padding-left:50px">Please Wait...</h1><br><br><div id="Wikify_MaskInfo" style="padding-left:40px"></div></div><div style="'+divstyle+'"><span style="left:0;position:absolute"><span style="color:#FFFF00">&nbsp;Wikify&nbsp;-&nbsp;</span><span id="Wikify_Status" style="color:#66FF00">Loading</span></span><span style="right:3px;position:absolute">'+links+'</span></div><div style="display:none" id="Wikify_Comm"></div>'
 
@@ -294,10 +296,20 @@ Wikify.mask().style.display=(mode==true)?"block":"none";
 document.getElementById("Wikify_MaskInfo").innerHTML="";},
 
 uiinfo: function(){
-alert("This page has been edited "+Wikify.history.length+" times before")
+alert("This page has been edited "+Wikify.history.length+" times before on the "+Wikify.config.channel+" channel.")
 },
 uihelp: function(){
 alert(Wikify.version+"\n(C) Antimatter15 2008\n\nUsage:\nRun the bookmarklet from any web page to access/edit any web page.\n\nNotes:\nProject Wikify is experimental software, the main content storage server may be dumped every so often for when the communication protocal changes, or the DB structure is modified. It will occur less often as the project reaches maturity, but it can and will happen, without warning. \n\nAll content contributed to the Wikify Network is automatically licensed under the Creative Commons 3.0.");
+},
+
+uiswitch: function(){
+var nchan=prompt("Project Wikify supports several channels including Spam, Update, Talk, and Main.\nWhich channel do you wish to join?",Wikify.config.channel)
+if(nchan==null || nchan==""){
+Wikify.status("Cancelled");
+}else{
+Wikify.config.channel = nchan;
+Wikify.uiload();
+}
 },
 
 uiloaded: function(){Wikify.status("Loaded");Wikify.mask(false)},
@@ -328,7 +340,15 @@ if(window.top == window && !window.NO_WIKIFY_UI){
 Wikify.createUI();
 }
 
+if(!window.NO_WIKIFY_CHECK){
 setTimeout(function(){
+
+if(!window.WKConfig && window.Wikify_Config){
+alert("You are running an outdated version of Project Wikify, you will automatically be redirected to the Wikify install page where you can install a newer version of the Bookmarklet");
+window.location = Wikify.home
+return;
+}
+
 if(!Wikify.config.loadurl){
 alert("Error! Missing Load URL. Redirecting to install page.");
 window.location = Wikify.home
@@ -342,5 +362,5 @@ alert("Error! Missing Channel ID. Redirecting to install page.");
 window.location = Wikify.home
 }
 },1337);
-
+}
 }
