@@ -1,0 +1,1 @@
+javascript:(function(e){window.WKConf={/*CONFIG HERE*/};e=document.createElement("script");e.src=WKConf.coreurl;document.getElementsByTagName("head")[0].appendChild(e)})()
