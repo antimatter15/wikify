@@ -72,6 +72,10 @@ class RWK(webapp.RequestHandler):
     else:
       self.response.out.write("\n/*NO DATA ON URL*/\n")
     self.response.out.write("\n})();\n")
+    
+class Export(webapp.RequestHandler):
+  def get(self):
+    self.response.out.write("not yet!")
 
 def main():
   application = webapp.WSGIApplication(

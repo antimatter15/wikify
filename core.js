@@ -12,10 +12,11 @@ loadurl: "http://loadurl.com/loadurl"
 }
 */
 
-if(!window.Wikify){window.Wikify = {
+if(!window.Wikify){
+window.Wikify = {
 
 version: "Prototype 5, Revision 4",
-
+home: "http://wikify.antimatter15.com/",
 
 DOMSnapshot: {}, //snapshot of document contents
 UIFrame: null, //user interface
@@ -73,28 +74,19 @@ return e; //return element
 
 
 sendData: function(url,params, callback){
-
 var xfnx = "wk_xifnf"+Math.floor(Math.random()*12345)+"ud",
 d = "wk_xif"+Math.ceil(Math.random()*1337*1337) //random iframe ID
-
 document.getElementById("Wikify_Comm").innerHTML = "";
-
 if ((!navigator.appVersion.match(/MSIE (\d\.\d)/)) || (navigator.userAgent.toLowerCase().indexOf("opera") != -1)) {
-//not ie
 var i = document.createElement("iframe") //submit target
 i.id = d; //set iframe id
 i.name = d; //set iframe name
 document.getElementById("Wikify_Comm").appendChild(i);
-}else{
-//ie
+}else{ //internets exploders
 document.getElementById("Wikify_Comm").innerHTML = "<iframe id=\""+d+"\" name=\""+d+"\" onload=\"Wikify['"+xfnx+"']()\"></iframe>";
-var i = document.getElementById(d);
-}
-
-
+var i=document.getElementById(d);}
 i.style.display = "none"; //ssh! it's secret!
 var f = document.createElement("form") //create new form
-
 f.action = url; //set form action
 f.method = "post"; //set form method
 f.target = d; //make form submit to iframe
@@ -104,33 +96,17 @@ var b = document.createElement("input"); //create new input
 b.type = "hidden"; //it's hidden! SSH!!!!
 b.name = q; //set name
 b.value = params[q]; //set value
-f.appendChild(b); //add to form
-}
-
+f.appendChild(b);} //add to form
 document.body.appendChild(f); //add to document
-
-
-Wikify[xfnx] = function(){
-delete Wikify[xfnx];
-if(callback){callback();}
-setTimeout(function(){
-
-if(f.parentNode){
-f.parentNode.removeChild(f);
-} //bye bye!
-if(i.parentNode){
-i.parentNode.removeChild(i)
-}
-
-},5000);
-}; //set callback!
-
+Wikify[xfnx] = function(){delete Wikify[xfnx];
+if(callback){callback();};setTimeout(function(){
+if(f.parentNode){f.parentNode.removeChild(f)};if(i.parentNode){i.parentNode.removeChild(i)}},5000);}; //bye bye!
 if ((!navigator.appVersion.match(/MSIE (\d\.\d)/)) || (navigator.userAgent.toLowerCase().indexOf("opera") != -1)) {
-i.onload = Wikify[xfnx];
-}
-
+i.onload = Wikify[xfnx];}
 f.submit(); //submit!
 },
+
+
 
 loadData: function(url,params,callback){ //create a JSONP request
 url+="?";params["ck"] = "xkjn"+Math.round(Math.random()*99999)+"rd"; //i <3 random strings
@@ -205,7 +181,7 @@ Wikify.log.push("Diff Size: "+a.length);
 if(a != ""){ //if it's not empty
 Wikify.editable(false)
 
-Wikify.sendData(Wikify_Config.saveurl, {url:window.location.href,dat:escape(a)}, function(){
+Wikify.sendData(Wikify_Config.saveurl, {url:window.location.href,channel:Wikify_Config.channel,dat:escape(a)}, function(){
 Wikify.uisaved()
 });
 
@@ -218,7 +194,7 @@ return true;
 load: function(){ //try getting/loading data from server
 Wikify.mask(true);
 Wikify.editable(false);
-Wikify.loadData(Wikify_Config.loadurl, {url: window.location.href});
+Wikify.loadData(Wikify_Config.loadurl, {url: window.location.href, channel: Wikify_Config.channel});
 },
 
 
@@ -271,10 +247,7 @@ document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0
 
 var p = document.getElementById("Wikify_Frame");
 Wikify.DWin = (p.contentWindow)? p.contentWindow: (p.contentDocument.document)? p.contentDocument.document: p.contentDocument
-
-
 Wikify.writeFrame();
-
 setTimeout(function(){
 if(Wikify.mask().style.display!="none" && Wikify.history.length == 0){
 document.getElementById("Wikify_MaskInfo").innerHTML = "It looks like the Project Wikify can't connect to the patch server. This could happen if the patch contains too much data and/or your internet connection is slow, or if the bookmarklet is misconfigured.<br>You can try to press the &quot;Update&quot; button after whatever problems are resolved."
@@ -285,11 +258,9 @@ document.getElementById("Wikify_MaskInfo").innerHTML = "It looks like the Projec
 
 writeFrame: function(){
 var wikifyexec = '<script type="text/javascript">try{if(window.top.Wikify){window.top.Wikify.load()}}catch(err){}</script>';
-
 Wikify.DWin.document.open();
 Wikify.DWin.document.write(Wikify.oldHTML.replace(/<script/ig,"<noscript").replace(/<\/script/ig,"</noscript")+wikifyexec);
 Wikify.DWin.document.close();
-
 },
 
 
@@ -320,14 +291,12 @@ uihelp: function(){
 alert(Wikify.version+"\n(C) Antimatter15 2008\n\nUsage:\nRun the bookmarklet from any web page to access/edit any web page.\n\nNotes:\nProject Wikify is experimental software, the main content storage server may be dumped every so often for when the communication protocal changes, or the DB structure is modified. It will occur less often as the project reaches maturity, but it can and will happen, without warning. \n\nAll content contributed to the Wikify Network is automatically licensed under the Creative Commons 3.0.");
 },
 
-
 uiloaded: function(){Wikify.status("Loaded");Wikify.mask(false)},
 uiload: function(){Wikify.status("Loading");Wikify.mask(true);Wikify.load();},
 uisave: function(){
 Wikify.status("Saving");Wikify.mask(true);
 if(Wikify.save()==true) Wikify.uisaved() //it's already saved if its empty
 },
-
 uitoggle: function(){
 Wikify.editable((Wikify.editable())?false:true); //pwetty one-liner
 switch(Wikify.editable()){
@@ -339,12 +308,33 @@ Wikify.status("Off");
 break;
 }
 },
-
 uisaved: function(){Wikify.status("Saved");Wikify.editable(true);Wikify.mask(false)}
+
+
 }
 
 if(window.top == window && !window.NO_WIKIFY_UI){
 Wikify.createUI();
 }
+
+setTimeout(function(){
+if(!window.Wikify_Config){
+alert("Error! Missing Wikify Configuration Variable. Redirecting to install page.");
+window.location = Wikify.home
+}else{
+if(!window.Wikify_Config.loadurl){
+alert("Error! Missing Load URL. Redirecting to install page.");
+window.location = Wikify.home
+}
+if(!window.Wikify_Config.saveurl){
+alert("Error! Missing Save URL. Redirecting to install page.");
+window.location = Wikify.home
+}
+if(!window.Wikify_Config.channel){
+alert("Error! Missing Channel ID. Redirecting to install page.");
+window.location = Wikify.home
+}
+}
+},1337);
 
 }

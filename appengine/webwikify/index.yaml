@@ -17,7 +17,7 @@ indexes:
   - name: url
   - name: date
 
-# Used 129 times in query history.
+# Used 3 times in query history.
 - kind: WikifyDB
   properties:
   - name: url
