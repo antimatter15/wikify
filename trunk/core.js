@@ -114,9 +114,13 @@ Wikify[xfnx] = function(){
 delete Wikify[xfnx];
 if(callback){callback();}
 setTimeout(function(){
+
 if(f.parentNode){
-document.body.removeChild(f);
+f.parentNode.removeChild(f);
 } //bye bye!
+if(i.parentNode){
+i.parentNode.removeChild(i)
+}
 
 },5000);
 }; //set callback!
@@ -137,7 +141,7 @@ var head = document.getElementsByTagName("head")[0]; //get head element
 var cbk = function(){
 if(callback){callback();}
 setTimeout(function(){if(script.parentNode){
-head.removeChild(script);}},5000)}
+script.parentNode.removeChild(script);}},5000)}
 script.type = "text/javascript"; //set element type
 script.src = url; //set src, kill cache
 script.onreadystatechange = cbk;
