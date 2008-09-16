@@ -36,12 +36,12 @@ oldHTML: "", //the old html of the document
 docedit: false, //blah
 
 links: { //link menu config
-"Save": ["javascript:Wikify.uisave()","Save Contributions"],
-"Update": ["javascript:Wikify.uiload()","Update Wikified Page"],
-"Toggle": ["javascript:Wikify.uitoggle()","Toggle Edit Mode On/Off"],
-"Switch": ["javascript:Wikify.uiswitch()","Switch To Different Channel"],
-"Info": ["javascript:Wikify.uiinfo()","Display Page/Edit Info"],
-"Help": ["javascript:Wikify.uihelp()","Display Project Wikify Help"]
+"Save": ["Wikify.uisave()","Save Contributions"],
+"Update": ["Wikify.uiload()","Update Wikified Page"],
+"Toggle": ["Wikify.uitoggle()","Toggle Edit Mode On/Off"],
+"Switch": ["Wikify.uiswitch()","Switch To Different Channel"],
+"Info": ["Wikify.uiinfo()","Display Page/Edit Info"],
+"Help": ["Wikify.uihelp()","Display Project Wikify Help"]
 },
 
 /*Core Functions*/
@@ -250,9 +250,13 @@ document.title += " - Wikify";
 
 var links="";
 for(var v in Wikify.links){
-links+='&nbsp;<a style="text-decoration:none;color:#fff" href="'+Wikify.links[v]+'">'+v+'</a>&nbsp;'}
+links+='&nbsp;<span title="'+Wikify.links[v][1]+'"><a onclick="'+Wikify.links[v][0]+';return false;" style="text-decoration:none;color:#fff" href="#'+Wikify.links[v][1]+'">'+v+'</a></span>&nbsp;'}
 
 var divstyle = "width:390px;height:25px;position:absolute;top:0;right:20px;background-color:#265cc8;font:16px 'Times New Roman'"
+
+for(var i=0,x;x=document.styleSheets[i];++i){ //murder all styles
+x.disabled=true; //DIE!!!!
+} //bai bai!
 
 document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0" frameborder="0" marginwidth="0" style="top:0;left:0;position:absolute;width:100%;height:100%" width="100%" height="100%"></iframe><div id="Wikify_Mask" style="width:100%;height:100%;position:absolute;left:0;top:0;opacity:0.85;filter:alpha(opacity=85);background-color:#DDDDDD"><h1 style="padding-left:50px">Please Wait...</h1><br><br><div id="Wikify_MaskInfo" style="padding-left:40px"></div></div><div style="'+divstyle+'"><span style="left:0;position:absolute"><span style="color:#FFFF00">&nbsp;Wikify&nbsp;-&nbsp;</span><span id="Wikify_Status" style="color:#66FF00">Loading</span></span><span style="right:3px;position:absolute">'+links+'</span></div><div style="display:none" id="Wikify_Comm"></div>'
 
