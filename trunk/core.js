@@ -51,19 +51,21 @@ return i;
 },
 
 getChildren: function(e){ //element
-var m = [];
-for(var x = 0; x < e.childNodes.length; x++){
-if(e.childNodes[x].nodeType != 3){
-m.push(e.childNodes[x])
+var m = [], k = e.childNodes, v = k.length, u;
+for(var x = 0; x < v; x++){
+u = k[x];
+if(u.nodeType != 3){
+m.push(u)
 }
 }
 return m;
 },
 
 getID: function(e){ //gets a special identifier for elements
-var a=[]; //declare array
+var a=[],k; //declare array
 while(e!=Wikify.DWin.document.body && !e.id){ //loop until the element has an id
-for(var i=0;Wikify.getChildren(e.parentNode)[i]!=e;i++){}//find parent index
+k = Wikify.getChildren(e.parentNode);
+for(var i=0;k[i]!=e;i++){}//find parent index
 a.push(i);//add to array
 e = e.parentNode; //set parent
 } //end loop
@@ -234,7 +236,9 @@ Wikify.history = u;
 },
 
 autoparse: function(){
+if(Wikify.log.length > 1){ //hack so that it doesn't run again on initialization
 Wikify.writeFrame();
+}
 for(var i = 0; i < Wikify.history.length; i++){
 Wikify.parse(Wikify.history[i][0]);
 }
@@ -262,7 +266,10 @@ document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0
 
 var p = document.getElementById("Wikify_Frame");
 Wikify.DWin = (p.contentWindow)? p.contentWindow: (p.contentDocument.document)? p.contentDocument.document: p.contentDocument
+
 Wikify.writeFrame();
+Wikify.load()
+
 setTimeout(function(){
 if(Wikify.mask().style.display!="none" && Wikify.history.length == 0){
 document.getElementById("Wikify_MaskInfo").innerHTML = "It looks like the Project Wikify can't connect to the patch server. This could happen if the patch contains too much data and/or your internet connection is slow, or if the bookmarklet is misconfigured.<br>You can try to press the &quot;Update&quot; button after whatever problems are resolved."
@@ -272,9 +279,8 @@ document.getElementById("Wikify_MaskInfo").innerHTML = "It looks like the Projec
 },
 
 writeFrame: function(){
-var wikifyexec = '<script type="text/javascript">try{if(window.top.Wikify){window.top.Wikify.load()}}catch(err){}</script>';
 Wikify.DWin.document.open();
-Wikify.DWin.document.write(Wikify.oldHTML.replace(/<script/ig,"<noscript").replace(/<\/script/ig,"</noscript")+wikifyexec);
+Wikify.DWin.document.write(Wikify.oldHTML.replace(/<script/ig,"<noscript").replace(/<\/script/ig,"</noscript"));
 Wikify.DWin.document.close();
 },
 
@@ -334,7 +340,6 @@ break;
 }
 },
 uisaved: function(){Wikify.status("Saved");Wikify.editable(true);Wikify.mask(false)}
-
 }
 
 
