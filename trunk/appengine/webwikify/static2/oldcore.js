@@ -1,0 +1,2 @@
+alert("You are running an outdated version of Project Wikify, you will automatically be redirected to the Wikify install page where you can install a newer version of the Bookmarklet");
+window.location = "http://wikify.antimatter15.com/bookmarklet"
