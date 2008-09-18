@@ -16,9 +16,12 @@ class Save(webapp.RequestHandler):
     self.response.out.write("This server only accepts POST.")
   def post(self):
     if self.request.get("url") and self.request.get("dat"):
+      channel = self.request.get("channel")
+      if len(channel) == 0:
+        channel = "main"
       WikifyDB(url = self.request.get("url"),
                data = self.request.get("dat"),
-               channel = self.request.get("channel"),
+               channel = channel.lower(),
                ip = self.request.remote_addr).put()
       self.response.out.write("SAVED DATA (IFRAME) "+self.request.get("url"))
     else:
@@ -30,9 +33,12 @@ class Load(webapp.RequestHandler):
   def get(self):
     self.response.headers["Content-Type"] = "text/javascript"
     self.response.out.write("Wikify.loadhistory([")
+    channel = self.request.get("channel")
+    if len(channel) == 0:
+      channel = "main"
     changes = WikifyDB.gql("WHERE url=:url AND channel=:channel ORDER BY date ASC",
                            url=self.request.get("url"),
-                           channel=self.request.get("channel"))
+                           channel=channel.lower())
     if changes.count() > 0:
       for edit in changes:
         self.response.out.write("['"+edit.data+"'],\n")
@@ -65,9 +71,12 @@ class RWK(webapp.RequestHandler):
     }
     e.innerHTML = f[1]
     }catch(err){}}};""");
+    channel = self.request.get("channel")
+    if len(channel) == 0:
+      channel = "main"
     changes = WikifyDB.gql("WHERE url=:url AND channel=:channel ORDER BY date ASC", 
                               url=self.request.get("url"), 
-                              channel=self.request.get("channel"))
+                              channel=channel.lower())
     if changes.count() > 0:
       for edit in changes:
         self.response.out.write("\ng('"+edit.data+"');\n")
