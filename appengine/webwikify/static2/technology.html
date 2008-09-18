@@ -35,7 +35,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 </div>
 <h1>Design Mode</h1>
-<p>A key feature of Project Wikify is document design mode. It's a feature used by virtually every WYSIWYG editor on the internet. Design mode normally disables scripts, so to circumvent this, Project Wikify stores the HTML of the document and creates a full-page spanning iframe and writes the page's HTML in it. It basically clones the page, and applies the design mode to the document.</p>
+<p>A very important browser feature used by Project Wikify is a document's design mode. It's a feature used by virtually every WYSIWYG editor on the internet. Design mode normally disables scripts, so to circumvent this, Project Wikify stores the HTML of the document and creates a full-page spanning iframe and writes the page's HTML in it. It basically clones the page, and applies the design mode to the document.</p>
 
 <h1>Diff Engine</h1>
 <p>Project Wikify only stores the special user-contributed portions of text from a web page. This has a few advantages, first, i'm not so much infringing copyright. It also makes Project Wikify play nicer with dynamic pages. Though because of this, when a site's theme or even if the content is updated, it sometimes makes Project Wikify screw up a bit. </p>
@@ -48,7 +48,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 
 <h1>Server</h1>
 <p>The server is what provides the persistance of the edits on project wikify. On this server, the server is powered by Google App Engine (Python/BigTable/WebApp FrameWork). There's a <a href="http://wikify.googlecode.com/svn/trunk/php">reference implementation</a> in PHP at <a href="http://wikify.googlecode.com">google code</a>. It has very low requirements. All the server has to do is to append data to a certain database or even file (in the PHP implementation) and format it.</p>
-<p>There were two sort of &quot;protocals&quot; in project wikify's history. The first one just spits out Wikify.parse(DATA); over and over for each one. the next (current) one does Wikify.loadhistory([ARRAY OF DATA]);Wikify.autoparse();. Otherwise it's very simple and hasn't changed much.</p>
+<p>There were two sort of &quot;protocols&quot; in project wikify's history. The first one just spits out Wikify.parse(DATA); over and over for each one. the next (current) one does Wikify.loadhistory([ARRAY OF DATA]);Wikify.autoparse();. Otherwise it's very simple and hasn't changed much.</p>
 </div>
 <div id="footer">
 &copy; 2008 Antimatter15
