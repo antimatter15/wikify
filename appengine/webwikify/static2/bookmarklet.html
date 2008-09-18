@@ -32,7 +32,7 @@ return ("You can bookmark the bookmarklet by right-clicking on “Wikify” and 
 <img src="/static2/wikifylogo.png" width="301" height="73" alt="Project Wikify (Beta)" />
 </div>
 <div class="content">
-<a href="#" style="float: right; padding-right: 30px; padding-top: 40px"><img src="/static2/bookmarklet.jpg" onclick="bkAlert();return false;" alt="Wikify" width="150" height="34" /></a>
+<a href='javascript:(function(e){window.WKConf={coreurl:"http://wikify.antimatter15.com/static2/core.js",saveurl:"http://wikify.antimatter15.com/server/save",loadurl:"http://wikify.antimatter15.com/server/load",channel:"Main"};e=document.createElement("script");e.src=WKConf.coreurl;document.getElementsByTagName("head")[0].appendChild(e)})()' style="float: right; padding-right: 30px; padding-top: 40px"><img src="/static2/bookmarklet.jpg" onclick="bkAlert();return false;" alt="Wikify" width="150" height="34" /></a>
 <h1>Install</h1>
 <p>Installing Project Wikify is as easily as bookmarking a web page. </p>
 <p>On <strong>Mozilla Firefox</strong>, and <strong>Apple Safari</strong>, you can simply drag the Wikify link to your browser's bookmark toolbar. On <strong>Google Chrome</strong>, you must enable &quot;Always Show Bookmarks Bar&quot;, and then you can follow the directions for Firefox. For <strong>Microsoft Internet Explorer</strong>, you can right-click on the Wikify link and select &quot;Add to Favorites&quot;, and on <strong>Opera</strong>, you can right-click on the link and select &quot;Bookmark Link&quot;.</p>
