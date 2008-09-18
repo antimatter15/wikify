@@ -54,7 +54,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </div>
 <h1>Read-Only Bookmarklet</h1>
 <p>If you are not among the supported browsers, you'll probably have a better shot with the Read-Only bookmarklet. It is much faster than the normal one, more seamless, and less buggy. It doesn't let you edit, but sometimes you don't want an interface that somewhat interfears with the website's navigation (though Project Wikify has a Toggle button that disables editing, and does the more-or-less equivalent of this bookmarklet).</p>
-<p>To install, follow the <a href="/bookmarklet">same procedures</a> as the Wikify Bookmarklet, but with this <a href="#" onclick="bkAlert();return false;">Read-Only Wikify</a> link instead.</p>
+<p>To install, follow the <a href="/bookmarklet">same procedures</a> as the Wikify Bookmarklet, but with this <a href='javascript:(function(){var%20A=document.createElement("script");A.src="http://wikify.antimatter15.com/server/rwk?url="+window.location.href;document.getElementsByTagName("head")[0].appendChild(A)})()' onclick="bkAlert();return false;">Read-Only Wikify</a> link instead.</p>
 <h1>Web Browser</h1>
 <p>I hope I don't have to repeat that this is *super* crappy. I don't even know if it works, honestly. It's one of those crappy VB.net 5-minute noobie browsers built on the WebBrowser control. This one is no better. Other than it does the equivalent of using the userscript. It's a proof-of concept system, and really really crappy, and i'm not gonna make it better. If you are a developer of IE-based VB crapponess, feel free to implement a &quot;Wikify&quot; function.</p>
 </div>
