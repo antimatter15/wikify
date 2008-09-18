@@ -22,6 +22,10 @@ handlers:
   static_files: static2/more.html
   upload: static2/more.html
   
+- url: /favicon.ico
+  static_files: static2/favicon.ico
+  upload: static2/favicon.ico
+  
 - url: /.*
   static_files: static2/intro.html
   upload: static2/intro.html
