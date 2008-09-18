@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Project Wikify | more</title>
+<link rel="stylesheet" type="text/css" href="wikify.css" />
+<script type="text/javascript">
+function bkAlert(){
+alert(bkData());
+}
+
+function bkData(){
+if(navigator.userAgent.indexOf("Safari") != -1){
+return ("You can bookmark the bookmarklet by dragging and dropping “Read-Only Wikify” into your bookmark toolbar.")
+}else if(navigator.userAgent.indexOf("Opera") != -1){
+return ("You can bookmark the bookmarklet by right-clicking on “Read-Only Wikify” and selecting “Bookmark Link”.")
+}else if(navigator.userAgent.indexOf("Firefox") != -1){
+return ("You can bookmark the bookmarklet by dragging and dropping “Read-Only Wikify” into your bookmark toolbar.")
+}else if(navigator.userAgent.indexOf("MSIE") != -1){
+return ("You can bookmark the bookmarklet by right-clicking on “Read-Only Wikify” and selecting “Add to Favorites”.")
+}
+}
+</script>
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+<div id="menu">
+<a href="intro.html">Intro</a>&nbsp;&nbsp;
+<a href="bookmarklet.html">Bookmarklet</a>&nbsp;&nbsp;
+<a href="technology.html">Technology</a>&nbsp;&nbsp;
+<a href="more.html">More</a>&nbsp;&nbsp;</div>
+<img src="wikifylogo.png" width="301" height="73" alt="Project Wikify (Beta)" />
+</div>
+<div class="content">
+<h1>More</h1>
+<p>Project Wikify is not just a bookmarklet. It's a web based platform for online communication over static information. The Bookmarklet just happens to be the (as of now) primary use. A <strong>Read-Only Bookmarklet</strong>, <strong>Userscript</strong>, and a <em>super-crappy</em> <strong>standalone web browser</strong>, exists as well.</p>
+<h1>Userscript</h1>
+<p>The Userscript is a way to automatically read &quot;wikifed&quot; content on the internet, without constantly having to click the &quot;Wikify&quot; button. Userscripts work natively (albeit somewhat complicated) on <strong>Opera</strong>, easily on <strong>Firefox</strong> with the <a href="https://addons.mozilla.org/en-US/firefox/addon/748">Greasemonkey</a> extension, and on <strong>Safari</strong> and <strong>IE</strong> with other extensions.</p>
+<p>On Firefox, just go to <a href="wikify.user.js">this script</a> after Greasemonkey is installed and enabled, and for every other web browser, do a google search (I'm sooo helpful <tt>:-)</tt>).</p>
+<h1>Read-Only Bookmarklet</h1>
+<p>If you are not among the supported browsers, you'll probably have a better shot with the Read-Only bookmarklet. It is much faster than the normal one, more seamless, and less buggy. It doesn't let you edit, but sometimes you don't want an interface that somewhat interfears with the website's navigation (though Project Wikify has a Toggle button that disables editing, and does the more-or-less equivalent of this bookmarklet).</p>
+<p>To install, follow the <a href="bookmarklet.html">same procedures</a> as the Wikify Bookmarklet, but with this <a href="#" onclick="bkAlert();return false;">Read-Only Wikify</a> link instead.</p>
+<h1>Web Browser</h1>
+<p>I hope I don't have to repeat that this is *super* crappy. I don't even know if it works, honestly. It's one of those crappy VB.net 5-minute noobie browsers built on the WebBrowser control. This one is no better. Other than it does the equivalent of using the userscript. It's a proof-of concept system, and really really crappy, and i'm not gonna make it better. If you are a developer of IE-based VB crapponess, feel free to implement a &quot;Wikify&quot; function.</p>
+</div>
+<div id="footer">
+&copy; 2008 Antimatter15
+</div>
+</div>
+</body>
+</html>

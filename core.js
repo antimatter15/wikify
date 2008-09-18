@@ -217,7 +217,7 @@ for(var i = 0;i < w.length; i++){ //loop through changes
 try{ //ignore errors
 var f = w[i].split("[[]]"), //split contnet
 u = f[0].split("</,/>") //decrypt ID
-Wikify.fromID(u.slice(1),u[0]).innerHTML = f[1]; //set element contents
+Wikify.fromID(u.slice(1),u[0]).innerHTML = Wikify.noScript(f[1]); //set element contents
 }catch(err){
 }; //ignore errors
 } //end loop
@@ -249,6 +249,11 @@ Wikify.uiloaded()
 
 
 createUI: function(){
+for(var i = 0; i < document.links.length; i++){
+document.links[i].target = "_top";
+}
+
+
 Wikify.oldHTML = document.getElementsByTagName("html")[0].innerHTML
 document.title += " - Wikify";
 
@@ -280,8 +285,12 @@ document.getElementById("Wikify_MaskInfo").innerHTML = "It looks like the Projec
 
 writeFrame: function(){
 Wikify.DWin.document.open();
-Wikify.DWin.document.write(Wikify.oldHTML.replace(/<script/ig,"<noscript").replace(/<\/script/ig,"</noscript"));
+Wikify.DWin.document.write(Wikify.noScript(Wikify.oldHTML));
 Wikify.DWin.document.close();
+},
+
+noScript: function(s){ /*RWK is vulnerable to XSS, and this is vulnerable to crappy css expression()s, but that only screws IE users, so i'm fine with that*/
+return s.replace(/<script/ig,"<noscript").replace(/<\/script/ig,"</noscript"); //there was this one funny bug that made all references to "javascript" turn to "javanoscript", which IMO, actually sounds pretty cool.
 },
 
 

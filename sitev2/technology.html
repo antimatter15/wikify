@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Project Wikify | technology</title>
+<link rel="stylesheet" type="text/css" href="wikify.css" />
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+<div id="menu">
+<a href="intro.html">Intro</a>&nbsp;&nbsp;
+<a href="bookmarklet.html">Bookmarklet</a>&nbsp;&nbsp;
+<a href="technology.html">Technology</a>&nbsp;&nbsp;
+<a href="more.html">More</a>&nbsp;&nbsp;</div>
+<img src="wikifylogo.png" width="301" height="73" alt="Project Wikify (Beta)" />
+</div>
+<div class="content">
+<h1>Technology</h1>
+<p>Project Wikify doesn't employ any radical new technology. It's built on much of the technology that's been here since the creation of the internet.</p>
+<p>There are five main things that make up Project Wikify. The HTML Design Mode, the Diff engine, the Wikify Element ID, the UI, and finally, the server.</p>
+<h1>Summary</h1>
+<p>Project Wikify is like a layer on top of the internet. It does nothing directly to the content of the internet, but users can opt-in (by installing the Wikify technology) to viewing a community &quot;upgraded&quot; internet. It doesn't store the content of a web site, only the specific user contributed areas on the server. As a Wiki, anyone can undo anyone else's work.</p>
+<h1>Design Mode</h1>
+<p>A key feature of Project Wikify is document design mode. It's a feature used by virtually every WYSIWYG editor on the internet. Design mode normally disables scripts, so to circumvent this, Project Wikify stores the HTML of the document and creates a full-page spanning iframe and writes the page's HTML in it. It basically clones the page, and applies the design mode to the document.</p>
+
+<h1>Diff Engine</h1>
+<p>Project Wikify only stores the special user-contributed portions of text from a web page. This has a few advantages, first, i'm not so much infringing copyright. It also makes Project Wikify play nicer with dynamic pages. Though because of this, when a site's theme or even if the content is updated, it sometimes makes Project Wikify screw up a bit. </p>
+<p>After loading the user-contributed parts of the page (or when the app starts up), something captures a snaphot of the DOM. It's not the entire DOM. just certain interesting parts. It's not like innerHTML. It parses out all the <u>direct</u> text childnodes, and stores that as a concatenated string.</p>
+<p>Later, when the user presses the Save button, the diff engine creates a new snapshot and compares the elements. They are matched up by their Wikify Element ID (next section), and are checked for differences. It is smart in a way that if a parent node is changed, all the children are ignored, so there is virtually no repeatition of data. </p>
+<h1>Wikify Element ID</h1>
+<p>Project Wikify locates elements with a sort of xpath-like system (okay, not really). First, there is the string html element ID for the starting point (if it's &lt;body&gt;, then the ID is _xdby, because every cool technology nowadays has an <em>x</em> in it). Then it's followed by an array of childnodes to search for. So for instance, <tt>_xdby;2,3</tt> , the element would be the third child node of the second child node of body. It could possibly be improved by searching for nearby anchors/etc, but for the most part, it is very effective.</p>
+<h1>UI</h1>
+<p>The UI is a small, non-important little toolbar. it's a small DIV on the corner with tons of SPAN and A elements in it. </p>
+
+<h1>Server</h1>
+<p>The server is what provides the persistance of the edits on project wikify. On this server, the server is powered by Google App Engine (Python/BigTable/WebApp FrameWork). There's a <a href="http://wikify.googlecode.com/svn/trunk/php">reference implementation</a> in PHP at <a href="http://wikify.googlecode.com">google code</a>. It has very low requirements. All the server has to do is to append data to a certain database or even file (in the PHP implementation) and format it.</p>
+<p>There were two sort of &quot;protocals&quot; in project wikify's history. The first one just spits out Wikify.parse(DATA); over and over for each one. the next (current) one does Wikify.loadhistory([ARRAY OF DATA]);Wikify.autoparse();. Otherwise it's very simple and hasn't changed much.</p>
+</div>
+<div id="footer">
+&copy; 2008 Antimatter15
+</div>
+</div>
+</body>
+</html>
