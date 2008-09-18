@@ -67,7 +67,7 @@ class RWK(webapp.RequestHandler):
     for(var x = 0; x < e.childNodes.length; x++){
     if(e.childNodes[x].nodeType != 3){
     m.push(e.childNodes[x])}}
-    while(a.length>0) e=m.childNodes[a.splice(0,1)];
+    while(a.length>0) e=m[a.splice(0,1)];
     }
     e.innerHTML = f[1]
     }catch(err){}}};""");
