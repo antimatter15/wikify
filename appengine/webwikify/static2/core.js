@@ -1,6 +1,6 @@
 /* Wikify Core
  * (c) Copyright 2008 Antimatter15
- * Prototype 5, Revision 8
+ * Prototype 5, Revision 4
  */
 
 /*
@@ -24,7 +24,7 @@ loadurl: "",
 channel: ""
 },
 
-version: "Prototype 5, Revision 8",
+version: "Prototype 5, Revision 4",
 home: "http://wikify.antimatter15.com/bookmarklet",
 
 DOMSnapshot: {}, //snapshot of document contents
@@ -261,7 +261,7 @@ var links="";
 for(var v in Wikify.links){
 links+='&nbsp;<span title="'+Wikify.links[v][1]+'"><a onclick="'+Wikify.links[v][0]+';return false;" style="text-decoration:none;color:#fff" href="#'+Wikify.links[v][1]+'">'+v+'</a></span>&nbsp;'}
 
-var divstyle = "width:390px;height:25px;position:absolute;top:0;right:20px;background-color:#265cc8;font:16px 'Times New Roman'";
+var divstyle = "width:390px;height:25px;position:absolute;top:0;right:20px;background-color:#265cc8;font-size:16px;font-family:Tahoma,'Trebutchet MS,Arial',Helvetica,sans-serif";
 
 (function(){
 try{
@@ -327,7 +327,7 @@ alert(Wikify.version+"\n(C) Antimatter15 2008\n\nUsage:\nRun the bookmarklet fro
 },
 
 uiswitch: function(){
-var nchan=prompt("Project Wikify supports several channels including Spam, Update, Talk, Parody and Main.\nWhich channel do you wish to join?",Wikify.config.channel)
+var nchan=prompt("Project Wikify supports several channels including Spam, Update, Talk, and Main.\nWhich channel do you wish to join?",Wikify.config.channel)
 if(nchan==null || nchan==""){
 Wikify.status("Cancelled");
 }else{
