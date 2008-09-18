@@ -261,7 +261,7 @@ var links="";
 for(var v in Wikify.links){
 links+='&nbsp;<span title="'+Wikify.links[v][1]+'"><a onclick="'+Wikify.links[v][0]+';return false;" style="text-decoration:none;color:#fff" href="#'+Wikify.links[v][1]+'">'+v+'</a></span>&nbsp;'}
 
-var divstyle = "width:390px;height:25px;position:absolute;top:0;right:20px;background-color:#265cc8;font-size:16px;font-family:Tahoma,'Trebutchet MS,Arial',Helvetica,sans-serif";
+var divstyle = "width:390px;height:25px;position:absolute;top:0;right:20px;background-color:#265cc8;font-size:16px;font-family:'Times New Roman', Times, serif";
 
 (function(){
 try{

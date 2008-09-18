@@ -56,21 +56,33 @@ class RWK(webapp.RequestHandler):
     self.response.out.write("""
     (function(){
     var g = function(q){ 
-    q = unescape(q);
-    var w = q.split("<!!!>");
-    for(var i = 0;i < w.length; i++){ try{
-    var f = w[i].split("[[]]"), 
-    u = f[0].split("</,/>")
-    var e = (u[0]=="_xdby")?document.body:document.getElementById(u[0]), a=u.slice(1);
-    if(!(a[0]=="" && a.length == 1) && a){
-    var m = [];
-    for(var x = 0; x < e.childNodes.length; x++){
-    if(e.childNodes[x].nodeType != 3){
-    m.push(e.childNodes[x])}}
-    while(a.length>0) e=m[a.splice(0,1)];
+    q = unescape(q); //unescape data
+    var w = q.split("<!!!>"); //split changes
+    for(var i = 0;i < w.length; i++){ //loop through changes
+    try{ //ignore errors
+    var f = w[i].split("[[]]"), //split contnet
+    u = f[0].split("</,/>"); //decrypt ID
+    (function(a,b){ //get element from identifier
+    var e = (b=="_xdby")?document.body:document.getElementById(b); //get origin
+    if((a[0]=="" && a.length == 1) || !a){return e}
+    while(a.length>0) //loop while a (from id) is not empty
+    e = (function(e){ //element
+    var m = [], k = e.childNodes, v = k.length, u;
+    for(var x = 0; x < v; x++){
+    u = k[x];
+    if(u.nodeType != 3){
+    m.push(u)
     }
-    e.innerHTML = f[1]
-    }catch(err){}}};""");
+    }
+    return m;
+    })(e)[a.splice(0,1)]; //set e to child of itself
+    //end while loop
+    return e; //return element
+    })(u.slice(1),u[0]).innerHTML = f[1]; //set element contents
+    }catch(err){
+    }; //ignore errors
+    } //end loop
+    };""");
     channel = self.request.get("channel")
     if len(channel) == 0:
       channel = "main"
