@@ -1,6 +1,6 @@
 /* Wikify Core
  * (c) Copyright 2008 Antimatter15
- * Prototype 5, Revision 4
+ * Prototype 5, Revision 8
  */
 
 /*
@@ -24,7 +24,7 @@ loadurl: "",
 channel: ""
 },
 
-version: "Prototype 5, Revision 4",
+version: "Prototype 5, Revision 8",
 home: "http://wikify.antimatter15.com/bookmarklet",
 
 DOMSnapshot: {}, //snapshot of document contents
@@ -327,7 +327,7 @@ alert(Wikify.version+"\n(C) Antimatter15 2008\n\nUsage:\nRun the bookmarklet fro
 },
 
 uiswitch: function(){
-var nchan=prompt("Project Wikify supports several channels including Spam, Update, Talk, and Main.\nWhich channel do you wish to join?",Wikify.config.channel)
+var nchan=prompt("Project Wikify supports several channels including Spam, Update, Talk, Parody and Main.\nWhich channel do you wish to join?",Wikify.config.channel)
 if(nchan==null || nchan==""){
 Wikify.status("Cancelled");
 }else{
