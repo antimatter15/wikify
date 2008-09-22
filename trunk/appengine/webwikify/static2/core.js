@@ -172,8 +172,7 @@ return v.join("<!!!>"); //return diff
 capture: function(){ //captures and returns a snapshot of the DOM
 var x = Wikify.DWin.document.getElementsByTagName("*"), s = {}; //declare variables
 for(var i = 0; i < x.length; i++){ //loop through all document elements
-if(x[i] != Wikify.DWin.document.body && //exclude document body
-x[i].id.indexOf("firebug") == -1 &&  //exclude firebug
+if(x[i].id.indexOf("firebug") == -1 &&  //exclude firebug
 ",script,noscript,style,link,iframe,br,meta,html,".indexOf(","+x[i].tagName.toLowerCase()+",") == -1
 ){ //make sure it has no children
 try{ //continue even on error
