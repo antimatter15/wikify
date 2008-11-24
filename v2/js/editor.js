@@ -13,11 +13,9 @@ function enable_edit(){
     $("#wk_iframe").contentDocument().body.contentEditable = true;
   }
   
-  
+  autosnapshot();
   $("#wk_iframe").one("load",function(){
-    setTimeout(function(){
-      snapshot = capture();
-    },100);
+    autosnapshot()
   })
   //return editor;
 }
