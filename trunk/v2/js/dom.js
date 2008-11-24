@@ -1,4 +1,5 @@
 var snapshot = null;
+var lastsnapshot = 0;
 var doc = null;
 
 function getChildren(e){
@@ -85,6 +86,16 @@ function parse(changes){
       fromID(edit[0]).innerHTML = edit[1]
       }catch(err){/*ignore errors*/}
     }
+  }
+}
+
+function autosnapshot(){
+    setTimeout(function(){
+        if((new Date()).getTime() - lastsnapshot > 300){
+          snapshot = capture();
+          lastsnapshot = (new Date()).getTime();
+        }
+    },1337/10);
   }
 }
   
