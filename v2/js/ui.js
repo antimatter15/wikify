@@ -44,12 +44,15 @@ $(document).ready(function(){
     $(this).animate({color: "white"})
   })
   
+  /*mode buttons*/
+  
   $(".wk_btn_original").click(function(){
     $(".wk_btn_save").fadeOut()
     wk_mode = 0;
     write_original();
     disable_edit();
     $("#wk_mask").slideUp()
+    
   })
   $(".wk_btn_view").click(function(){
     $(".wk_btn_save").fadeOut()
@@ -68,6 +71,7 @@ $(document).ready(function(){
           enable_edit();
           $("#wk_mask").slideUp()
     });
+    
   })  
   
   $(".wk_btn_save").click(function(){
