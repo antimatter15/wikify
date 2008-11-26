@@ -13,6 +13,8 @@ $(document).ready(function(){
   $(window).resize();
   
   $("#wk_logo").click(function(){
+    $("#wk_news").slideUp()
+    $("#wk_help").slideUp()
     $("#wk_toolbar").animate({
       left: "-100%"
     })
