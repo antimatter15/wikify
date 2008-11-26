@@ -31,6 +31,13 @@ function load(callback){
 }
 
 function save(callback){
+  if(!snapshot){
+    autosnapshot(function(){
+      callback();
+    });
+    return;
+  }
+
   var changes = diff();
   
   if(changes == "" || wk_mode != 2) return callback?callback():false; //no need for simple edits

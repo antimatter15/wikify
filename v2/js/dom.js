@@ -89,12 +89,14 @@ function parse(changes){
   }
 }
 
-function autosnapshot(){
+function autosnapshot(c){
   setTimeout(function(){
         if((new Date()).getTime() - lastsnapshot > 300){
           snapshot = capture();
           lastsnapshot = (new Date()).getTime();
         }
+        if(c)
+          c();
   },1337/10);
 }
   
