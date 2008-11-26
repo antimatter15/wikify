@@ -40,6 +40,8 @@ $(document).ready(function(){
   
   $(".wk_mode").click(function(){
     $(".wk_mode").animate({color: "#858585"})
+    $("#wk_news").slideUp()
+    $("#wk_help").slideUp()
     $("#wk_mask").slideDown()
     $(this).animate({color: "white"})
   })
@@ -97,8 +99,7 @@ $(document).ready(function(){
       $(this).dequeue();
     })
   })
-  
-  
+
   $("#wk_channel_visible").click(function(){
     $(".wk_down").slideToggle();
   })
