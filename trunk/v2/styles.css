@@ -1,4 +1,5 @@
 #wk_toolbar {
+  -moz-user-select: none;
   background-color: #36373b;
   background-image: url(img/menu_bg.png);
   background-repeat: x-repeat;
@@ -94,33 +95,45 @@ body {
   margin-top: 2px!important;
 }
 
-#wk_channel li {
+#wk_channel {
   cursor: pointer;
-  margin-top: 0px;
+  margin-top: 0px !important;
   margin-right: 5px;
-  
+  padding-bottom: 8px;
 }
 
 
 .wk_down, .wk_down li {
   cursor: pointer;
   float: none !important;
+  
 }
 
 .wk_down {
   position: absolute;
   top: 30px;
   display: none;
+  background-color: #000;
+  opacity: 0.85;
+  
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
 }
 
 .wk_custom {
-  color: green !important;
-  
+  color: green !important;  
+}
+
+.wk_chan, .wk_custom, #wk_channel_text {
+  padding-left: 8px;
 }
 
 #wk_channel_text {
   color: #C5C5C5 !important;
 }
+
 
 #wk_news {
   margin-top: 40px;
