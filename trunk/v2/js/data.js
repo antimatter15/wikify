@@ -32,10 +32,7 @@ function load(callback){
 
 function save(callback){
   if(!snapshot){
-    autosnapshot(function(){
-      callback();
-    });
-    return;
+    wk_log("Error: No Snapshot!")
   }
 
   var changes = diff();

@@ -12,8 +12,10 @@ function getChildren(e){
 }
 
 function getText(e){
-  for(var i = e.childNodes.length, text = ""; i-- && e.childNodes[i].nodeType == 3;)
-    text += e.childNodes[i].nodeValue;
+  for(var i = e.childNodes.length, text = ""; i--;){
+    if(e.childNodes[i].nodeType == 3)
+      text += e.childNodes[i].nodeValue;
+  }
   return text;
 }
 
@@ -47,11 +49,15 @@ function capture(){
   var all = doc.body.getElementsByTagName("*");
   var cap = {};
   for(var i = all.length; i--;){
-    if(!in_list("script,noscript,style,link,frame,iframe,br",all[i].tagName.toLowerCase()) && 
+    if(!in_list("script,noscript,style,link,frame,iframe",all[i].tagName.toLowerCase()) && 
         all[i].id.indexOf("firebug") == -1){
       try{
         cap[getID(all[i])] = getText(all[i]);
-      }catch(err){/*ignore errors*/}
+      }catch(err){
+        /*ignore errors*/
+      }
+    }else{
+      /*invalid elements*/
     }
   }
   cap["_body"] = getText(doc.body);
