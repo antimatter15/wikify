@@ -40,9 +40,7 @@ $(document).ready(function(){
   
   $(".wk_mode").click(function(){
     $(".wk_mode").animate({color: "#858585"})
-    $("#wk_news").slideUp()
-    $("#wk_help").slideUp()
-    $("#wk_mask").slideDown()
+    wk_mask(true)
     $(this).animate({color: "white"})
   })
   
@@ -53,7 +51,7 @@ $(document).ready(function(){
     wk_mode = 0;
     write_original();
     disable_edit();
-    $("#wk_mask").slideUp()
+    wk_mask(false)
     
   })
   $(".wk_btn_view").click(function(){
@@ -62,7 +60,7 @@ $(document).ready(function(){
     write_original();
     disable_edit()
     load(function(){
-          $("#wk_mask").slideUp()
+          wk_mask(false)
     });
   })
   $(".wk_btn_edit").click(function(){
@@ -71,7 +69,7 @@ $(document).ready(function(){
     write_original();
     load(function(){
           enable_edit();
-          $("#wk_mask").slideUp()
+          wk_mask(false)
     });
     
   })  
@@ -107,8 +105,8 @@ $(document).ready(function(){
   $(".wk_chan").click(function(){
     $(".wk_down").slideUp();
     $("#wk_channel_text").text($(this).text())
-    $("#wk_mask").slideDown()
-    $("#wk_mask").slideUp()
+    wk_mask(true)
+    wk_mask(false)
   })
 
   
@@ -126,8 +124,8 @@ $(document).ready(function(){
     var newchan = prompt("Enter name of channel you would like to visit/create.");
     if(newchan){
       $(".wk_down").slideUp();
-      $("#wk_mask").slideDown();
-      $("#wk_mask").slideUp();
+      wk_mask(true);
+      wk_mask(false);
       $("#wk_channel_text").text(newchan+" (0)")
     }else{
       
@@ -146,5 +144,15 @@ function saving(mode){
   }else{
     $("#wk_saving").hide();
     $("#wk_save").show()
+  }
+}
+
+function wk_mask(mode){
+  if(mode == true){
+    $("#wk_mask").slideDown()
+    $("#wk_news").slideUp()
+    $("#wk_help").slideUp()
+  }else{
+    $("#wk_mask").slideUp()
   }
 }
