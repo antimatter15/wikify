@@ -86,8 +86,18 @@ $(document).ready(function(){
   })
   
   $(".wk_btn_news").click(function(){
-    $("#wk_news").slideToggle();
+    $("#wk_help").slideUp().queue(function(){
+      $("#wk_news").slideToggle();
+      $(this).dequeue();
+    })
   })
+  $(".wk_btn_help").click(function(){
+    $("#wk_news").slideUp().queue(function(){
+      $("#wk_help").slideToggle();
+      $(this).dequeue();
+    })
+  })
+  
   
   $("#wk_channel_visible").click(function(){
     $(".wk_down").slideToggle();
