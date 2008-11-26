@@ -13,11 +13,17 @@ function write_data(data){
   doc.open();
   doc.write(data);
   doc.close();
+  
+  $(doc).find("a") //find all links
+    .click(function(){ //on click event
+      window.parent.location = this.href; //make them open up in the parent
+    })
 }
 
 function write_original(){
   write_data(original_data)
 }
+
 
 function load(callback){
   get_data(server, {url: "_WikifyTesting", channel: "_WikifyTesting"}, 
