@@ -163,7 +163,7 @@ body {
   overflow: auto;
 }
 
-#wk_btn_save {
+.wk_btn_save {
   display: none;
 }
 
