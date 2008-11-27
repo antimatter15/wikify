@@ -27,3 +27,17 @@ function wk_edit(){
           wk_mask(false)
     });
 }
+
+
+$(document).ready(function(){
+  $(".wk_mode").click(function(){
+    $(".wk_mode").animate({color: "#858585"})
+    wk_mask(true)
+    $(this).animate({color: "white"})
+  })
+  
+  /*mode buttons*/
+  $(".wk_btn_original").click(wk_original)
+  $(".wk_btn_view").click(wk_view)
+  $(".wk_btn_edit").click(wk_edit)  
+})
