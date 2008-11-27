@@ -178,3 +178,10 @@ body {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
+
+.wk_note {
+  text-align: center; 
+  width: 100%;
+  font-weight: bold;
+  font-size: x-large
+}
