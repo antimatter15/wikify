@@ -15,6 +15,7 @@ $(document).ready(function(){
   $("#wk_logo").click(function(){
     $("#wk_news").slideUp()
     $("#wk_help").slideUp()
+    $(".wk_down").slideUp();
     $("#wk_toolbar").animate({
       left: "-100%"
     })
@@ -25,8 +26,6 @@ $(document).ready(function(){
 
     })
   })
-  
-
   
   $("#wk_collapse").click(function(){
     $("#wk_toolbar").animate({
