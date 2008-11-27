@@ -1,6 +1,6 @@
 (function(){
   if(window.wk_onlaunch) return wk_onlaunch();
-  if(!window.wk_tl) window.wk_tl = [
+  if(!window.wk_tl) window.wk_wl = window.wk_tl = [
     "http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js",
     "http://localhost/Wikify/v2/etc/compile_js.php"
   ];
