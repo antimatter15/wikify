@@ -5,3 +5,8 @@ $.get("etc/content.htm",{}, function(e){
     $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click()
   })
 })
+
+
+function wk_ready(fn){
+  $(document).apply(this, arguments);
+}

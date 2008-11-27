@@ -29,7 +29,7 @@ function wk_edit(){
 }
 
 
-$(document).ready(function(){
+wk_ready(function(){
   $(".wk_mode").click(function(){
     $(".wk_mode").animate({color: "#858585"})
     wk_mask(true)
