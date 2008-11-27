@@ -150,7 +150,7 @@ body {
 }
 
 #wk_help {
-  background-color: #BDC17A;
+  background-color: #FFA000;
   position: absolute;
   width: 100%;
   padding-top: 30px;
@@ -167,3 +167,12 @@ body {
   display: none;
 }
 
+#wk_tooltip {
+  margin-left: 5px;
+  margin-top: 5px;
+  font-family: Tahoma, Verdana, 'Trebuchet MS', Arial, Helvetica, sans-serif;
+  background-color: #CFCFCF;
+  width: 150px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
