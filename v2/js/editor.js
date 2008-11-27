@@ -1,27 +1,27 @@
-function enable_edit(){
-  doc = $("#wk_iframe").contentDocument();
+function wk_enable_edit(){
+  wk_doc = $("#wk_iframe").contentDocument();
   
   if($.browser.mozilla || $.browser.safari){
       $("#wk_iframe").designMode('on');
       $("#wk_iframe").execCommand("useCSS",true);
       
     if($.browser.mozilla){
-      mozeditfix();
+      wk_mozeditfix();
     }
     $('#wk_iframe').data('useDesignMode', true)
   }else{
     $("#wk_iframe").contentDocument().body.contentEditable = true;
   }
   
-  autosnapshot();
+  wk_autosnapshot();
   $("#wk_iframe").one("load",function(){
-    autosnapshot()
+    wk_autosnapshot()
   })
   //return editor;
 }
 
 
-function disable_edit(){
+function wk_disable_edit(){
   if(!$('#wk_iframe').data('useDesignMode')){
     $("#wk_iframe").contentDocument().body.contentEditable = false;
   }else{
@@ -30,7 +30,7 @@ function disable_edit(){
 }
 
 
-function mozeditfix(){
+function wk_mozeditfix(){
   if(!$('#wk_iframe').data('hasEvent')){
     $($("#wk_iframe").contentDocument()).keypress(function(e){
       var key = String.fromCharCode(e.charCode).toLowerCase();

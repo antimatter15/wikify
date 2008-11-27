@@ -1,7 +1,31 @@
 var wk_mode = 1;
 
-$(document).ready(function(){
+function wk_collapse(){
+  $("#wk_news").slideUp()
+  $("#wk_help").slideUp()
+  $(".wk_down").slideUp();
+  $("#wk_toolbar").animate({
+    left: "-100%"
+  })
+  $("#wk_iframe").animate({
+    "top": "0px"
+  },null,null,function(){
+    $(window).resize()
+  })
+}
 
+function wk_expand(){
+  $("#wk_toolbar").animate({
+    left: "0%"
+  })
+  $("#wk_iframe").animate({
+    "top":30
+  },null,null,function(){
+    $(window).resize()
+  })
+}
+
+$(document).ready(function(){
   $(window).resize(function(){
     if($("#wk_iframe").css("top") == "30px"){
       $("#wk_iframe").height($(window).height()-30)
@@ -23,7 +47,6 @@ $(document).ready(function(){
       "top": "0px"
     },null,null,function(){
       $(window).resize()
-
     })
   })
   
@@ -50,38 +73,38 @@ $(document).ready(function(){
   $(".wk_btn_original").click(function(){
     $(".wk_btn_save").fadeOut()
     wk_mode = 0;
-    write_original();
-    patch_links()
-    disable_edit();
+    wk_write_original();
+    wk_patch_links();
+    wk_disable_edit();
     wk_mask(false)
     
   })
   $(".wk_btn_view").click(function(){
     $(".wk_btn_save").fadeOut()
     wk_mode = 1
-    write_original();
-    disable_edit()
-    patch_links()
-    load(function(){
+    wk_write_original();
+    wk_disable_edit()
+    wk_patch_links()
+    wk_load(function(){
           wk_mask(false)
     });
   })
   $(".wk_btn_edit").click(function(){
     $(".wk_btn_save").fadeIn()
     wk_mode = 2
-    write_original();
-    load(function(){
-          enable_edit();
+    wk_write_original();
+    wk_load(function(){
+          wk_enable_edit();
           wk_mask(false)
     });
     
   })  
   
   $(".wk_btn_save").click(function(){
-    saving(true);
-    save(function(){
+    wk_saving(true);
+    wk_save(function(){
         setTimeout(function(){
-          saving(false);
+          wk_saving(false);
         },500);
       }
     )
@@ -123,7 +146,7 @@ $(document).ready(function(){
     var newchan = prompt("Enter name of channel you would like to go to or create.");
     if(newchan){
       $(".wk_down").slideUp();
-      set_channel(newchan)
+      wk_set_channel(newchan)
     }else{
       //do nothing
     }
@@ -134,7 +157,7 @@ $(document).ready(function(){
 })
 
 
-function saving(mode){
+function wk_saving(mode){
   if(mode == true){
     $("#wk_save").hide()
     $("#wk_saving").show();

@@ -3,7 +3,7 @@ saveurl:"http://wikify.antimatter15.com/server/save",
 loadurl:"http://wikify.antimatter15.com/server/load",
 */
 
-function send_data(url, params, callback){
+function wk_send_data(url, params, callback){
   var id = "wk_xfnx"+Math.floor(Math.random()*12345)
   var div = document.createElement("div");
   var form = document.createElement("form");
@@ -42,6 +42,6 @@ function send_data(url, params, callback){
 }
 
 
-function get_data(url, params, callback){
-  $.get(url, params, callback, "jsonp")
+function wk_get_data(url, params, callback){
+  $.get(url, params, callback, "jsonp"); //thx jQuery!
 }

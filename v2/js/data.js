@@ -1,5 +1,5 @@
-var server = "http://wikify.appjet.net/";
-var original_data = "";
+var wk_server = "http://wikify.appjet.net/";
+var wk_original_data = "";
 var wk_channel = "Spam";
 var wk_channels = {
 "Spam": {edits: 0},
@@ -7,41 +7,41 @@ var wk_channels = {
 };
 
 $.get("content.htm",{}, function(e){
-  original_data = e;
+  wk_original_data = e;
   $(document).ready(function(){
-  get_channels()
+  wk_get_channels()
     $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click()
   })
 })
 
-function write_data(data){
-  doc = $("#wk_iframe").contentDocument();
-  doc.open();
-  doc.write(data);
-  doc.close();
+function wk_write_data(data){
+  wk_doc = $("#wk_iframe").contentDocument();
+  wk_doc.open();
+  wk_doc.write(data);
+  wk_doc.close();
 }
 
-function write_original(){
-  write_data(original_data)
+function wk_write_original(){
+  wk_write_data(wk_original_data)
 }
 
-function patch_links(){
-  $(doc).find("a") //find all links
+function wk_patch_links(){
+  $(wk_doc).find("a") //find all links
     .click(function(){ //on click event
       window.parent.location = this.href; //make them open up in the parent
   })
 }
 
-function set_channel(channel){
+function wk_set_channel(channel){
   wk_channel = channel;
   if(!wk_channels[wk_channel]){
     wk_channels[wk_channel] = {edits: 0};
   }
   $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click()
-  get_channels()
+  wk_get_channels()
 }
 
-function render_channels(){
+function wk_render_channels(){
   $("#wk_channel_text").text(wk_channel+" ("+wk_channels[wk_channel].edits+")");
   $(".wk_chan").remove();
   for(var i in wk_channels){
@@ -54,45 +54,45 @@ function render_channels(){
   
   $(".wk_chan").click(function(){
     $(".wk_down").slideUp();
-    set_channel($(this).data("chan"))
+    wk_set_channel($(this).data("chan"))
   })
 
 }
 
-function get_channels(callback){
-  get_data(server, {url: "_WikifyTesting"}, function(e){
+function wk_get_channels(callback){
+  wk_get_data(wk_server, {url: "_WikifyTesting"}, function(e){
     wk_log("Got Channel Data", e)
     for(var x in e.channels){
       wk_channels[x] = e.channels[x]
     }
-    render_channels();
+    wk_render_channels();
   })
 }
 
-function load(callback){
-  get_data(server, {url: "_WikifyTesting", channel: wk_channel}, 
+function wk_load(callback){
+  wk_get_data(wk_server, {url: "_WikifyTesting", channel: wk_channel}, 
     function(data){
       var edits = [];
       for(var i = 0; i < data.edits.length; i++){
         edits.push(data.edits[i].data)
       }
-      parse(edits);
+      wk_parse(edits);
       wk_log("Loaded Data: ",data)
       if(callback) callback();
     })
 }
 
-function save(callback){
-  if(!snapshot){wk_log("Error: No Snapshot!")}
+function wk_save(callback){
+  if(!wk_snapshot){wk_log("Error: No Snapshot!")}
   
-  var changes = diff();
+  var changes = wk_diff();
   if(changes == "" || wk_mode != 2) return callback?callback():false; //no need for simple edits
   
-  send_data(server, {url: "_WikifyTesting", channel: wk_channel, data: changes}, 
+  wk_send_data(wk_server, {url: "_WikifyTesting", channel: wk_channel, data: changes}, 
     function(){
       if(callback) callback();
       wk_log("Sent Data: ",changes)
     })
-    snapshot = capture();
-    get_channels()
+    wk_snapshot = wk_capture();
+    wk_get_channels()
 }
