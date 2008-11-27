@@ -11,7 +11,7 @@ function get_string_between($string, $start, $end){
         return substr($string,$ini,$len);
 }
 
-$html = get_string_between(file_get_contents("toolbar.htm"),
+$html = get_string_between(file_get_contents("../toolbar.htm"),
               "<!--BEGIN Main-->",
               "<!--END Main-->");
 
