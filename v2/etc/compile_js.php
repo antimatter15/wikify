@@ -1,5 +1,6 @@
 <?php
 $scripts = array(
+"js/config.js",
 "js/init.js",
 "js/jquery.color.js",
 "js/jquery.designmode.js",
