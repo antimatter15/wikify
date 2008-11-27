@@ -173,6 +173,8 @@ body {
   font-family: Tahoma, Verdana, 'Trebuchet MS', Arial, Helvetica, sans-serif;
   background-color: #CFCFCF;
   width: 150px;
+  position: absolute;
+  top: 30px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
