@@ -82,7 +82,7 @@ function wk_load(callback){
     })
 }
 
-function wk_save(callback){
+function wk_diffsave(callback){
   if(!wk_snapshot){wk_log("Error: No Snapshot!")}
   
   var changes = wk_diff();

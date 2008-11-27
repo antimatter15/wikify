@@ -36,31 +36,9 @@ $(document).ready(function(){
   
   $(window).resize();
   
-  $("#wk_logo").click(function(){
-    $("#wk_news").slideUp()
-    $("#wk_help").slideUp()
-    $(".wk_down").slideUp();
-    $("#wk_toolbar").animate({
-      left: "-100%"
-    })
-    $("#wk_iframe").animate({
-      "top": "0px"
-    },null,null,function(){
-      $(window).resize()
-    })
-  })
+  $("#wk_logo").click(wk_collapse)
   
-  $("#wk_expand").click(function(){
-    $("#wk_toolbar").animate({
-      left: "0%"
-    })
-    $("#wk_iframe").animate({
-      "top":30
-    },null,null,function(){
-      $(window).resize()
-
-    })
-  })
+  $("#wk_expand").click(wk_expand)
   
   $(".wk_mode").click(function(){
     $(".wk_mode").animate({color: "#858585"})
@@ -69,46 +47,18 @@ $(document).ready(function(){
   })
   
   /*mode buttons*/
-  
-  $(".wk_btn_original").click(function(){
-    $(".wk_btn_save").fadeOut()
-    wk_mode = 0;
-    wk_write_original();
-    wk_patch_links();
-    wk_disable_edit();
-    wk_mask(false)
-    
-  })
-  $(".wk_btn_view").click(function(){
-    $(".wk_btn_save").fadeOut()
-    wk_mode = 1
-    wk_write_original();
-    wk_disable_edit()
-    wk_patch_links()
-    wk_load(function(){
-          wk_mask(false)
-    });
-  })
-  $(".wk_btn_edit").click(function(){
-    $(".wk_btn_save").fadeIn()
-    wk_mode = 2
-    wk_write_original();
-    wk_load(function(){
-          wk_enable_edit();
-          wk_mask(false)
-    });
-    
-  })  
+  $(".wk_btn_original").click(wk_original)
+  $(".wk_btn_view").click(wk_view)
+  $(".wk_btn_edit").click(wk_edit)  
   
   $(".wk_btn_save").click(function(){
     wk_saving(true);
-    wk_save(function(){
+    wk_diffsave(function(){
         setTimeout(function(){
           wk_saving(false);
         },500);
       }
     )
-    
   })
   
   $(".wk_btn_news").click(function(){
@@ -133,7 +83,6 @@ $(document).ready(function(){
 
   
   $("#wk_channel").hover(function(e){
-    //$(".wk_down").slideDown();
   },function(e){
     if($(".wk_down").queue().length == 0){
       setTimeout(function(){
