@@ -119,17 +119,12 @@ $(document).ready(function(){
   })
   
   $(".wk_custom").click(function(){
-    var newchan = prompt("Enter name of channel you would like to visit/create.");
+    var newchan = prompt("Enter name of channel you would like to go to or create.");
     if(newchan){
       $(".wk_down").slideUp();
-      wk_channel = newchan;
-      if(!wk_channels[wk_channel]){
-        wk_channels[wk_channel] = {edits: 0};
-      }
-      $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click()
-      get_channels()
+      set_channel(newchan)
     }else{
-      
+      //do nothing
     }
   })
   
