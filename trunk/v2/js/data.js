@@ -28,7 +28,11 @@ function write_original(){
 function load(callback){
   get_data(server, {url: "_WikifyTesting", channel: "_WikifyTesting"}, 
     function(data){
-      parse(data.edits);
+      var edits = [];
+      for(var i = 0; i < data.edits.length; i++){
+        edits.push(data.edits[i].data)
+      }
+      parse(edits);
       wk_log("Loaded Data: ",data)
       //console.log(data)
       if(callback) callback();
