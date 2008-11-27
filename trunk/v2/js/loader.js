@@ -8,6 +8,7 @@
     var s = document.createElement("script");
     s.type = 'text/javascript';
     s.src = wk_tl.splice(0,1)[0];
+    s.className = "wk_initsc";
     s.onreadystatechange = s.onload = arguments.callee;
     document.getElementsByTagName("head")[0].appendChild(s);
   }
