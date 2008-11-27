@@ -1,10 +1,11 @@
 <?php
+header("content-type: text/javascript");
 $scripts = array(
 "js/config.js",
-"js/init.js",
+"js/misc.js",
+"js/toolbar.js",
 "js/jquery.color.js",
 "js/jquery.designmode.js",
-"js/misc.js",
 "js/editor.js",
 "js/mode.js",
 "js/button.js",
@@ -13,7 +14,8 @@ $scripts = array(
 "js/channel.js",
 "js/data.js",
 "js/communication.js",
-"js/dom.js"
+"js/dom.js",
+"js/init.js"
 );
 
 foreach($scripts as $script){
