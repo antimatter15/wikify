@@ -41,8 +41,8 @@ $(document).ready(function(){
   
   $(".wk_custom").click(function(){
     var newchan = prompt("Enter name of channel you would like to go to or create.");
+    $(".wk_down").slideUp();
     if(newchan){
-      $(".wk_down").slideUp();
       wk_set_channel(newchan)
     }else{
       //do nothing
