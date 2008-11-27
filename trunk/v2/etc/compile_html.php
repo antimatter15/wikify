@@ -23,5 +23,5 @@ $newhtml = preg_replace("/[\n\r]/","",$newhtml);
 
 $out =  "var wk_toolbar = '".$newhtml."';";
 
-file_put_contents("js/toolbar.js",$out);
+file_put_contents("../js/toolbar.js",$out);
 ?>
