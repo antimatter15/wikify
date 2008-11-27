@@ -8,3 +8,6 @@ function wk_log(){
   }
 }
 
+function wk_ready(fn){
+  wk_readyqueue.push(fn)
+}
