@@ -32,6 +32,15 @@ function patch_links(){
   })
 }
 
+function set_channel(channel){
+  wk_channel = channel;
+  if(!wk_channels[wk_channel]){
+    wk_channels[wk_channel] = {edits: 0};
+  }
+  $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click()
+  get_channels()
+}
+
 function render_channels(){
   $("#wk_channel_text").text(wk_channel+" ("+wk_channels[wk_channel].edits+")");
   $(".wk_chan").remove();
@@ -39,14 +48,13 @@ function render_channels(){
     $("<li></li>")
     .text(i+" ("+wk_channels[i].edits+")")
     .addClass("wk_chan")
+    .data("chan",i)
     .insertBefore(".wk_custom")
   }
   
   $(".wk_chan").click(function(){
     $(".wk_down").slideUp();
-    $("#wk_channel_text").text($(this).text())
-    wk_mask(true)
-    wk_mask(false)
+    set_channel($(this).data("chan"))
   })
 
 }
