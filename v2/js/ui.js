@@ -93,6 +93,7 @@ $(document).ready(function(){
       $(this).dequeue();
     })
   })
+  
   $(".wk_btn_help").click(function(){
     $("#wk_news").slideUp().queue(function(){
       $("#wk_help").slideToggle();
