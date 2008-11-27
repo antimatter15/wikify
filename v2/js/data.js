@@ -7,13 +7,6 @@ var wk_channels = {
   "Update": {edits: 0}
 };
 
-$.get("content.htm",{}, function(e){
-  wk_original_data = e;
-  $(document).ready(function(){
-  wk_get_channels()
-    $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click()
-  })
-})
 
 function wk_write_data(data){
   wk_doc = $("#wk_iframe").contentDocument();
