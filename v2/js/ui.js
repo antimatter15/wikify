@@ -105,6 +105,8 @@ $(document).ready(function(){
 
   $("#wk_channel_visible").click(function(){
     $(".wk_down").slideToggle();
+    $("#wk_news").slideUp()
+    $("#wk_help").slideUp()
   })
 
   
