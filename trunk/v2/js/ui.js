@@ -50,7 +50,7 @@ $(document).ready(function(){
     })
   })
   
-  $("#wk_collapse").click(function(){
+  $("#wk_expand").click(function(){
     $("#wk_toolbar").animate({
       left: "0%"
     })
