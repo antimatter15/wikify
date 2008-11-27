@@ -6,7 +6,8 @@ $.get("etc/content.htm",{}, function(e){
   })
 })
 
-
-function wk_ready(fn){
-  $(document).ready.apply(this, arguments);
-}
+$(document).ready(function(){
+  $.each(wk_readyqueue, function(){
+    this();
+  })
+})
