@@ -8,3 +8,6 @@ var wk_channels = {
   "Spam": {edits: 0},
   "Update": {edits: 0}
 };
+
+var wk_readyqueue = [];
+
