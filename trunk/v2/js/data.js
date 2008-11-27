@@ -1,13 +1,3 @@
-var wk_server = "http://wikify.appjet.net/";
-var wk_original_data = "";
-var wk_channel = "Spam";
-var wk_url = "_WikifyTesting";
-var wk_channels = {
-  "Spam": {edits: 0},
-  "Update": {edits: 0}
-};
-
-
 function wk_write_data(data){
   wk_doc = $("#wk_iframe").contentDocument();
   wk_doc.open();

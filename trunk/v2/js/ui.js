@@ -1,5 +1,3 @@
-var wk_mode = 1;
-
 function wk_collapse(){
   $("#wk_news").slideUp()
   $("#wk_help").slideUp()
