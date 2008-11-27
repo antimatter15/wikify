@@ -1,4 +1,6 @@
 (function(){
+  $(".wk_initsc").remove();
+
   wk_original_data = "<html>"+document.getElementsByTagName("HTML")[0].innerHTML+"</html>";
 
   for(var s=document.styleSheets, i=s.length;i--;){
