@@ -7,3 +7,4 @@ function wk_log(){
     console.log.apply(this,arguments);
   }
 }
+

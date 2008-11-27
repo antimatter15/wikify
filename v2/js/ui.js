@@ -54,7 +54,7 @@ function wk_mask(mode){
   }
 }
 
-$(document).ready(function(){
+wk_ready(function(){
   $(window).resize(wk_resize);
   wk_resize();
   

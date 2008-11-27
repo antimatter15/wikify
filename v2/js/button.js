@@ -1,4 +1,4 @@
-$(document).ready(function(){
+wk_ready(function(){
   $(".wk_btn_save").click(function(){
     wk_saving(true);
     wk_diffsave(function(){
