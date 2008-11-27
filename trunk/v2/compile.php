@@ -1,3 +1,5 @@
 <?php
-echo php_strip_whitespace("toolbar.htm");
+$html = file_get_contents("toolbar.htm");
+echo preg_replace( "/(?:(?<=\>)|(?<=\/\>))(\s+)(?=\<\/?)/","", $html )
+                    
 ?>
