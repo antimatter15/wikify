@@ -1,5 +1,5 @@
 <?php
-$scripts = ["js/jquery.color.js",
+$scripts = array("js/jquery.color.js",
 "js/jquery.designmode.js",
 "js/misc.js",
 "js/editor.js",
@@ -11,7 +11,7 @@ $scripts = ["js/jquery.color.js",
 "js/data.js",
 "js/communication.js",
 "js/dom.js",
-"js/standalone.js"];
+"js/standalone.js");
 
 foreach($scripts as $script){
   echo file_get_contents("../".$script)."\n\n";
