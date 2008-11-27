@@ -8,5 +8,5 @@ $.get("etc/content.htm",{}, function(e){
 
 
 function wk_ready(fn){
-  $(document).apply(this, arguments);
+  $(document).ready.apply(this, arguments);
 }
