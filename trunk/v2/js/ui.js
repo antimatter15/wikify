@@ -52,6 +52,7 @@ $(document).ready(function(){
     $(".wk_btn_save").fadeOut()
     wk_mode = 0;
     write_original();
+    patch_links()
     disable_edit();
     wk_mask(false)
     
@@ -61,6 +62,7 @@ $(document).ready(function(){
     wk_mode = 1
     write_original();
     disable_edit()
+    patch_links()
     load(function(){
           wk_mask(false)
     });
