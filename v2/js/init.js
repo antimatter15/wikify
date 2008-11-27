@@ -1,3 +1,5 @@
+var wk_readyqueue = [];
+
 function wk_ready(fn){
-  //$(document).ready.apply(this, arguments);
+  wk_readyqueue.push(fn)
 }
