@@ -7,26 +7,24 @@ function wk_send_data(url, params, callback){
   var id = "wk_xfnx"+Math.floor(Math.random()*12345)
 
   var form = $("<form>")
-    .addClass(id)
     .attr({
       action: url,
       target: id,
       method: "POST"
     })
-    .appendTo("body")
     .append($("<iframe>")
       .attr('name',id)
       .load(function(){
         callback()
         setTimeout(function(){
           form.remove()
-        },5000)
+        },50000)
       }))
+    .appendTo("body")
     
   $.each(params,function(key,value){
-    $("<input>")
+    $("<input type='hidden'>")
       .attr({
-        type: "hidden",
         name: key
       })
       .val(value)
