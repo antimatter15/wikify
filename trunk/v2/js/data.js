@@ -41,10 +41,19 @@ function render_channels(){
     .addClass("wk_chan")
     .insertBefore(".wk_custom")
   }
+  
+  $(".wk_chan").click(function(){
+    $(".wk_down").slideUp();
+    $("#wk_channel_text").text($(this).text())
+    wk_mask(true)
+    wk_mask(false)
+  })
+
 }
 
 function get_channels(callback){
   get_data(server, {url: "_WikifyTesting"}, function(e){
+    wk_log("Got Channel Data", e)
     for(var x in e.channels){
       wk_channels[x] = e.channels[x]
     }

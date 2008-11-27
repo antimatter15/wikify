@@ -106,13 +106,6 @@ $(document).ready(function(){
   $("#wk_channel_visible").click(function(){
     $(".wk_down").slideToggle();
   })
-  
-  $(".wk_chan").click(function(){
-    $(".wk_down").slideUp();
-    $("#wk_channel_text").text($(this).text())
-    wk_mask(true)
-    wk_mask(false)
-  })
 
   
   $("#wk_channel").hover(function(e){
@@ -129,9 +122,9 @@ $(document).ready(function(){
     var newchan = prompt("Enter name of channel you would like to visit/create.");
     if(newchan){
       $(".wk_down").slideUp();
-      wk_mask(true);
-      wk_mask(false);
-      $("#wk_channel_text").text(newchan+" (0)")
+      wk_channel = newchan;
+      $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click()
+      get_channels()
     }else{
       
     }
