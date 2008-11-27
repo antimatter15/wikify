@@ -17,7 +17,9 @@ $html = get_string_between(file_get_contents("toolbar.htm"),
 
 
 //http://www.blog.highub.com/regular-expression/php-regex-regular-expression/php-regex-remove-whitespace-from-html/
-echo preg_replace( "/(?:(?<=\>)|(?<=\/\>))(\s+)(?=\<\/?)/","", $html )
-  
+$newhtml = preg_replace( "/(?:(?<=\>)|(?<=\/\>))(\s+)(?=\<\/?)/","", $html);
 
+//$newhtml = str_replace("\n","",$newhtml);
+
+return $newhtml;
 ?>
