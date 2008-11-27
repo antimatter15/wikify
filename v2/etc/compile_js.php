@@ -18,7 +18,12 @@ $scripts = array(
 "js/init.js"
 );
 
+$c = "";
+
 foreach($scripts as $script){
+  $c.="\n\n".file_get_contents("../".$script)."\n\n";
   echo "\n\n".file_get_contents("../".$script)."\n\n";
 }
+
+file_put_contents("../js/wikify.js",$c);
 ?>
