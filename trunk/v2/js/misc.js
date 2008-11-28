@@ -28,7 +28,7 @@ wk_ready(function(){ //dumbie!
     $.getScript("http://wikify.googlecode.com/svn-history/r161/trunk/v2/js/jquery.pngFix.js",
       function(){
          $(".wk_arrow img").attr("src",$(".wk_arrow img").attr("src").replace(/\.png/g,".gif"))
-         $(document).not("wk_arrow > *").pngFix();
+         $(document).not("#wk_channel > *").pngFix();
           
       })
   }
