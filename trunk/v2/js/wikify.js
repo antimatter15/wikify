@@ -4,7 +4,7 @@ var wk_mode = 1;
 var wk_server = "http://wikify.appjet.net/";
 var wk_original_data = "";
 var wk_channel = "Spam";
-var wk_url = "_WikifyTesting";
+var wk_url = window.wk_real?window.location.href:"_WikifyTesting"; 
 var wk_style = "http://localhost/Wikify/v2/styles.css"
 var wk_img = "http://localhost/Wikify/v2/img/"
 var wk_channels = {
@@ -21,14 +21,16 @@ var wk_readyqueue = [];
 
 
 
-if(window.console){
+/*I just feel like blaming this whole file on microsoft*/
+
+if(window.console && !($.browser.msie && $.browser.version == 6)){
   try{
     console.log();
   }catch(err){}
 }
 
 function wk_log(){
-  if(window.console){
+  if(window.console && !($.browser.msie && $.browser.version == 6)){
     //because console.log.apply only works on firefox :(
     var a = arguments, l = a.length;
     if(l == 42) console.log("TEH WORLDZ ASPLODE!")
