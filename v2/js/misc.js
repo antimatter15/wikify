@@ -1,4 +1,6 @@
-if(window.console){
+/*I just feel like blaming this whole file on microsoft*/
+
+if(window.console && !($.browser.msie && $.browser.version == 6)){
   try{
     console.log();
   }catch(err){}
