@@ -73,7 +73,7 @@ wk_ready(function(){ //dumbie!
 
 
 
-var wk_toolbar = '<div id="wk_toolbar"><ul><li class="wk_logo" id="wk_logo"><img src="img/wikify.png" alt="Project Wikify (beta)"></li><li>&nbsp;</li><li id="wk_channel"><ul class="wk_down"><li class="wk_custom">Custom</li></ul><ul id="wk_channel_visible"><li id="wk_channel_text">Loading...</li><li class="wk_arrow"><img src="img/down.png" style="margin-top: 2px;"></li></ul></li><li>&nbsp;</li><li class="wk_btn wk_mode wk_btn_original">Original</li><li class="wk_btn wk_mode wk_btn_view">View</li><li class="wk_btn wk_mode wk_btn_edit">Edit</li></ul><ul style="float: right" class="wk_btn wk_btn_news"><li class="wk_right"><img src="img/package_editors.png"></li><li class="wk_right">News</li></ul><ul style="float: right" class="wk_btn wk_btn_help"><li class="wk_right"><img src="img/info.png"></li><li class="wk_right">Help</li></ul><ul style="float: right" class="wk_btn wk_btn_save"><li id="wk_save" class="wk_right"><img src="img/3floppy_unmount.png"></li><li id="wk_saving" class="wk_right" style="display: none"><img src="img/loading.gif"></li><li class="wk_right">Save</li></ul></div><div id="wk_expand">&gt;</div><div id="wk_mask"><h1 class="wk_load">Loading...</h1></div><iframe id="wk_iframe" class="wk_iframe" border="0"></iframe><div id="wk_news"><div style="float: left; width: 50%"><h3>This Page</h3></div><div style="float: right; width: 50%"><h3>Wikify Global</h3></div></div><div id="wk_help"><span class="wk_note">Move your mouse cursor over the toolbar items to see what they do.</span><div id="wk_tooltip">&nbsp;</div></div>';
+var wk_toolbar = '<div id="wk_toolbar"><ul><li class="wk_logo" id="wk_logo"><img src="img/wikify.png" alt="Project Wikify (beta)"></li><li>&nbsp;</li><li id="wk_channel"><ul class="wk_down"><li class="wk_custom">Custom</li></ul><ul id="wk_channel_visible"><li id="wk_channel_text">Loading...</li><li class="wk_arrow"><img src="img/down.png" style="margin-top: 2px;"></li></ul></li><li>&nbsp;</li><li class="wk_btn wk_mode wk_btn_original">Original</li><li class="wk_btn wk_mode wk_btn_view">View</li><li class="wk_btn wk_mode wk_btn_edit">Edit</li></ul><ul style="float: right" class="wk_btn wk_btn_news"><li class="wk_right"><img src="img/package_editors.png"></li><li class="wk_right">News</li></ul><ul style="float: right" class="wk_btn wk_btn_help"><li class="wk_right"><img src="img/info.png"></li><li class="wk_right">Help</li></ul><ul style="float: right" class="wk_btn wk_btn_save"><li id="wk_save" class="wk_right"><img src="img/3floppy_unmount.png"></li><li id="wk_saving" class="wk_right" style="display: none"><img src="img/loading.gif"></li><li class="wk_right">Save</li></ul></div><div id="wk_expand">&gt;</div><div id="wk_mask"><h1 class="wk_load">Loading...</h1></div><iframe id="wk_iframe" class="wk_iframe" border="0"></iframe><div id="wk_news"><div style="float: left; width: 50%"><h3>This Page</h3></div><div style="float: right; width: 50%"><h3>Wikify Global</h3></div></div><div id="wk_help"><span class="wk_note">Move your mouse cursor over the toolbar items to see what they do.</span><div id="wk_tooltip">&nbsp;</div></div><div id="wk_about"><p>About Info</p></div>';
 
 
 
@@ -349,14 +349,23 @@ wk_ready(function(){
   })
   
   $(".wk_btn_news").click(function(){
+    wk_hideabout()
     $("#wk_help").slideUp().queue(function(){
       $("#wk_news").slideToggle();
       $(this).dequeue();
     })
   })
-  
+
   $(".wk_btn_help").click(function(){
     $("#wk_news").slideUp().queue(function(){
+      if($("#wk_help").css("display") == "none"){
+          $("#wk_about").css("top", -$("#wk_about").height());
+          $("#wk_about").css("display", "block");
+          $("#wk_about").css("opacity", 0.8)
+          $(window).trigger("resize")
+      }else{
+        wk_hideabout()
+      }
       $("#wk_help").slideToggle();
       $(this).dequeue();
     })
@@ -366,6 +375,7 @@ wk_ready(function(){
     $(".wk_down").slideToggle();
     $("#wk_news").slideUp()
     $("#wk_help").slideUp()
+    wk_hideabout()
   })
 
   
@@ -397,6 +407,7 @@ function wk_collapse(){
   $("#wk_news").slideUp()
   $("#wk_help").slideUp()
   $(".wk_down").slideUp();
+  wk_hideabout()
   $("#wk_toolbar").animate({
     left: "-100%"
   })
@@ -419,6 +430,10 @@ function wk_expand(){
 }
 
 function wk_resize(){
+  $("#wk_about").animate({
+    top: ($(window).height()/2) - ($("#wk_about").height()/2),
+    left: ($(window).width()/2) - ($("#wk_about").width()/2)
+  })
   if($("#wk_iframe").css("top") == "30px"){
     $("#wk_iframe").height($(window).height()-30)
   }else{
@@ -442,6 +457,7 @@ function wk_mask(mode){
     $("#wk_mask").slideDown()
     $("#wk_news").slideUp()
     $("#wk_help").slideUp()
+    
   }else{
     $("#wk_mask").slideUp()
   }
@@ -466,7 +482,7 @@ wk_ready(function(){
     ".wk_btn_original": "View the original, unmodified page",
     ".wk_btn_view": "View the page, with the Wikify changes",
     ".wk_btn_edit": "Edit the page like a word processor",
-    "#wk_channel_visible": "Switch Wikify changesets."
+    "#wk_channel_visible": "Switch Wikify channels."
   }
   
   $.each(areas,function(key, value){
@@ -485,6 +501,14 @@ wk_ready(function(){
     })
   })
 })
+
+function wk_hideabout(){
+  $("#wk_about").animate({top: -$("#wk_about").height()})
+    .queue(function(){
+      $(this).css("display", "none")
+      $(this).dequeue()
+    })
+}
 
 
 

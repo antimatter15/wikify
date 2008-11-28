@@ -26,3 +26,11 @@ wk_ready(function(){
     })
   })
 })
+
+function wk_hideabout(){
+  $("#wk_about").animate({top: -$("#wk_about").height()})
+    .queue(function(){
+      $(this).css("display", "none")
+      $(this).dequeue()
+    })
+}
