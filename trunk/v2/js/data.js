@@ -10,10 +10,12 @@ function wk_write_original(){
 }
 
 function wk_patch_links(){
-  $(wk_doc).find("a") //find all links
-    .click(function(){ //on click event
-      window.parent.location = this.href; //make them open up in the parent
-  })
+  setTimeout(function(){
+    $(wk_doc).find("a") //find all links
+      .click(function(){ //on click event
+        window.parent.location = this.href; //make them open up in the parent
+    })
+  },300)
 }
 
 function wk_load(callback){
