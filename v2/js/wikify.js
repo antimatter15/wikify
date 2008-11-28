@@ -711,7 +711,7 @@ function wk_autosnapshot(c){
 
 (function(){
   if(!$("html")[0] || !$("body")[0] || !$("head")[0]){
-    alert("Project Wikify has encountered a fatal error\n(Missing Required Document Elements)")
+    return alert("Project Wikify has encountered a fatal error\n(Missing Required Document Elements)")
   }
   if(wk_removescripts){
     //$("script").remove(); //remove all scripts (strangely doesn't work on ajaxian)
@@ -733,7 +733,7 @@ function wk_autosnapshot(c){
     .appendTo("head");
 
   if(!$("#wk_iframe")[0] || !$("#wk_toolbar")[0]){
-    alert("Project Wikify has encountered a fatal error\n(Missing Generated Elements)")
+    return alert("Project Wikify has encountered a fatal error\n(Missing Generated Elements)")
   }
 
   for(var i = 0; i < wk_readyqueue.length; i++){
