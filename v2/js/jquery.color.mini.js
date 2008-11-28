@@ -31,6 +31,10 @@
 	// Parse strings looking for color tuples [255,255,255]
 	function getRGB(color) {
 		var result;
+		
+		if ( color && color.constructor == Array && color.length == 3 )
+			return color;
+			
 	  // Look for rgb(num,num,num)
 		if (result = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(color))
 			return [parseInt(result[1]), parseInt(result[2]), parseInt(result[3])];
@@ -38,6 +42,6 @@
 		// Look for #a0b1c2
 		if (result = /#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(color))
 			return [parseInt(result[1],16), parseInt(result[2],16), parseInt(result[3],16)];
-			
+    
 	}
 })(jQuery);
