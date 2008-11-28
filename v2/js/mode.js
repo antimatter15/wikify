@@ -6,6 +6,7 @@ function wk_original(){
       wk_disable_edit();
       wk_patch_links();
       wk_mask(false)
+      $("#wk_premask").slideUp();
     },200)
 }
 
@@ -18,6 +19,7 @@ function wk_view(){
       wk_load(function(){
             wk_mask(false)
             wk_patch_links()
+            $("#wk_premask").slideUp();
       });
     },200)
 }
@@ -30,6 +32,7 @@ function wk_edit(){
       wk_load(function(){
             wk_enable_edit();
             wk_mask(false)
+            $("#wk_premask").slideUp();
       });
     },200)
 }
@@ -39,7 +42,7 @@ wk_ready(function(){
   $(".wk_mode").click(function(){
     $(".wk_mode").animate({color: "#858585"})
     wk_mask(true)
-    $(this).animate({color: "#ffffff"})
+    $(this).animate({color: "#ffffff"});
   })
   
   /*mode buttons*/
