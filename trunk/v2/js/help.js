@@ -1,4 +1,4 @@
-$(document).ready(function(){
+wk_ready(function(){
   var areas = {
     "#wk_logo": "Click on this logo to minimize the toolbar",
     ".wk_btn_save": "Save your edits to the server",
