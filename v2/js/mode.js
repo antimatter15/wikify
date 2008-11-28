@@ -33,7 +33,7 @@ wk_ready(function(){
   $(".wk_mode").click(function(){
     $(".wk_mode").animate({color: "#858585"})
     wk_mask(true)
-    $(this).animate({color: "white"})
+    $(this).animate({color: "#ffffff"})
   })
   
   /*mode buttons*/
