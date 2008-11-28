@@ -13,7 +13,7 @@
     }
   });
   for(var i in wk_conf){
-    if(typeof(wk_image)==typeof(undefined)){
+    if(typeof(window[i])==typeof(undefined)){
       window[i] = wk_conf[i];
     }
   }
