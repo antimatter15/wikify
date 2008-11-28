@@ -115,7 +115,7 @@ body {
   display: none;
   background-color: #000;
   opacity: 0.85;
-  z-index: 50000;
+  z-index: 55000;
   -moz-border-radius-bottomleft: 5px;
   -webkit-border-bottom-left-radius: 5px;
   -moz-border-radius-bottomright: 5px;
