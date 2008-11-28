@@ -25,3 +25,7 @@
 /*Not-Really variables*/
 var wk_readyqueue = [];
 var wk_original_data = "";
+
+function wk_onlaunch(){
+
+}

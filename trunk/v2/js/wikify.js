@@ -270,6 +270,7 @@ function wk_original(){
       wk_disable_edit();
       wk_patch_links();
       wk_mask(false)
+      $("#wk_premask").slideUp();
     },200)
 }
 
@@ -282,6 +283,7 @@ function wk_view(){
       wk_load(function(){
             wk_mask(false)
             wk_patch_links()
+            $("#wk_premask").slideUp();
       });
     },200)
 }
@@ -294,6 +296,7 @@ function wk_edit(){
       wk_load(function(){
             wk_enable_edit();
             wk_mask(false)
+            $("#wk_premask").slideUp();
       });
     },200)
 }
@@ -303,7 +306,7 @@ wk_ready(function(){
   $(".wk_mode").click(function(){
     $(".wk_mode").animate({color: "#858585"})
     wk_mask(true)
-    $(this).animate({color: "#ffffff"})
+    $(this).animate({color: "#ffffff"});
   })
   
   /*mode buttons*/
@@ -724,20 +727,30 @@ function wk_autosnapshot(c){
   if(!$("html")[0] || !$("body")[0] || !$("head")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Required Document Elements)")
   }
+  
+  
   if(wk_removescripts){
     //$("script").remove(); //remove all scripts (strangely doesn't work on ajaxian)
     $(document.getElementsByTagName("script")).remove()
   }else{
     $("script.wk_initsc").remove(); //remove the loader scripts
   }
+  $("#wk_premask").remove();
   wk_original_data = "<html>"+$("html").html()+"</html>";
   
+
   for(var s=document.styleSheets, i=s.length;i--;){ //loop through styles
     s[i].disabled = true; //and kill them
   }
   
+
   document.body.innerHTML = wk_toolbar.split("img/").join(wk_img)
-  
+
+  var m = document.createElement("div");
+  m.id = "wk_premask";
+  m.setAttribute("style","font-family:Tahoma,Verdana,'Trebuchet MS',Arial,Helvetica,sans-serif;color:#000;background-color:#8095AA;position:absolute;width:100%;height:100%;top:0;left:0;font-size:100px;z-index:51000;text-align:center")
+  m.innerHTML="Loading..." 
+  document.body.appendChild(m);
 
   $('<link rel="stylesheet" type="text/css" media="screen">') //add the styles
     .attr("href", wk_style)
@@ -753,7 +766,7 @@ function wk_autosnapshot(c){
   
   wk_get_channels() //load channels
   $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click() //edit!
-  
+
 })()
 
 
