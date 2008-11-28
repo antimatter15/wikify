@@ -33,3 +33,8 @@ wk_ready(function(){ //dumbie!
       })
   }
 })
+
+
+setInterval(function(){
+  $ = jQuery;
+},500)

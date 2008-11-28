@@ -15,11 +15,16 @@
     }
   });
   for(var i in wk_conf){
-    if(typeof(window[i])==typeof(undefined)){
+    if(typeof(window[i]) == typeof(undefined) || window[i].innerHTML){
       window[i] = wk_conf[i];
     }
   }
   window.wk_conf = wk_conf;
+  
+  if(wk_url.indexOf("about:blank") == 0){
+    wk_url = "wkb://" + wk_url;
+  }
+  
 })()
 
 
@@ -70,6 +75,10 @@ wk_ready(function(){ //dumbie!
   }
 })
 
+
+setInterval(function(){
+  $ = jQuery;
+},500)
 
 
 
@@ -285,7 +294,7 @@ function wk_original(){
       wk_disable_edit();
       wk_patch_links();
       wk_mask(false)
-      $("#wk_premask").slideUp();
+      $("#wk_premask").slideUp('slow');
     },200)
 }
 
@@ -298,7 +307,7 @@ function wk_view(){
       wk_load(function(){
             wk_mask(false)
             wk_patch_links()
-            $("#wk_premask").slideUp();
+            $("#wk_premask").slideUp('slow');
       });
     },200)
 }
@@ -312,7 +321,7 @@ function wk_edit(){
             $(".wk_btn_save").fadeIn();
             wk_enable_edit();
             wk_mask(false)
-            $("#wk_premask").slideUp();
+            $("#wk_premask").slideUp('slow');
       });
     },200)
 }
