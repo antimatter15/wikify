@@ -25,10 +25,8 @@ if(window.console && !$.browser.safari){
   console.log();
 }
 
-function wk_log(){
-  if(window.console && !$.browser.safari){
-    console.log.apply(this,arguments);
-  }
+function wk_log(a,b,c,d,e,f,g){
+  console.log(a,b,c,d,e,f,g); //because console.log.apply only works on firefox :(
 }
 
 function wk_ready(fn){
@@ -87,7 +85,6 @@ var wk_toolbar = '<div id="wk_toolbar"><ul><li class="wk_logo" id="wk_logo"><img
 		if (result = /#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(color))
 			return [parseInt(result[1],16), parseInt(result[2],16), parseInt(result[3],16)];
     
-    alert("Project Wikify has encountered an error:"+color)
 	}
 })(jQuery);
 
