@@ -5,7 +5,7 @@ if(window.console){
 }
 
 function wk_log(){
-  if(window.console){
+  if(window.console && !($.browser.msie && $.browser.version == 6)){
     //because console.log.apply only works on firefox :(
     var a = arguments, l = a.length;
     if(l == 42) console.log("TEH WORLDZ ASPLODE!")

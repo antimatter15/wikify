@@ -21,18 +21,22 @@ var wk_readyqueue = [];
 
 
 
-if(window.console && !$.browser.safari){
-  console.log();
+if(window.console){
+  try{
+    console.log();
+  }catch(err){}
 }
 
 function wk_log(){
-  //because console.log.apply only works on firefox :(
-  var a = arguments, l = a.length;
-  if(l == 42) console.log("TEH WORLDZ ASPLODE!")
-  else if(l == 1) console.log(a[0])
-  else if(l == 2) console.log(a[0],a[1])
-  else if(l == 3) console.log(a[0],a[1],a[2])
-  else if(l == 4) console.log(a[0],a[1],a[2],a[3]);
+  if(window.console){
+    //because console.log.apply only works on firefox :(
+    var a = arguments, l = a.length;
+    if(l == 42) console.log("TEH WORLDZ ASPLODE!")
+    else if(l == 1) console.log(a[0])
+    else if(l == 2) console.log(a[0],a[1])
+    else if(l == 3) console.log(a[0],a[1],a[2])
+    else if(l == 4) console.log(a[0],a[1],a[2],a[3]);
+  }
 }
 
 function wk_ready(fn){
@@ -521,9 +525,9 @@ function wk_diffsave(callback){
     function(){
       if(callback) callback();
       wk_log("Sent Data: ",changes)
+      wk_get_channels()
     })
     wk_snapshot = wk_capture();
-    wk_get_channels()
 }
 
 
@@ -533,33 +537,45 @@ saveurl:"http://wikify.antimatter15.com/server/save",
 loadurl:"http://wikify.antimatter15.com/server/load",
 */
 
+
 function wk_send_data(url, params, callback){
   var id = "wk_xfnx"+Math.floor(Math.random()*12345)
+  var div = document.createElement("div");
+  var form = document.createElement("form");
 
-  var form = $("<form>")
-    .attr({
-      action: url,
-      target: id,
-      method: "POST"
-    })
-    .append($("<iframe>")
-      .attr('name',id)
-      .load(function(){
-        callback()
-        setTimeout(function(){
-          form.remove()
-        },50000)
-      }))
-    .appendTo("body")
-    
-  $.each(params,function(key,value){
-    $("<input type='hidden'>")
-      .attr({
-        name: key
-      })
-      .val(value)
-      .appendTo(form)
-  })
+  document.body.appendChild(div);  
+  
+  window[id] = function(){
+    callback();
+    try{
+      window[id] = null;
+      delete window[id];
+    }catch(err){}
+    setTimeout(function(){
+      if(div.parentNode){
+        div.parentNode.removeChild(div);
+      }
+    }, 50000)
+  };
+  
+  div.style.display = "none";
+  
+  div.innerHTML = "<iframe id=\""+id+"\" name=\""+id+"\" onload=\"window['"+id+"']()\"></iframe>"
+  
+  form.target = id;
+  form.action = url;
+  form.method = "POST";
+  
+  div.appendChild(form);  
+  
+  for(var key in params){
+    var input = document.createElement("input"); //create new input
+    input.type = "hidden"; //it's hidden! SSH!!!!
+    input.name = key; //set name
+    input.value = params[key]; //set value
+    form.appendChild(input);
+  }
+  
   form.submit();
 }
 
