@@ -4,7 +4,7 @@ $scripts = array(
 "js/config.js",
 "js/misc.js",
 "js/toolbar.js",
-"js/jquery.color.js",
+"js/jquery.color.mini.js",
 "js/jquery.designmode.js",
 "js/editor.js",
 "js/mode.js",
