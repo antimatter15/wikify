@@ -18,6 +18,10 @@ wk_ready(function(){
   
   $(".wk_btn_help").click(function(){
     $("#wk_news").slideUp().queue(function(){
+      if($("#wk_help").css("display") == "none"){
+        //show
+        $("#wk_about").awFloater()
+      }
       $("#wk_help").slideToggle();
       $(this).dequeue();
     })
