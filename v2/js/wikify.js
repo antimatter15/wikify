@@ -28,6 +28,9 @@
 var wk_readyqueue = [];
 var wk_original_data = "";
 
+function wk_onlaunch(){
+  wk_remode(); //woot!
+}
 
 
 
@@ -301,6 +304,10 @@ function wk_edit(){
     },200)
 }
 
+
+function wk_remode(){
+  $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click(); //woot!
+}
 
 wk_ready(function(){
   $(".wk_mode").click(function(){
@@ -765,7 +772,7 @@ function wk_autosnapshot(c){
   }
   
   wk_get_channels() //load channels
-  $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click() //edit!
+  wk_remode();
 
 })()
 

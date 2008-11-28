@@ -38,7 +38,7 @@ function wk_edit(){
 }
 
 
-function wk_mode(){
+function wk_remode(){
   $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click(); //woot!
 }
 

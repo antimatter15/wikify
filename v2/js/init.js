@@ -40,7 +40,7 @@
   }
   
   wk_get_channels() //load channels
-  wk_mode();
+  wk_remode();
 
 })()
 
