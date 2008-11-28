@@ -256,30 +256,36 @@ function wk_original(){
     $(".wk_btn_save").fadeOut()
     wk_mode = 0;
     wk_write_original();
-    wk_disable_edit();
-    wk_patch_links();
-    wk_mask(false)
+    setTimeout(function(){
+      wk_disable_edit();
+      wk_patch_links();
+      wk_mask(false)
+    },200)
 }
 
 function wk_view(){
     $(".wk_btn_save").fadeOut()
     wk_mode = 1
     wk_write_original();
-    wk_disable_edit()
-    wk_load(function(){
-          wk_mask(false)
-          wk_patch_links()
-    });
+    setTimeout(function(){
+      wk_disable_edit()
+      wk_load(function(){
+            wk_mask(false)
+            wk_patch_links()
+      });
+    },200)
 }
 
 function wk_edit(){
     $(".wk_btn_save").fadeIn()
     wk_mode = 2
     wk_write_original();
-    wk_load(function(){
-          wk_enable_edit();
-          wk_mask(false)
-    });
+    setTimeout(function(){
+      wk_load(function(){
+            wk_enable_edit();
+            wk_mask(false)
+      });
+    },200)
 }
 
 
