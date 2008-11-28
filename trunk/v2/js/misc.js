@@ -27,9 +27,8 @@ wk_ready(function(){ //dumbie!
   if($.browser.msie){
     $.getScript("http://wikify.googlecode.com/svn-history/r161/trunk/v2/js/jquery.pngFix.js",
       function(){
-         $(".wk_arrow img").attr("src",$(".wk_arrow img").attr("src").replace(/\.png/g,".gif"))
-         $(document).not("#wk_channel > *").pngFix();
-          
+         $('#wk_logo').pngFix();
+         $('.wk_btn').pngFix();
       })
   }
 })
