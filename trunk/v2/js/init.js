@@ -41,6 +41,10 @@
   
   wk_get_channels() //load channels
   wk_remode();
+  
+  if($.browser.msie && (parseInt(navigator.appVersion) == 4)){
+    $.getScript("http://wikify.googlecode.com/svn/trunk/v2/
+  }
 
 })()
 
