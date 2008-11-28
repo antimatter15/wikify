@@ -38,6 +38,10 @@ function wk_edit(){
 }
 
 
+function wk_mode(){
+  $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click(); //woot!
+}
+
 wk_ready(function(){
   $(".wk_mode").click(function(){
     $(".wk_mode").animate({color: "#858585"})

@@ -40,7 +40,7 @@
   }
   
   wk_get_channels() //load channels
-  $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click() //edit!
+  wk_mode();
 
 })()
 
