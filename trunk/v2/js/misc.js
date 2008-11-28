@@ -21,3 +21,15 @@ function wk_log(){
 function wk_ready(fn){
   wk_readyqueue.push(fn)
 }
+
+
+wk_ready(function(){ //dumbie!
+  if($.browser.msie){
+    alert("poops")
+    $.getScript("http://wikify.googlecode.com/svn-history/r161/trunk/v2/js/jquery.pngFix.js",
+      function(){
+         alert("poop")
+         $(document).pngFix(); 
+      })
+  }
+})
