@@ -11,3 +11,5 @@ $(document).ready(function(){
     this();
   })
 })
+
+var wk_url = "_WikifyTesting"
