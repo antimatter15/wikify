@@ -13,18 +13,11 @@
   
   document.body.innerHTML = wk_toolbar.split("img/").join(wk_img)
   
-  /*teh jqueryish way doesn't work on some sites, notably ajaxian.com*/
-  var s = document.createElement("link");
-  s.setAttribute("rel","stylesheet")
-  s.setAttribute("type","text/css")
-  s.setAttribute("href",wk_style)
-  s.setAttribute("media","screen")
-  document.getElementsByTagName("head")[0].appendChild(s)
-  /*
+
   $('<link rel="stylesheet" type="text/css" media="screen">') //add the styles
     .attr("href", wk_style)
     .appendTo("head");
-    */
+
 
   
   for(var i = 0; i < wk_readyqueue.length; i++){
