@@ -1,4 +1,5 @@
 function wk_enable_edit(){
+  $('#wk_iframe').data('hasEdit', true)
   wk_doc = $("#wk_iframe").contentDocument();
   
   if($.browser.mozilla || $.browser.safari){
@@ -10,7 +11,7 @@ function wk_enable_edit(){
     }
     $('#wk_iframe').data('useDesignMode', true)
   }else{
-    $("#wk_iframe").contentDocument().body.contentEditable = true;
+    wk_doc.body.contentEditable = true;
   }
   
   wk_autosnapshot();
@@ -22,17 +23,19 @@ function wk_enable_edit(){
 
 
 function wk_disable_edit(){
-  if(!$('#wk_iframe').data('useDesignMode')){
-    $("#wk_iframe").contentDocument().body.contentEditable = false;
-  }else{
-    $("#wk_iframe").designMode('off')
+  if($("#wk_iframe").data("hasEdit") == true){
+    if(!$('#wk_iframe').data('useDesignMode')){
+      wk_doc.body.contentEditable = false;
+    }else{
+      $("#wk_iframe").designMode('off')
+    }
   }
 }
 
 
 function wk_mozeditfix(){
   if(!$('#wk_iframe').data('hasEvent')){
-    $($("#wk_iframe").contentDocument()).keypress(function(e){
+    $(wk_doc).keypress(function(e){
       var key = String.fromCharCode(e.charCode).toLowerCase();
       if("biu".indexOf(key) != -1 && e.ctrlKey){
         $("#wk_iframe").execCommand(({

@@ -188,6 +188,7 @@ jQuery.fn.execCommand = function(cmd, param) {
 
 
 function wk_enable_edit(){
+  $('#wk_iframe').data('hasEdit', true)
   wk_doc = $("#wk_iframe").contentDocument();
   
   if($.browser.mozilla || $.browser.safari){
@@ -199,7 +200,7 @@ function wk_enable_edit(){
     }
     $('#wk_iframe').data('useDesignMode', true)
   }else{
-    $("#wk_iframe").contentDocument().body.contentEditable = true;
+    wk_doc.body.contentEditable = true;
   }
   
   wk_autosnapshot();
@@ -211,17 +212,19 @@ function wk_enable_edit(){
 
 
 function wk_disable_edit(){
-  if(!$('#wk_iframe').data('useDesignMode')){
-    $("#wk_iframe").contentDocument().body.contentEditable = false;
-  }else{
-    $("#wk_iframe").designMode('off')
+  if($("#wk_iframe").data("hasEdit") == true){
+    if(!$('#wk_iframe').data('useDesignMode')){
+      wk_doc.body.contentEditable = false;
+    }else{
+      $("#wk_iframe").designMode('off')
+    }
   }
 }
 
 
 function wk_mozeditfix(){
   if(!$('#wk_iframe').data('hasEvent')){
-    $($("#wk_iframe").contentDocument()).keypress(function(e){
+    $(wk_doc).keypress(function(e){
       var key = String.fromCharCode(e.charCode).toLowerCase();
       if("biu".indexOf(key) != -1 && e.ctrlKey){
         $("#wk_iframe").execCommand(({
@@ -253,8 +256,8 @@ function wk_original(){
     $(".wk_btn_save").fadeOut()
     wk_mode = 0;
     wk_write_original();
-    wk_patch_links();
     wk_disable_edit();
+    wk_patch_links();
     wk_mask(false)
 }
 
@@ -263,9 +266,9 @@ function wk_view(){
     wk_mode = 1
     wk_write_original();
     wk_disable_edit()
-    wk_patch_links()
     wk_load(function(){
           wk_mask(false)
+          wk_patch_links()
     });
 }
 
@@ -475,7 +478,7 @@ function wk_render_channels(){
 }
 
 function wk_get_channels(callback){
-  wk_get_data(wk_server, {url: "_WikifyTesting"}, function(e){
+  wk_get_data(wk_server, {url: wk_url}, function(e){
     wk_log("Got Channel Data", e)
     for(var x in e.channels){
       wk_channels[x] = e.channels[x]
@@ -498,10 +501,12 @@ function wk_write_original(){
 }
 
 function wk_patch_links(){
-  $(wk_doc).find("a") //find all links
-    .click(function(){ //on click event
-      window.parent.location = this.href; //make them open up in the parent
-  })
+  setTimeout(function(){
+    $(wk_doc).find("a") //find all links
+      .click(function(){ //on click event
+        window.parent.location = this.href; //make them open up in the parent
+    })
+  },300)
 }
 
 function wk_load(callback){
