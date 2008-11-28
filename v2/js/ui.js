@@ -52,6 +52,7 @@ function wk_mask(mode){
     $("#wk_mask").slideDown()
     $("#wk_news").slideUp()
     $("#wk_help").slideUp()
+    wk_hideabout()
     
   }else{
     $("#wk_mask").slideUp()
