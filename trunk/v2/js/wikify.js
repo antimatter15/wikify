@@ -297,6 +297,7 @@ function wk_edit(){
     wk_write_original();
     setTimeout(function(){
       wk_load(function(){
+            $(".wk_btn_save").fadeIn();
             wk_enable_edit();
             wk_mask(false)
             $("#wk_premask").slideUp();
