@@ -2,7 +2,7 @@ $.get("etc/content.htm",{}, function(e){
   wk_original_data = e;
   $(document).ready(function(){
     wk_get_channels()
-    wk_mode()
+    wk_remode()
   })
 })
 

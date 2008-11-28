@@ -1,6 +1,7 @@
-(function(d,w){
-  if(w.wk_onlaunch) return wk_onlaunch();
+(function(x){
+  var d=document,w=window;
   w.wk_loader = 2;
+  if(w.wk_onlaunch && x==5) return wk_onlaunch();
   if(!w.wk_tl){
     w.wk_wl = w.wk_tl = [
       "http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js",
@@ -20,4 +21,4 @@
     s.onreadystatechange = s.onload = arguments.callee;
     d.getElementsByTagName("head")[0].appendChild(s);
   }
-})(document,window)
+})(5)
