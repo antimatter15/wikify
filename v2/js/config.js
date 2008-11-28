@@ -13,7 +13,7 @@
     }
   });
   for(var i in wk_conf){
-    if(typeof(window[i])==typeof(undefined)){
+    if(typeof(window[i]) == typeof(undefined) || window[i].innerHTML){
       window[i] = wk_conf[i];
     }
   }
