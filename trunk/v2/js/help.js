@@ -7,7 +7,7 @@ wk_ready(function(){
     ".wk_btn_original": "View the original, unmodified page",
     ".wk_btn_view": "View the page, with the Wikify changes",
     ".wk_btn_edit": "Edit the page like a word processor",
-    "#wk_channel_visible": "Switch Wikify changesets."
+    "#wk_channel_visible": "Switch Wikify channels."
   }
   
   $.each(areas,function(key, value){
