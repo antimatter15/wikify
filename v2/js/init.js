@@ -38,9 +38,11 @@
   for(var i = 0; i < wk_readyqueue.length; i++){
     wk_readyqueue[i](); //run readyqueue
   }
-  
-  document.title = "Wikify: "+document.title
-  
+  if(document.title == ""){
+    document.title = "Wikify: Untitled";
+  }else{
+    document.title = "Wikify: "+document.title
+  }
   wk_get_channels() //load channels
   wk_remode();
 
