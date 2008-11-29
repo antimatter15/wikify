@@ -789,8 +789,6 @@ function wk_autosnapshot(c){
   if(!$("html")[0] || !$("body")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Required Document Elements)")
   }
-  var nohead = !$("head")[0];
-  
   if(wk_removescripts){
     //$("script").remove(); //remove all scripts (strangely doesn't work on ajaxian)
     $(document.getElementsByTagName("script")).remove()
@@ -804,8 +802,7 @@ function wk_autosnapshot(c){
   for(var s=document.styleSheets, i=s.length;i--;){ //loop through styles
     s[i].disabled = true; //and kill them
   }
-  
-
+ 
   document.body.innerHTML = wk_toolbar.split("img/").join(wk_img)
 
   var m = document.createElement("div");
@@ -817,7 +814,7 @@ function wk_autosnapshot(c){
 
   $('<link rel="stylesheet" type="text/css" media="screen">') //add the styles
     .attr("href", wk_style)
-    .appendTo(document.body);
+    .appendTo("head");
 
   if(!$("#wk_iframe")[0] || !$("#wk_toolbar")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Generated Elements)")
