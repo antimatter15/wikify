@@ -18,11 +18,7 @@
     }
   }
   window.wk_conf = wk_conf;
-  
-  if(wk_url.indexOf("about:blank") == 0){
-    wk_url = "wkb://" + wk_url;
-  }
-  
+
 })()
 
 
