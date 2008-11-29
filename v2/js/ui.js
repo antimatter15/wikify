@@ -28,7 +28,7 @@ function wk_resize(){
   $("#wk_about").animate({
     top: ($(window).height()/2) - ($("#wk_about").height()/2),
     left: ($(window).width()/2) - ($("#wk_about").width()/2)
-  })
+  });
   if($("#wk_iframe").css("top") == "30px"){
     $("#wk_iframe").height($(window).height()-30)
   }else{
@@ -61,7 +61,7 @@ function wk_mask(mode){
 
 wk_ready(function(){
   $(window).resize(wk_resize);
-  wk_resize();
+  setTimeout(wk_resize, 100);
   
   $("#wk_logo").click(wk_collapse)
   $("#wk_expand").click(wk_expand)
