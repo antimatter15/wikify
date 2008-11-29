@@ -41,7 +41,8 @@ function wk_diffsave(callback){
     function(){
       if(callback) callback();
       wk_log("Sent Data: ",changes)
-      wk_get_channels()
+      wk_channels[wk_channel].edits++;
+      wk_render_channels()
     })
     wk_snapshot = wk_capture();
 }
