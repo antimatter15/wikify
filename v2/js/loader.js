@@ -14,11 +14,12 @@
     d.body.appendChild(m);
   }
   if(wk_tl[0]){
-    var s = d.createElement("script");
+    var s = d.createElement("script"),
+        h = d.getElementsByTagName("head")[0];
     s.type = 'text/javascript';
     s.src = wk_tl.splice(0,1)[0];
     s.className = "wk_initsc";
     s.onreadystatechange = s.onload = arguments.callee;
-    d.getElementsByTagName("head")[0].appendChild(s);
+    (h?h:d.body).appendChild(s);
   }
 })(5)
