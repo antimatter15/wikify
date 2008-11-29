@@ -47,5 +47,14 @@ function wk_send_data(url, params, callback){
 
 
 function wk_get_data(url, params, callback){
-  $.get(url, params, callback, "jsonp"); //thx jQuery!
+  if(window.location.href.indexOf("about:") != 0){
+    $.get(url, params, callback, "jsonp"); //thx jQuery!
+  }else{
+    var s = document.createElement("script"),
+        c = "jsonp_"+Math.floor(999*Math.random());
+    s.type = "text/javascript";
+    s.src = url + "?" + $.param(params) + "&callback=" + c;
+    window[c] = callback;
+    document.getElementsByTagName("head")[0].appendChild(s)
+  }
 }
