@@ -663,11 +663,12 @@ function wk_get_data(url, params, callback){
     $.get(url, params, callback, "jsonp"); //thx jQuery!
   }else{
     var s = document.createElement("script"),
-        c = "jsonp_"+Math.floor(999*Math.random());
+        c = "jsonp_"+Math.floor(999*Math.random()),
+        h = document.getElementsByTagName("head")[0];
     s.type = "text/javascript";
     s.src = url + "?" + $.param(params) + "&callback=" + c;
     window[c] = callback;
-    document.getElementsByTagName("head")[0].appendChild(s)
+    (h?h:document.body).appendChild(s)
   }
 }
 
@@ -785,10 +786,10 @@ function wk_autosnapshot(c){
 
 
 (function(){
-  if(!$("html")[0] || !$("body")[0] || !$("head")[0]){
+  if(!$("html")[0] || !$("body")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Required Document Elements)")
   }
-  
+  var nohead = !$("head")[0];
   
   if(wk_removescripts){
     //$("script").remove(); //remove all scripts (strangely doesn't work on ajaxian)
@@ -812,10 +813,11 @@ function wk_autosnapshot(c){
   m.setAttribute("style","font-family:Tahoma,Verdana,'Trebuchet MS',Arial,Helvetica,sans-serif;color:#000;background-color:#8095AA;position:absolute;width:100%;height:100%;top:0;left:0;font-size:100px;z-index:51000;text-align:center")
   m.innerHTML="Loading..." 
   document.body.appendChild(m);
+  
 
   $('<link rel="stylesheet" type="text/css" media="screen">') //add the styles
     .attr("href", wk_style)
-    .appendTo("head");
+    .appendTo(document.body);
 
   if(!$("#wk_iframe")[0] || !$("#wk_toolbar")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Generated Elements)")

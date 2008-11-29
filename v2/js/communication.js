@@ -51,10 +51,11 @@ function wk_get_data(url, params, callback){
     $.get(url, params, callback, "jsonp"); //thx jQuery!
   }else{
     var s = document.createElement("script"),
-        c = "jsonp_"+Math.floor(999*Math.random());
+        c = "jsonp_"+Math.floor(999*Math.random()),
+        h = document.getElementsByTagName("head")[0];
     s.type = "text/javascript";
     s.src = url + "?" + $.param(params) + "&callback=" + c;
     window[c] = callback;
-    document.getElementsByTagName("head")[0].appendChild(s)
+    (h?h:document.body).appendChild(s)
   }
 }
