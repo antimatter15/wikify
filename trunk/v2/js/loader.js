@@ -1,6 +1,6 @@
 (function(x){
   var d=document,w=window;
-  w.wk_loader = 2;
+  w.wk_loader = [3];
   if(w.wk_onlaunch && x==5) return wk_onlaunch();
   if(!w.wk_tl){
     w.wk_wl = w.wk_tl = [
