@@ -2,7 +2,7 @@
   -moz-user-select: none;
   background-color: #36373b;
   background-image: url(img/menu_bg.png);
-  background-repeat: x-repeat;
+  background-repeat: repeat-x;
   z-index: 50000;
   position: absolute;
   top: 0;
