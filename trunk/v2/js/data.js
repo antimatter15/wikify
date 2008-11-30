@@ -19,7 +19,7 @@ function wk_patch_links(){
 }
 
 function wk_load(callback){
-  wk_get_data(wk_server, {url: wk_url, channel: wk_channel}, 
+  wk_get_data(wk_server, {url: wk_url, channel: wk_channel, action: "load"}, 
     function(data){
       var edits = [];
       for(var i = 0; i < data.edits.length; i++){
@@ -37,7 +37,7 @@ function wk_diffsave(callback){
   var changes = wk_diff();
   if(changes == "" || wk_mode != 2) return callback?callback():false; //no need for simple edits
   
-  wk_send_data(wk_server, {url: wk_url, channel: wk_channel, data: changes}, 
+  wk_send_data(wk_server, {url: wk_url, channel: wk_channel, data: changes, action: "save"}, 
     function(){
       if(callback) callback();
       wk_log("Sent Data: ",changes)

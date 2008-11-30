@@ -588,7 +588,7 @@ function wk_render_channels(){
 }
 
 function wk_get_channels(callback){
-  wk_get_data(wk_server, {url: wk_url}, function(e){
+  wk_get_data(wk_server, {url: wk_url, action: "channel"}, function(e){
     wk_log("Got Channel Data", e)
     for(var x in e.channels){
       wk_channels[x] = e.channels[x]
@@ -620,7 +620,7 @@ function wk_patch_links(){
 }
 
 function wk_load(callback){
-  wk_get_data(wk_server, {url: wk_url, channel: wk_channel}, 
+  wk_get_data(wk_server, {url: wk_url, channel: wk_channel, action: "load"}, 
     function(data){
       var edits = [];
       for(var i = 0; i < data.edits.length; i++){
@@ -638,7 +638,7 @@ function wk_diffsave(callback){
   var changes = wk_diff();
   if(changes == "" || wk_mode != 2) return callback?callback():false; //no need for simple edits
   
-  wk_send_data(wk_server, {url: wk_url, channel: wk_channel, data: changes}, 
+  wk_send_data(wk_server, {url: wk_url, channel: wk_channel, data: changes, action: "save"}, 
     function(){
       if(callback) callback();
       wk_log("Sent Data: ",changes)
@@ -702,6 +702,7 @@ function wk_get_data(url, params, callback){
   if(window.location.href.indexOf("about:") != 0){
     $.get(url, params, callback, "jsonp"); //thx jQuery!
   }else{
+    /*The following code is for about:blank*/
     var s = document.createElement("script"),
         c = "jsonp_"+Math.floor(999*Math.random()),
         h = document.getElementsByTagName("head")[0];
