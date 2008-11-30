@@ -245,11 +245,9 @@ function wk_enable_edit(){
 function wk_keyboard(){
   if(!$('#wk_iframe').data('wkhd')){
     $(wk_doc.documentElement).keypress(function(e){
-      if(e.ctrlKey && e.keyCode == 115 && wk_mode == 2){
+      if(e.ctrlKey && e.charCode == 115 && wk_mode == 2){
         e.preventDefault();
         $(".wk_btn_save").click();
-      }else{
-        console.log(e.ctrlKey, e.keyCode, wk_mode)
       }
     })
     $('#wk_iframe').data('wkhd',true)
