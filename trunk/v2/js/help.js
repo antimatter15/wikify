@@ -12,17 +12,21 @@ wk_ready(function(){
   
   $.each(areas,function(key, value){
     $(key).mouseover(function(){
-      $("#wk_tooltip")
-        .stop(true)
-        .animate({
-          marginLeft: ($(key).offset().left+$(key).width()+50)>$(document).width()?
-                      $(key).offset().left-75:
-                      $(key).offset().left
-        },"fast","swing")
-        .queue(function(){
-          $(this).text(value)
-          $(this).dequeue();
-        })
+      if($("#wk_help").css("display") != "none"){
+        
+        $("#wk_tooltip")
+          .stop(true)
+          .animate({
+            marginLeft: ($(key).offset().left+$(key).width()+50)>$(document).width()?
+                        $(key).offset().left-75:
+                        $(key).offset().left
+          },"fast","swing");
+          
+          .queue(function(){
+            $(this).text(value)
+            $(this).dequeue();
+          })
+        }
     })
   })
 })
