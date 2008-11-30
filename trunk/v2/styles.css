@@ -58,14 +58,19 @@ li.wk_logo {
   margin-top: 0px!important;
 }
 
-.wk_iframe {
+#wk_iframe {
+  z-index: 1;
+}
+
+
+.wk_fill {
   position: absolute;
   top: 30px;
   left: 0%;
   width: 100%;
   border: 0;
-  z-index: 1;
 }
+
 
 body {
   overflow: hidden;
