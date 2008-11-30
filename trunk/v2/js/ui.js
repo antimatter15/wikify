@@ -29,10 +29,10 @@ function wk_resize(){
     top: ($(window).height()/2) - ($("#wk_about").height()/2),
     left: ($(window).width()/2) - ($("#wk_about").width()/2)
   });
-  if($("#wk_iframe").css("top") == "30px"){
-    $("#wk_iframe").height($(window).height()-30)
+  if($(".wk_fill").css("top") == "30px"){
+    $(".wk_fill").height($(window).height()-30)
   }else{
-    $("#wk_iframe").height($(window).height())
+    $(".wk_fill").height($(window).height())
   }
 }
 
