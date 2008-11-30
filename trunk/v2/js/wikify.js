@@ -241,11 +241,15 @@ function wk_enable_edit(){
 }
 
 function wk_html_edit(){
-  $(wk_doc).one("keypress", function(e){
-    if(e.ctrlKey && e.charCode == 104){
-      $("#wk_iframe").execCommand("inserthtml",prompt("Enter HTML to insert:"))
-    }
-  })
+  if(!$('#wk_iframe').data('inshtl')){
+    $(wk_doc).keypress(function(e){
+      if(e.ctrlKey && e.charCode == 104){
+        e.preventDefault();
+        $("#wk_iframe").execCommand("inserthtml",prompt("Enter HTML to insert:"))
+      }
+    })
+  }
+  $('#wk_iframe').data('inshtl', true)
 }
 
 
