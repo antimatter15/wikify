@@ -24,6 +24,9 @@ wk_ready(function(){
           $("#wk_about").css("display", "block");
           $("#wk_about").css("opacity", 0.8)
           $(window).trigger("resize")
+          setTimeout(function(){
+            $(".wk_btn_help").trigger("mouseover")
+          },100)
       }else{
         wk_hideabout()
       }

@@ -21,6 +21,13 @@ function wk_enable_edit(){
   //return editor;
 }
 
+function wk_html_edit(){
+  var y=window.open('','','resizable,scrollbars=yes,width=550,height=520');
+  y.document.write('<title>Experimental HTML Edit</title>'+
+    '<textarea style="width:100%;height:100%;border:none;margin:0;padding:0"></textarea>')
+  y.document.close();
+}
+
 
 function wk_disable_edit(){
   if($("#wk_iframe").data("hasEdit") == true){
