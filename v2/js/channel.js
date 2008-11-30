@@ -28,7 +28,7 @@ function wk_render_channels(){
 }
 
 function wk_get_channels(callback){
-  wk_get_data(wk_server, {url: wk_url}, function(e){
+  wk_get_data(wk_server, {url: wk_url, action: "channel"}, function(e){
     wk_log("Got Channel Data", e)
     for(var x in e.channels){
       wk_channels[x] = e.channels[x]

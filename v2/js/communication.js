@@ -50,6 +50,7 @@ function wk_get_data(url, params, callback){
   if(window.location.href.indexOf("about:") != 0){
     $.get(url, params, callback, "jsonp"); //thx jQuery!
   }else{
+    /*The following code is for about:blank*/
     var s = document.createElement("script"),
         c = "jsonp_"+Math.floor(999*Math.random()),
         h = document.getElementsByTagName("head")[0];
