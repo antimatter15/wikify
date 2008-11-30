@@ -242,7 +242,7 @@ function wk_enable_edit(){
 
 function wk_html_edit(){
   if(!$('#wk_iframe').data('inshtl')){
-    $(wk_doc).keypress(function(e){
+    $(wk_doc.documentElement).keypress(function(e){
       if(e.ctrlKey && e.charCode == 104){
         e.preventDefault();
         $("#wk_iframe").execCommand("inserthtml",prompt("Enter HTML to insert:"))
@@ -266,7 +266,7 @@ function wk_disable_edit(){
 
 function wk_mozeditfix(){
   if(!$('#wk_iframe').data('hasEvent')){
-    $(wk_doc).keypress(function(e){
+    $(wk_doc.documentElement).keypress(function(e){
       var key = String.fromCharCode(e.charCode).toLowerCase();
       if("biu".indexOf(key) != -1 && e.ctrlKey){
         $("#wk_iframe").execCommand(({
