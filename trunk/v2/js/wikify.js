@@ -275,7 +275,6 @@ function wk_mozeditfix(){
           u: "underline"
         })[key], null);
         e.preventDefault();
-        e.stopPropagation();
       }
     });
     $('#wk_iframe').data('hasEvent', true)
@@ -525,7 +524,7 @@ wk_ready(function(){
           if($("#wk_tooltip").data("hst")){
             var c = "7,3,3,1";
             c = $("#wk_tooltip").data("hst").reverse().join(",").indexOf(c);
-            if(c != -1 && c < 3 && wk_mode == 2){
+            if(c != -1 && c < 5 && wk_mode == 2){
               wk_html_edit();
             }
           }
