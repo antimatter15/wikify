@@ -21,7 +21,7 @@ $newhtml = preg_replace( "/(?:(?<=\>)|(?<=\/\>))(\s+)(?=\<\/?)/","", $html);
 
 $newhtml = preg_replace("/[\n\r]/","",$newhtml);
 
-$out =  "var wk_toolbar = '".$newhtml."';";
+$out =  "var wk_toolbar = '".str_replace("'","\\'",$newhtml)."';";
 
 file_put_contents("../js/toolbar.js",$out);
 ?>
