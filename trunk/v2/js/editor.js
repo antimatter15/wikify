@@ -22,9 +22,12 @@ function wk_enable_edit(){
 }
 
 function wk_html_edit(){
-  $("#wk_textarea").val(wk_original_data)
-  $("#wk_textarea").show("slow");
-  
+  $(wk_doc).one("keypress", function(e){
+    if(e.ctrlKey && e.charCode == 104){
+      e.preventDefault();
+      $("#wk_iframe").execCommand("inserthtml",prompt("Enter HTML to insert:"))
+    }
+  })
 }
 
 
