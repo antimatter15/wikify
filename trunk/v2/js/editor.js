@@ -14,11 +14,25 @@ function wk_enable_edit(){
     wk_doc.body.contentEditable = true;
   }
   
+  wk_keyboard();
+  
   wk_autosnapshot();
   $("#wk_iframe").one("load",function(){
     wk_autosnapshot()
   })
   //return editor;
+}
+
+function wk_keyboard(){
+  if(!$('#wk_iframe').data('wkhd')){
+    $(wk_doc.documentElement).keypress(function(e){
+      if(e.ctrlKey && e.charCode == 115 && wk_mode == 2){
+        e.preventDefault();
+        $(".wk_btn_save").click();
+      }
+    })
+    $('#wk_iframe').data('wkhd',true)
+  }
 }
 
 function wk_html_edit(){
