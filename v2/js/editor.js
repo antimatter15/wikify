@@ -56,7 +56,6 @@ function wk_mozeditfix(){
           u: "underline"
         })[key], null);
         e.preventDefault();
-        e.stopPropagation();
       }
     });
     $('#wk_iframe').data('hasEvent', true)
