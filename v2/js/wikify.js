@@ -240,6 +240,13 @@ function wk_enable_edit(){
   //return editor;
 }
 
+function wk_html_edit(){
+  var y=window.open('','','resizable,scrollbars=yes,width=550,height=520');
+  y.document.write('<title>Experimental HTML Edit</title>'+
+    '<textarea style="width:100%;height:100%;border:none;margin:0;padding:0"></textarea>')
+  y.document.close();
+}
+
 
 function wk_disable_edit(){
   if($("#wk_iframe").data("hasEdit") == true){
@@ -368,6 +375,9 @@ wk_ready(function(){
           $("#wk_about").css("display", "block");
           $("#wk_about").css("opacity", 0.8)
           $(window).trigger("resize")
+          setTimeout(function(){
+            $(".wk_btn_help").trigger("mouseover")
+          },100)
       }else{
         wk_hideabout()
       }
@@ -481,29 +491,41 @@ wk_ready(function(){
 
 wk_ready(function(){
   var areas = {
-    "#wk_logo": "Click on this logo to minimize the toolbar",
-    ".wk_btn_save": "Save your edits to the server",
-    ".wk_btn_news": "Find the latest Wikify edits",
-    ".wk_btn_help": "Gets you here! (Awesome Help)",
-    ".wk_btn_original": "View the original, unmodified page",
-    ".wk_btn_view": "View the page, with the Wikify changes",
-    ".wk_btn_edit": "Edit the page like a word processor",
-    "#wk_channel_visible": "Switch Wikify channels."
+    "#wk_logo": [1,"Click on this logo to minimize the toolbar"],
+    "#wk_channel_visible": [2,"Switch Wikify channels."],
+    ".wk_btn_original": [3,"View the original], unmodified page"],
+    ".wk_btn_view": [4,"View the page], with the Wikify changes"],
+    ".wk_btn_edit": [5,"Edit the page like a word processor"],
+    ".wk_btn_save": [6,"Save your edits to the server"],
+    ".wk_btn_help": [7,"Gets you here! (Awesome Help)"],
+    ".wk_btn_news": [8,"Find the latest Wikify edits"]
   }
   
   $.each(areas,function(key, value){
     $(key).mouseover(function(){
-      $("#wk_tooltip")
-        .stop(true)
-        .animate({
-          marginLeft: ($(key).offset().left+$(key).width()+50)>$(document).width()?
-                      $(key).offset().left-75:
-                      $(key).offset().left
-        },"fast","swing")
-        .queue(function(){
-          $(this).text(value)
-          $(this).dequeue();
-        })
+      if($("#wk_help").css("display") != "none"){
+        if($("#wk_tooltip").data("hst")) $("#wk_tooltip").data("hst").push(value[0]);        
+        $("#wk_tooltip")
+          .stop(true)
+          .animate({
+            marginLeft: ($(key).offset().left+$(key).width()+50)>$(document).width()?
+                        $(key).offset().left-75:
+                        $(key).offset().left
+          },"fast","swing")
+          .queue(function(){
+            $(this).text(value[1])
+            $(this).dequeue();
+          })
+        }else{
+          if($("#wk_tooltip").data("hst")){
+            var c = "7,3,3,1";
+            c = $("#wk_tooltip").data("hst").reverse().join(",").indexOf(c);
+            if(c != -1 && c < 3 && wk_mode == 2){
+              wk_html_edit();
+            }
+          }
+          $("#wk_tooltip").data("hst",[])
+        }
     })
   })
 })
@@ -796,7 +818,7 @@ function wk_autosnapshot(c){
     $("script.wk_initsc").remove(); //remove the loader scripts
   }
   $("#wk_premask").remove();
-  wk_original_data = "<html>"+$("html").html()+"</html>";
+  wk_original_data = document.documentElement.innerHTML;
   
 
   for(var s=document.styleSheets, i=s.length;i--;){ //loop through styles

@@ -9,7 +9,7 @@
     $("script.wk_initsc").remove(); //remove the loader scripts
   }
   $("#wk_premask").remove();
-  wk_original_data = "<html>"+$("html").html()+"</html>";
+  wk_original_data = document.documentElement.innerHTML;
   
 
   for(var s=document.styleSheets, i=s.length;i--;){ //loop through styles
