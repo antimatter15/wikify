@@ -1,7 +1,7 @@
 (function(){
   var wk_conf = ({
     wk_mode: 2,
-    wk_server: "http://wikify.appjet.net/",
+    wk_server: "http://localhost:8080/wkserver",//"http://wikify.appjet.net/",
     wk_url: window.location.href,
     wk_style: "http://localhost/Wikify/v2/styles.css",
     wk_img: "http://localhost/Wikify/v2/img/",

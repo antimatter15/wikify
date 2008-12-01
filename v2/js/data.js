@@ -23,6 +23,15 @@ function wk_load(callback){
     function(data){
       var edits = [];
       for(var i = 0; i < data.edits.length; i++){
+        /*Backwards Compatability*/
+        if(unescape(data.edits[i].data).indexOf("</,/>") != -1 &&
+           unescape(data.edits[i].data).indexOf("[[]]") != -1){
+          data.edits[i].data = unescape(data.edits[i].data)
+              .split("</,/>").join(">>")
+              .split("<!!!>").join("[++]")
+              .split("[[]]").join("[::]")
+              .split("_xdby").join("_body")
+        }
         edits.push(data.edits[i].data)
       }
       wk_parse(edits);
