@@ -3,7 +3,7 @@
 (function(){
   var wk_conf = ({
     wk_mode: 2,
-    wk_server: "http://localhost:8080/wkserver",//"http://wikify.appjet.net/",
+    wk_server: "http://wikify.appjet.net/",
     wk_url: window.location.href,
     wk_style: "http://localhost/Wikify/v2/styles.css",
     wk_img: "http://localhost/Wikify/v2/img/",
@@ -633,7 +633,7 @@ function wk_load(callback){
               .split("[[]]").join("[::]")
               .split("_xdby").join("_body")
         }
-        edits.push(data.edits[i].data)
+        edits.push(unescape(data.edits[i].data))
       }
       wk_parse(edits);
       wk_log("Loaded Data: ",data)
@@ -647,7 +647,7 @@ function wk_diffsave(callback){
   var changes = wk_diff();
   if(changes == "" || wk_mode != 2) return callback?callback():false; //no need for simple edits
   
-  wk_send_data(wk_server, {url: wk_url, channel: wk_channel, data: changes, action: "save"}, 
+  wk_send_data(wk_server, {url: wk_url, channel: wk_channel, data: escape(changes), action: "save"}, 
     function(){
       if(callback) callback();
       wk_log("Sent Data: ",changes)
