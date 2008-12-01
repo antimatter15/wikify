@@ -625,20 +625,28 @@ function wk_load(callback){
       var edits = [];
       for(var i = 0; i < data.edits.length; i++){
         /*Backwards Compatability*/
-        if(unescape(data.edits[i].data).indexOf("</,/>") != -1 &&
-           unescape(data.edits[i].data).indexOf("[[]]") != -1){
-          data.edits[i].data = unescape(data.edits[i].data)
-              .split("</,/>").join(">>")
-              .split("<!!!>").join("[++]")
-              .split("[[]]").join("[::]")
-              .split("_xdby").join("_body")
-        }
+        data.edits[i].data = wk_upgrade(data.edits[i].data)
+
         edits.push(unescape(data.edits[i].data))
       }
       wk_parse(edits);
       wk_log("Loaded Data: ",data)
       if(callback) callback();
     })
+}
+
+function wk_upgrade(data){
+  if(unescape(data).indexOf("</,/>") != -1 &&
+     unescape(data).indexOf("[[]]") != -1 &&
+     unescape(data).indexOf("[::]") == -1){
+       data = unescape(data)
+           .split("</,/>").join(">>")
+           .split("<!!!>").join("[++]")
+           .split("[[]]").join("[::]")
+           .split("_xdby").join("_body")
+           .split(">>[::]").join("[::]")
+  }
+  return data
 }
 
 function wk_diffsave(callback){
