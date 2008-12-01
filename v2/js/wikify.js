@@ -572,13 +572,13 @@ function wk_render_channels(){
   $("#wk_channel_text").text(wk_channel+" ("+wk_channels[wk_channel].edits+")");
   $(".wk_chan").remove();
   for(var i in wk_channels){
-    if(i != wk_channel){
+    //if(i != wk_channel){
       $("<li></li>")
       .text(i+" ("+wk_channels[i].edits+")")
       .addClass("wk_chan")
       .data("chan",i)
       .insertBefore(".wk_custom")
-    }
+    //}
   }
   
   $(".wk_chan").click(function(){
