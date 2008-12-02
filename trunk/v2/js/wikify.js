@@ -706,11 +706,11 @@ function wk_send_data(url, params, callback){
 
   document.body.appendChild(div);  
   
-  window[id] = function(){
+  window['fn'+id] = function(){
     callback();
     try{
-      window[id] = null;
-      delete window[id];
+      window['fn'+id] = null;
+      delete window['fn'+id];
     }catch(err){}
     setTimeout(function(){
       if(div.parentNode){
@@ -721,7 +721,7 @@ function wk_send_data(url, params, callback){
   
   div.style.display = "none";
   
-  div.innerHTML = "<iframe id=\""+id+"\" name=\""+id+"\" onload=\"window['"+id+"']()\"></iframe>"
+  div.innerHTML = "<iframe id=\""+id+"\" name=\""+id+"\" onload=\"window['fn"+id+"']()\"></iframe>"
   
   form.target = id;
   form.action = url;
