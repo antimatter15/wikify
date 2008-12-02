@@ -21,9 +21,10 @@ $scripts = array(
 $c = "";
 
 foreach($scripts as $script){
-  $c.="\n\n".file_get_contents("../".$script)."\n\n";
-  echo "\n\n".file_get_contents("../".$script)."\n\n";
+  $c.="\n\n /*wikify file: $script */ \n\n".file_get_contents("../".$script)."\n\n";
 }
+
+echo $c;
 
 file_put_contents("../js/wikify.js",$c);
 ?>
