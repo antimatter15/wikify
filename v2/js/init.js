@@ -1,13 +1,23 @@
 (function(){
-  if(!$("html")[0] || !$("body")[0]){
+
+  if(!$("head")[0]){
+    var blank = '<html><head><title></title></head><body></body></html>';
+    document.open()
+    document.write(blank);
+    document.close();
+  }
+  
+  if(!$("html")[0] || !$("body")[0] || !("head")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Required Document Elements)")
   }
+  
   if(wk_removescripts){
     //$("script").remove(); //remove all scripts (strangely doesn't work on ajaxian)
     $(document.getElementsByTagName("script")).remove()
   }else{
     $("script.wk_initsc").remove(); //remove the loader scripts
   }
+  
   $("#wk_premask").remove();
   wk_original_data = document.documentElement.innerHTML;
   
