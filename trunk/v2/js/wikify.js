@@ -406,6 +406,7 @@ wk_ready(function(){
     $("#wk_news").slideUp().queue(function(){
       if($("#wk_help").css("display") == "none"){
           $("#wk_about").css("top", -$("#wk_about").height());
+          $("#wk_about").css("left", ($(window).width()/2) - ($("#wk_about").width()/2));
           $("#wk_about").css("display", "block");
           $("#wk_about").css("opacity", 0.8)
           $(window).trigger("resize")
@@ -516,11 +517,11 @@ function wk_mask(mode){
 }
 
 wk_ready(function(){
-  $(window).resize(wk_resize);
-  setTimeout(wk_resize, 100);
-  
   $("#wk_logo").click(wk_collapse)
   $("#wk_expand").click(wk_expand)
+  $(window).resize(wk_resize);
+  setTimeout(wk_resize, 100);
+  wk_resize();
 })
 
 

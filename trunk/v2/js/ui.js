@@ -60,9 +60,9 @@ function wk_mask(mode){
 }
 
 wk_ready(function(){
-  $(window).resize(wk_resize);
-  setTimeout(wk_resize, 100);
-  
   $("#wk_logo").click(wk_collapse)
   $("#wk_expand").click(wk_expand)
+  $(window).resize(wk_resize);
+  setTimeout(wk_resize, 100);
+  wk_resize();
 })
