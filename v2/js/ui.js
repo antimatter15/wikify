@@ -25,6 +25,11 @@ function wk_expand(){
 }
 
 function wk_resize(){
+  if($(window).width() < 800){
+    $(".wk_btn_txt").hide()
+  }else{
+    $(".wk_btn_txt").fadeIn()
+  }
   $("#wk_about").animate({
     top: ($(window).height()/2) - ($("#wk_about").height()/2),
     left: ($(window).width()/2) - ($("#wk_about").width()/2)
