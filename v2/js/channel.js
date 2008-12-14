@@ -8,12 +8,12 @@ function wk_set_channel(channel){
 }
 
 function wk_render_channels(){
-  $("#wk_channel_text").text(wk_channel_title(wk_channel, wk_channels[wk_channel].edits));
+  $("#wk_channel_text").text(wk_mini?wk_channel:(wk_channel+" ("+wk_channels[wk_channel].edits+")"));
   $(".wk_chan").remove();
   for(var i in wk_channels){
     //if(i != wk_channel){
       $("<li></li>")
-      .text(wk_channel_title(i,wk_channels[i].edits))
+      .text(i+" ("+wk_channels[i].edits+")")
       .addClass("wk_chan")
       .data("chan",i)
       .insertBefore(".wk_custom")
@@ -27,9 +27,6 @@ function wk_render_channels(){
   })
 }
 
-function wk_channel_title(name, edits){
-  return wk_mini?(name):(name+" ("+edits+")");
-}
 
 function wk_get_channels(callback){
   wk_get_data(wk_server, {url: wk_url, action: "channel"}, function(e){
