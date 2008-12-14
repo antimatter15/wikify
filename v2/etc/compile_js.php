@@ -1,7 +1,6 @@
 <?php
 header("content-type: text/javascript");
 $scripts = array(
-"js/config.js",
 "js/misc.js",
 "js/toolbar.js",
 "js/jquery.color.mini.js",
@@ -25,7 +24,8 @@ foreach($scripts as $script){
   $c.="\n\n /*wikify file: $script */ \n\n".file_get_contents("../".$script)."\n\n";
 }
 
-echo $c;
+echo file_get_contents("../js/config.js")."\n\n".$c;
 
-file_put_contents("../js/wikify.js",$c);
+file_put_contents("../js/wikify.js",file_get_contents("../js/config.js")."\n\n".$c);
+file_put_contents("../../appengine/webwikify/static3/wikify2.js",file_get_contents("../js/config.GAE.js")."\n\n".$c);
 ?>

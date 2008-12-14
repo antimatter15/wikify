@@ -1,7 +1,3 @@
-
-
- /*wikify file: js/config.js */ 
-
 (function(){
   var wk_conf = ({
     wk_mode: 2,
