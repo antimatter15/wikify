@@ -484,8 +484,15 @@ function wk_expand(){
 function wk_resize(){
   if($(window).width() < 800){
     $(".wk_btn_txt").hide()
+    $("#wk_logo").animate({
+      width: "32px"
+    });
+    
   }else{
     $(".wk_btn_txt").fadeIn()
+    $("#wk_logo").animate({
+      width: "190px"
+    });
   }
   $("#wk_about").animate({
     top: ($(window).height()/2) - ($("#wk_about").height()/2),
