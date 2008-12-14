@@ -26,6 +26,7 @@
 /*Not-Really variables*/
 var wk_readyqueue = [];
 var wk_original_data = "";
+var wk_mini = false;
 
 function wk_onlaunch(){
   wk_remode(); //woot!
