@@ -21,6 +21,7 @@ wk_ready(function(){
     $("#wk_news").slideUp().queue(function(){
       if($("#wk_help").css("display") == "none"){
           $("#wk_about").css("top", -$("#wk_about").height());
+          $("#wk_about").css("left", ($(window).width()/2) - ($("#wk_about").width()/2));
           $("#wk_about").css("display", "block");
           $("#wk_about").css("opacity", 0.8)
           $(window).trigger("resize")
