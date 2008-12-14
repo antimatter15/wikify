@@ -7,7 +7,8 @@ function wk_set_channel(channel){
   wk_get_channels()
   
   if(wk_mode == 0){
-    wk_setmode(1); //view, or should it be edit?
+    wk_showmsg("To see the contents of a channel, first go to either the View or Edit mode.")
+    //wk_setmode(1); //view, or should it be edit?
   }
 }
 

@@ -26,7 +26,10 @@ function wk_enable_edit(){
 function wk_keyboard(){
   if(!$('#wk_iframe').data('wkhd')){
     $(wk_doc.documentElement).keypress(function(e){
-      if(e.ctrlKey && e.charCode == 115 && wk_mode == 2){
+      if(wk_mode < 2){
+        wk_showmsg("If you want to edit the page, first enter Edit mode.")
+      }
+      if(e.ctrlKey && e.charCode == 115 /*Ctrl+S*/ && wk_mode == 2){
         e.preventDefault();
         $(".wk_btn_save").click();
       }
