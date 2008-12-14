@@ -1,11 +1,14 @@
-(function(){
-
-  if(!$("head")[0]){
+wk_coreinit = function(){
+  if(!jQuery || !$ ||!jQuery() || !$() || !$().jquery){
+    return alert("Project Wikify has encountered a fatal error\n(JS Loader failed initializing dependencies)")
+  }
+  if(!$("head")[0] || !jQuery("<div>Something_Very_Strange</div>").html()){
     var blank = '<html><head><title></title></head><body></body></html>';
     document.open()
     document.write(blank);
     document.close();
   }
+
   
   if(!$("html")[0] || !$("body")[0] || !("head")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Required Document Elements)")
@@ -55,5 +58,7 @@
   wk_remode();
 
 
-})()
+}
+
+wk_coreinit();
 
