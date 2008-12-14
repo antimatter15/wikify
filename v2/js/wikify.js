@@ -258,7 +258,10 @@ function wk_enable_edit(){
 function wk_keyboard(){
   if(!$('#wk_iframe').data('wkhd')){
     $(wk_doc.documentElement).keypress(function(e){
-      if(e.ctrlKey && e.charCode == 115 && wk_mode == 2){
+      if(wk_mode < 2){
+        wk_showmsg("If you want to edit the page, first enter Edit mode.")
+      }
+      if(e.ctrlKey && e.charCode == 115 /*Ctrl+S*/ && wk_mode == 2){
         e.preventDefault();
         $(".wk_btn_save").click();
       }
@@ -362,6 +365,11 @@ function wk_edit(){
     },200)
 }
 
+
+function wk_setmode(mode){
+  wk_mode = mode;
+  wk_remode();
+}
 
 function wk_remode(){
   $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click(); //woot!
@@ -483,30 +491,35 @@ function wk_expand(){
 }
 
 function wk_resize(){
-  if($(window).width() < 800){
-    wk_mini = true;
-    wk_render_channels()
-    $("li.wk_space").hide("slow")
-    $(".wk_btn_txt").hide("slow")
-    $("#wk_logo").animate({
-      width: "32px"
-    });
+  if($(window).width() < 500){
     $(".wk_btn_original").text("Org")
     $(".wk_btn_view").text("Viw")
     $(".wk_btn_edit").text("Edt")
+  }else{ 
+    $(".wk_btn_original").text("Original")
+    $(".wk_btn_view").text("View")
+    $(".wk_btn_edit").text("Edit")    
+  }
+  if($(window).width() < 800){
+    wk_mini = true;
+    wk_render_channels()
+    $("#wk_help").css("height","55px")
+    $("li.wk_space").hide("slow")
+    $(".wk_btn_txt").hide("slow")
+    $("#wk_logo").stop(true).animate({
+      width: 32
+    });
   }else{
     wk_mini = false;
     $("li.wk_space").show("slow")
+    $("#wk_help").css("height","")
     wk_render_channels()
     $(".wk_btn_txt").show("slow")
-    $("#wk_logo").animate({
-      width: "190px"
+    $("#wk_logo").stop(true).animate({
+      width: 190
     });
-    $(".wk_btn_original").text("Original")
-    $(".wk_btn_view").text("View")
-    $(".wk_btn_edit").text("Edit")
   }
-  $("#wk_about").animate({
+  $("#wk_about").stop(true).animate({
     top: ($(window).height()/2) - ($("#wk_about").height()/2),
     left: ($(window).width()/2) - ($("#wk_about").width()/2)
   });
@@ -612,15 +625,20 @@ function wk_set_channel(channel){
   }
   $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click()
   wk_get_channels()
+  
+  if(wk_mode == 0){
+    wk_showmsg("To see the contents of a channel, first go to either the View or Edit mode.")
+    //wk_setmode(1); //view, or should it be edit?
+  }
 }
 
 function wk_render_channels(){
-  $("#wk_channel_text").text(wk_channel_title(wk_channel, wk_channels[wk_channel].edits));
+  $("#wk_channel_text").text(wk_mini?wk_channel:(wk_channel+" ("+wk_channels[wk_channel].edits+")"));
   $(".wk_chan").remove();
   for(var i in wk_channels){
     //if(i != wk_channel){
       $("<li></li>")
-      .text(wk_channel_title(i,wk_channels[i].edits))
+      .text(i+" ("+wk_channels[i].edits+")")
       .addClass("wk_chan")
       .data("chan",i)
       .insertBefore(".wk_custom")
@@ -634,9 +652,6 @@ function wk_render_channels(){
   })
 }
 
-function wk_channel_title(name, edits){
-  return wk_mini?(name):(name+" ("+edits+")");
-}
 
 function wk_get_channels(callback){
   wk_get_data(wk_server, {url: wk_url, action: "channel"}, function(e){
@@ -897,6 +912,39 @@ function wk_autosnapshot(c){
         if(c) c();
   },1337/10);
 }
+
+
+
+ /*wikify file: js/message.js */ 
+
+var wk_curmsgid = -1;
+
+function wk_hidemsg(){
+  $("#wk_msg").stop(true).animate({
+    left: "-100%"
+  })
+}
+
+function wk_showmsg(message){
+  $("#wk_msgtext").text(message)
+  $("#wk_msg").stop(true).animate({
+    left: "0%"
+  });
+  var msgid = Math.floor(Math.random()*999999999); //bignumber!
+  wk_curmsgid = msgid;
+  setTimeout(function(){
+    if(wk_curmsgid == msgid){
+      wk_hidemsg()
+    }
+  }, 5000)
+}
+
+
+wk_ready(function(){
+  $(".wk_dismiss").click(function(){
+    wk_hidemsg();
+  })
+})
 
 
 
