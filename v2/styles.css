@@ -204,3 +204,35 @@ body {
   display: none;
   background-color: gray
 }
+
+#wk_msg {
+  background-color: #8095AA;
+  position: absolute;
+  width: 100%;
+  top: 30;
+  left: -100%;
+  z-index: 4999;
+  height: 30px;
+  text-align: center;
+  overflow: hidden;
+}
+
+#wk_msg img {
+  padding-left: 5px;
+  padding-top: 3px;
+  padding-right: 5px;
+}
+
+#wk_msg img.wk_alerticon {
+  float: left;
+}
+
+#wk_msg img.wk_dismiss {
+  float: right;
+  cursor: pointer;
+}
+
+#wk_msgtext {
+  font-family: Tahoma, Verdana, 'Trebuchet MS', Arial, Helvetica, sans-serif;  
+  padding-top: 5px;
+}
