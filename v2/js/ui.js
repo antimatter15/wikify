@@ -37,6 +37,7 @@ function wk_resize(){
   if($(window).width() < 800){
     wk_mini = true;
     wk_render_channels()
+    $("#wk_help").css("height","55px")
     $("li.wk_space").hide("slow")
     $(".wk_btn_txt").hide("slow")
     $("#wk_logo").stop(true).animate({
@@ -45,6 +46,7 @@ function wk_resize(){
   }else{
     wk_mini = false;
     $("li.wk_space").show("slow")
+    $("#wk_help").css("height","")
     wk_render_channels()
     $(".wk_btn_txt").show("slow")
     $("#wk_logo").stop(true).animate({
