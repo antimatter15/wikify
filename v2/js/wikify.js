@@ -608,6 +608,7 @@ function wk_hideabout(){
       $(this).css("display", "none")
       $(this).dequeue()
     })
+    wk_hidemsg();
 }
 
 
