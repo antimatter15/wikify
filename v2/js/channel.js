@@ -1,4 +1,3 @@
-
 function wk_set_channel(channel){
   wk_channel = channel;
   if(!wk_channels[wk_channel]){
@@ -9,22 +8,27 @@ function wk_set_channel(channel){
 }
 
 function wk_render_channels(){
-  $("#wk_channel_text").text(wk_channel+" ("+wk_channels[wk_channel].edits+")");
+  $("#wk_channel_text").text(wk_channel_title(wk_channel, wk_channels[wk_channel].edits));
   $(".wk_chan").remove();
   for(var i in wk_channels){
     //if(i != wk_channel){
       $("<li></li>")
-      .text(i+" ("+wk_channels[i].edits+")")
+      .text(wk_channel_title(i,wk_channels[i].edits))
       .addClass("wk_chan")
       .data("chan",i)
       .insertBefore(".wk_custom")
     //}
   }
   
+  
   $(".wk_chan").click(function(){
     $(".wk_down").slideUp();
     wk_set_channel($(this).data("chan"))
   })
+}
+
+function wk_channel_title(name, edits){
+  return wk_mini?(name):(name+" ("+edits+")");
 }
 
 function wk_get_channels(callback){
