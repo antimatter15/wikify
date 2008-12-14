@@ -30,6 +30,7 @@
 /*Not-Really variables*/
 var wk_readyqueue = [];
 var wk_original_data = "";
+var wk_mini = false;
 
 function wk_onlaunch(){
   wk_remode(); //woot!
@@ -84,7 +85,7 @@ setInterval(function(){
 
  /*wikify file: js/toolbar.js */ 
 
-var wk_toolbar = '<div id="wk_toolbar"><ul><li class="wk_logo" id="wk_logo"><img src="img/wikify.png" alt="Project Wikify (beta)" title="Collapse Toolbar"></li><li>&nbsp;</li><li id="wk_channel"><ul class="wk_down"><li class="wk_custom">Custom</li></ul><ul id="wk_channel_visible"><li id="wk_channel_text">Loading...</li><li class="wk_arrow"><img src="img/down.png" style="padding-top: 5px;"></li></ul></li><li>&nbsp;</li><li class="wk_btn wk_mode wk_btn_original" title="Original">Original</li><li class="wk_btn wk_mode wk_btn_view" title="View">View</li><li class="wk_btn wk_mode wk_btn_edit" title="Edit">Edit</li></ul><ul style="float: right" class="wk_btn wk_btn_news" title="News"><li class="wk_right"><img src="img/package_editors.png"></li><li class="wk_right wk_btn_txt">News</li></ul><ul style="float: right" class="wk_btn wk_btn_help" title="Help"><li class="wk_right"><img src="img/info.png"></li><li class="wk_right wk_btn_txt">Help</li></ul><ul style="float: right" class="wk_btn wk_btn_save" title="Save"><li id="wk_save" class="wk_right"><img src="img/3floppy_unmount.png"></li><li id="wk_saving" class="wk_right" style="display: none"><img src="img/loading.gif"></li><li class="wk_right wk_btn_txt">Save</li></ul></div><div id="wk_expand">&gt;</div><div id="wk_mask"><h1 class="wk_load">Loading...</h1></div><iframe id="wk_iframe" class="wk_fill" border="0"></iframe><div id="wk_news"><div style="float: left; width: 50%"><h3>This Page</h3></div><div style="float: right; width: 50%"><h3>Wikify Global</h3></div></div><div id="wk_help"><span class="wk_note">Move your mouse cursor over the toolbar items to see what they do.</span><div id="wk_tooltip">&nbsp;</div></div><div id="wk_about"><h3>About Project Wikify</h3><p>Project Wikify started on August 27, 2008 by Antimatter15.</p><p style="font-size: x-small">And no, you can\'t edit this message :P</p></div>';
+var wk_toolbar = '<div id="wk_toolbar"><ul><li class="wk_logo" id="wk_logo"><img src="img/wikify.png" alt="Project Wikify (beta)" title="Collapse Toolbar"></li><li>&nbsp;</li><li id="wk_channel"><ul class="wk_down"><li class="wk_custom">Custom</li></ul><ul id="wk_channel_visible"><li id="wk_channel_text">Loading...</li><li class="wk_arrow"><img src="img/down.png" style="padding-top: 5px;"></li></ul></li><li>&nbsp;</li><li class="wk_btn wk_mode wk_btn_original" title="Original">Original</li><li class="wk_btn wk_mode wk_btn_view" title="View">View</li><li class="wk_btn wk_mode wk_btn_edit" title="Edit">Edit</li></ul><ul style="float: right" class="wk_btn wk_btn_news" title="News"><li class="wk_right"><img src="img/package_editors.png"></li><li class="wk_right wk_btn_txt">News</li></ul><ul style="float: right" class="wk_btn wk_btn_help" title="Help"><li class="wk_right"><img src="img/info.png"></li><li class="wk_right wk_btn_txt">Help</li></ul><ul style="float: right" class="wk_btn wk_btn_save" title="Save"><li id="wk_save" class="wk_right"><img src="img/3floppy_unmount.png"></li><li id="wk_saving" class="wk_right" style="display: none"><img src="img/loading.gif"></li><li class="wk_right wk_btn_txt">Save</li></ul></div><div id="wk_expand">&gt;</div><div id="wk_mask"><h1 class="wk_load">Loading...</h1></div><iframe id="wk_iframe" class="wk_fill" border="0"></iframe><div id="wk_news"><div style="float: left; width: 50%"><h3>This Page</h3></div><div style="float: right; width: 50%"><h3>Wikify Global</h3></div></div><div id="wk_help"><span class="wk_note">Move your mouse cursor over the toolbar items to see what they do.</span><div id="wk_tooltip">&nbsp;</div></div><div id="wk_about"><h3>About Project Wikify</h3><p>&copy; 2008-2009 Antimatter15. All Rights Reserved. Please don\'t sue me.</p><p style="font-size: x-small">And no, you can\'t edit this message :P</p><button style="float: left" id="wk_credits">Credits</button><button style="float: right" id="wk_history">History</button></div>';
 
 
 
@@ -483,7 +484,10 @@ function wk_expand(){
 
 function wk_resize(){
   if($(window).width() < 800){
-    $(".wk_btn_txt").hide()
+    wk_mini = true;
+    wk_render_channels()
+    $("li.wk_space").hide("slow")
+    $(".wk_btn_txt").hide("slow")
     $("#wk_logo").animate({
       width: "32px"
     });
@@ -491,7 +495,10 @@ function wk_resize(){
     $(".wk_btn_view").text("Viw")
     $(".wk_btn_edit").text("Edt")
   }else{
-    $(".wk_btn_txt").fadeIn()
+    wk_mini = false;
+    $("li.wk_space").show("slow")
+    wk_render_channels()
+    $(".wk_btn_txt").show("slow")
     $("#wk_logo").animate({
       width: "190px"
     });
@@ -598,7 +605,6 @@ function wk_hideabout(){
 
  /*wikify file: js/channel.js */ 
 
-
 function wk_set_channel(channel){
   wk_channel = channel;
   if(!wk_channels[wk_channel]){
@@ -609,22 +615,27 @@ function wk_set_channel(channel){
 }
 
 function wk_render_channels(){
-  $("#wk_channel_text").text(wk_channel+" ("+wk_channels[wk_channel].edits+")");
+  $("#wk_channel_text").text(wk_channel_title(wk_channel, wk_channels[wk_channel].edits));
   $(".wk_chan").remove();
   for(var i in wk_channels){
     //if(i != wk_channel){
       $("<li></li>")
-      .text(i+" ("+wk_channels[i].edits+")")
+      .text(wk_channel_title(i,wk_channels[i].edits))
       .addClass("wk_chan")
       .data("chan",i)
       .insertBefore(".wk_custom")
     //}
   }
   
+  
   $(".wk_chan").click(function(){
     $(".wk_down").slideUp();
     wk_set_channel($(this).data("chan"))
   })
+}
+
+function wk_channel_title(name, edits){
+  return wk_mini?(name):(name+" ("+edits+")");
 }
 
 function wk_get_channels(callback){

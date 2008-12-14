@@ -25,30 +25,33 @@ function wk_expand(){
 }
 
 function wk_resize(){
+  if($(window).width() < 500){
+    $(".wk_btn_original").text("Org")
+    $(".wk_btn_view").text("Viw")
+    $(".wk_btn_edit").text("Edt")
+  }else{ 
+    $(".wk_btn_original").text("Original")
+    $(".wk_btn_view").text("View")
+    $(".wk_btn_edit").text("Edit")    
+  }
   if($(window).width() < 800){
     wk_mini = true;
     wk_render_channels()
     $("li.wk_space").hide("slow")
     $(".wk_btn_txt").hide("slow")
-    $("#wk_logo").animate({
-      width: "32px"
+    $("#wk_logo").stop(true).animate({
+      width: 32
     });
-    $(".wk_btn_original").text("Org")
-    $(".wk_btn_view").text("Viw")
-    $(".wk_btn_edit").text("Edt")
   }else{
     wk_mini = false;
     $("li.wk_space").show("slow")
     wk_render_channels()
     $(".wk_btn_txt").show("slow")
-    $("#wk_logo").animate({
-      width: "190px"
+    $("#wk_logo").stop(true).animate({
+      width: 190
     });
-    $(".wk_btn_original").text("Original")
-    $(".wk_btn_view").text("View")
-    $(".wk_btn_edit").text("Edit")
   }
-  $("#wk_about").animate({
+  $("#wk_about").stop(true).animate({
     top: ($(window).height()/2) - ($("#wk_about").height()/2),
     left: ($(window).width()/2) - ($("#wk_about").width()/2)
   });
