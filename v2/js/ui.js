@@ -26,7 +26,10 @@ function wk_expand(){
 
 function wk_resize(){
   if($(window).width() < 800){
-    $(".wk_btn_txt").hide()
+    wk_mini = true;
+    wk_render_channels()
+    $("li.wk_space").hide("slow")
+    $(".wk_btn_txt").hide("slow")
     $("#wk_logo").animate({
       width: "32px"
     });
@@ -34,7 +37,10 @@ function wk_resize(){
     $(".wk_btn_view").text("Viw")
     $(".wk_btn_edit").text("Edt")
   }else{
-    $(".wk_btn_txt").fadeIn()
+    wk_mini = false;
+    $("li.wk_space").show("slow")
+    wk_render_channels()
+    $(".wk_btn_txt").show("slow")
     $("#wk_logo").animate({
       width: "190px"
     });
