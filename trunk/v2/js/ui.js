@@ -30,12 +30,17 @@ function wk_resize(){
     $("#wk_logo").animate({
       width: "32px"
     });
-    
+    $(".wk_btn_original").text("Org")
+    $(".wk_btn_view").text("Viw")
+    $(".wk_btn_edit").text("Edt")
   }else{
     $(".wk_btn_txt").fadeIn()
     $("#wk_logo").animate({
       width: "190px"
     });
+    $(".wk_btn_original").text("Original")
+    $(".wk_btn_view").text("View")
+    $(".wk_btn_edit").text("Edit")
   }
   $("#wk_about").animate({
     top: ($(window).height()/2) - ($("#wk_about").height()/2),

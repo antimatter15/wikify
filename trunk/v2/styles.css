@@ -166,7 +166,7 @@ body {
   height: 55px;
   display: none;
   text-align: center;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .wk_btn_save {
