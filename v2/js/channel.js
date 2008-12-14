@@ -5,6 +5,10 @@ function wk_set_channel(channel){
   }
   $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click()
   wk_get_channels()
+  
+  if(wk_mode == 0){
+    
+  }
 }
 
 function wk_render_channels(){
