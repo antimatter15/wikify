@@ -7,7 +7,7 @@ function wk_set_channel(channel){
   wk_get_channels()
   
   if(wk_mode == 0){
-    
+    wk_setmode(1); //view, or should it be edit?
   }
 }
 
