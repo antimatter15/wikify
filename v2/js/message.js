@@ -1,15 +1,23 @@
+var wk_curmsgid = -1;
+
 function wk_hidemsg(){
-  $("#wk_msg").animate({
+  $("#wk_msg").stop(true).animate({
     left: "-100%"
   })
 }
 
 function wk_showmsg(message){
   $("#wk_msgtext").text(message)
-  $("#wk_msg").animate({
+  $("#wk_msg").stop(true).animate({
     left: "0%"
   });
-  setTimeout(wk_hidemsg, 5000)
+  var msgid = Math.floor(Math.random()*999999999); //bignumber!
+  wk_curmsgid = msgid;
+  setTimeout(function(){
+    if(wk_curmsgid == msgid){
+      wk_hidemsg()
+    }
+  }, 5000)
 }
 
 

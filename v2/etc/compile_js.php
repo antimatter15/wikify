@@ -15,6 +15,7 @@ $scripts = array(
 "js/data.js",
 "js/communication.js",
 "js/dom.js",
+"js/message.js",
 "js/init.js"
 );
 
