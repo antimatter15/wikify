@@ -2,6 +2,18 @@ var wk_snapshot = null;
 var wk_lastsnapshot = 0;
 var wk_doc = null;
 
+/*
+Wikify Format:
+
+Element ID (or _body)
+>> Parent Node Index (as needed)
+>> Parent Node Index (as needed)
+[::] (marks beginning of data
+
+
+
+*/
+
 function wk_getChildren(e){
   var m = [], k = e.childNodes, v = k.length, u;
   for(var x = 0; x < v; x++){
