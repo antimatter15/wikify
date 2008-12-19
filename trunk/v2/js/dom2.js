@@ -57,7 +57,7 @@ function wk_getText(e){
 }
 
 function wk_fromID(text){
-  var a = text.split(">>")
+  var a = text.split(">")
   var e = (a[0]=="_body")?wk_doc.body: //body
       wk_doc.getElementById(a[0]); //or id
   
@@ -72,7 +72,7 @@ function wk_getID(e){
   while(e != wk_doc.body && !e.id){
     k = wk_getChildren(e.parentNode);
     for(var i = 0; k[i] != e; i++);
-    a = ">>"+i+a;
+    a = ">"+i+a;
     e = e.parentNode;
   }
   return (e.id?e.id:"_body") + a
