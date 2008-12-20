@@ -38,9 +38,13 @@ wk_coreinit = function(){
   document.body.appendChild(m);
   
 
-  $('<link rel="stylesheet" type="text/css" media="screen">') //add the styles
-    .attr("href", wk_style)
-    .appendTo("head");
+  var l = document.createElement("link")
+  l.rel = "stylesheet";
+  l.type = "text/css";
+  l.media = "screen";
+  l.href = wk_style;
+  
+  $("head").append(l)
 
   if(!$("#wk_iframe")[0] || !$("#wk_toolbar")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Generated Elements)")
