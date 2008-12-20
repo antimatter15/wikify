@@ -38,7 +38,11 @@ function wk_upgrade_v0(data){
 }
 
 function wk_upgrade_v1(data){
-  return data
+  if(unescape(data).indexOf("[::]") != -1 &&
+    unescape(data).substr(0,unescape(data).indexOf("[::]")).indexOf(">>") != -1){
+    data = data
     .split(">>").join(">")
     .split("[::]").join(">o=")
+  }
+  return data;
 }
