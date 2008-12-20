@@ -43,7 +43,9 @@ function wk_upgrade_v0(data){
 function wk_upgrade_v1(data){
   function nf(d){return unescape(data).indexOf(d)}
   if(nf("[::]") != -1 &&
-    unescape(data).substr(0,nf("[::]")).indexOf(">>") != -1){
+    unescape(data)
+      .split("[::]").join(">>[::]")
+      .substr(0,nf("[::]")+2).indexOf(">>") != -1){
     data = data
     .split(">>").join(">")
     .split("[::]").join(">o=")

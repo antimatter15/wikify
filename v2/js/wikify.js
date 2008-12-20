@@ -717,7 +717,9 @@ function wk_upgrade_v0(data){
 function wk_upgrade_v1(data){
   function nf(d){return unescape(data).indexOf(d)}
   if(nf("[::]") != -1 &&
-    unescape(data).substr(0,nf("[::]")).indexOf(">>") != -1){
+    unescape(data)
+      .split("[::]").join(">>[::]")
+      .substr(0,nf("[::]")+2).indexOf(">>") != -1){
     data = data
     .split(">>").join(">")
     .split("[::]").join(">o=")
@@ -763,17 +765,14 @@ function wk_patch_links(){
 function wk_load(callback){
   wk_get_data(wk_server, {url: wk_url, channel: wk_channel, action: "load"}, 
     function(data){
-      wk_cache[wk_channel] = data;
       var edits = [];
       for(var i = 0; i < data.edits.length; i++){
-        
-        
         /*Backwards Compatability*/
-        
+   
         data.edits[i].data = wk_upgrade(data.edits[i].data)
-
         edits.push(unescape(data.edits[i].data))
       }
+      wk_cache[wk_channel] = data;
       wk_parse(edits);
       wk_log("Loaded Data: ",data)
       if(callback) callback();
