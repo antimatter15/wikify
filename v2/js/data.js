@@ -26,7 +26,7 @@ function wk_load(callback){
       for(var i = 0; i < data.edits.length; i++){
         /*Backwards Compatability*/
    
-        data.edits[i].data = unescape(wk_upgrade(data.edits[i].data))
+        data.edits[i].data = wk_upgrade(unescape(data.edits[i].data))
         edits.push(data.edits[i].data)
       }
       

@@ -126,7 +126,8 @@ function wk_diff(){
         var diff = dmp.diff_main(wk_snapshot[i][1],el.innerHTML)
         var patch_list = dmp.patch_make(wk_snapshot[i][1],el.innerHTML,diff)
         var patch_text = dmp.patch_toText(patch_list);
-        if(el.innerHTML.length < patch_text){
+        
+        if(el.innerHTML.length < patch_text.length){
           //if innerHTML dump is more efficient
           changes.push(i+">d="+el.innerHTML)
         }else{

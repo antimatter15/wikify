@@ -775,7 +775,7 @@ function wk_load(callback){
       for(var i = 0; i < data.edits.length; i++){
         /*Backwards Compatability*/
    
-        data.edits[i].data = unescape(wk_upgrade(data.edits[i].data))
+        data.edits[i].data = wk_upgrade(unescape(data.edits[i].data))
         edits.push(data.edits[i].data)
       }
       
@@ -1003,7 +1003,8 @@ function wk_diff(){
         var diff = dmp.diff_main(wk_snapshot[i][1],el.innerHTML)
         var patch_list = dmp.patch_make(wk_snapshot[i][1],el.innerHTML,diff)
         var patch_text = dmp.patch_toText(patch_list);
-        if(el.innerHTML.length < patch_text){
+        
+        if(el.innerHTML.length < patch_text.length){
           //if innerHTML dump is more efficient
           changes.push(i+">d="+el.innerHTML)
         }else{
