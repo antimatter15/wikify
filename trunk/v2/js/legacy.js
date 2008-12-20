@@ -24,7 +24,7 @@ function wk_getChildrenLegacy(e){
 
 
 function wk_upgrade_v0(data){
-  function nf(d){return nf(d)}
+  function nf(d){return unescape(data).indexOf(d)}
   if(nf("</,/>") != -1 &&
      nf("[[]]") != -1 &&
      nf("[::]") == -1){
@@ -39,7 +39,7 @@ function wk_upgrade_v0(data){
 }
 
 function wk_upgrade_v1(data){
-  function nf(d){return nf(d)}
+  function nf(d){return unescape(data).indexOf(d)}
   if(nf("[::]") != -1 &&
     unescape(data).substr(0,nf("[::]")).indexOf(">>") != -1){
     data = data
@@ -50,7 +50,7 @@ function wk_upgrade_v1(data){
 }
 
 function wk_upgrade(data){
-  function nf(d){return nf(d)}
+  function nf(d){return unescape(data).indexOf(d)}
   if(nf(">o=") == -1 &&
      nf(">p=") == -1 &&
      nf(">d=") == -1){
