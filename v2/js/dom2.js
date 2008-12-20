@@ -65,7 +65,7 @@ function wk_getChildren2(e,tag){
   for(var x = 0; x < v; x++){
     u = k[x];
     if(u.nodeType == 1 && 
-      ((u.tagName == tag || u.tagName.toLowerCase() == tag.toLowerCase()) || tag == "*")
+      (u.tagName == tag || u.tagName.toLowerCase() == tag.toLowerCase())
     ) m.push(u)
   }
   return m;
