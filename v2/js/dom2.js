@@ -2,7 +2,22 @@ var wk_snapshot = null;
 var wk_lastsnapshot = 0;
 var wk_doc = null;
 
-/*Wikify Format Legacy:
+/*
+
+Element Locator FOrmat:
+  
+  Element ID (or _body)
+{
+  >
+  Element Tag Name (or *)
+  :
+  Element Parent Index 
+} (use/repeat as needed)  
+  >
+  Patch Format (d for normal, p for patch)
+  
+
+Wikify Format Legacy:
 
 Element ID (or _xdby)
 </,/> Parent Node Index (as needed)
@@ -50,7 +65,7 @@ function wk_getChildren2(e,tag){
   for(var x = 0; x < v; x++){
     u = k[x];
     if(u.nodeType == 1 && 
-      (u.tagName == tag || u.tagName.toLowerCase() == tag.toLowerCase())
+      ((u.tagName == tag || u.tagName.toLowerCase() == tag.toLowerCase()) || tag == "*")
     ) m.push(u)
   }
   return m;
@@ -84,9 +99,9 @@ function wk_splitdata(text){
       k = text.substr(0,x),
       l = k.lastIndexOf(">")
   return [
-    k.substr(l+1),
-    k.substr(0,l),
-    text.substr(x+1)
+    k.substr(l+1), //the patch type
+    k.substr(0,l), //the element patched
+    text.substr(x+1) //the patch data
   ]
 }
 
@@ -166,9 +181,18 @@ function wk_parse(changes){
   for(var i = 0; i < changes.length; i++){
     if(changes[i] != ''){
       try{
-      
-      var edit = changes[i].split("[::]");
-      wk_fromID(edit[0]).innerHTML = edit[1]
+        var edit = wk_splitdata(changes[i]);
+        //0: patch type, 1: patch element, 2: patch data
+        if(edit[0] == "p"){
+          //patch
+          var dmp = new diff_match_patch();
+          var patches = dmp.patch_fromText(edit[2]);
+          var results = dmp.patch_apply(patches, wk_fromID2(edit[1]).innerHTML);
+          wk_fromID2(edit[1]).innerHTML = results[0];
+        }else if(edit[0] == "d"){
+          //normal
+          wk_fromID2(edit[1]).innerHTML = edit[2]
+        }
       }catch(err){
         /*ignore errors*/
       }
