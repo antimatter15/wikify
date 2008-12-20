@@ -14,49 +14,13 @@ Element Locator FOrmat:
   Element Parent Index 
 } (use/repeat as needed)  
   >
-  Patch Format (d for normal, p for patch)
+  Patch Format (d for normal, p for patch, o for legacy)
+  =
+  Patch Data (or innerHTML dump, depending on format)
   
-
-Wikify Format Legacy:
-
-Element ID (or _xdby)
-</,/> Parent Node Index (as needed)
-</,/> Parent Node Index (as needed)
-[[]] (marks beginning of data
-<!!!> split patches
-
-_xdby</,/>0</,/>1[[]]blah
-
-
-Wikify Format:
-
-Element ID (or _body)
->> Parent Node Index (as needed)
->> Parent Node Index (as needed)
-[::] (marks beginning of data
-[++] split patches
-
-_body>>0>>1[::]blah
-
-Wikify Format v2:
-
-Element ID (or _body)
->> Parent Node Index (as needed)
->> Parent Node Index (as needed)
->>d0>> (marks beginning of data (format, d0, d1, d2)
-[++] split patches
-
-_body,0,1(d0):blah
-
-_body>0>1>d:blah
-_body>div:0>div:1>d=blah
-
-
-jq-content>p=
-
-
-_body>>0>>1>>d0>>blah
-_body>>0>>1>>[1]blah
+  
+Example:
+  _body>div:0>div:1>span:2>d=Hello World!
 */
 
 
@@ -192,6 +156,9 @@ function wk_parse(changes){
         }else if(edit[0] == "d"){
           //normal
           wk_fromID2(edit[1]).innerHTML = edit[2]
+        }else if(edit[0] == "o"){
+          //legacy
+          wk_fromIDLegacy(edit[1]).innerHTML = edit[2]
         }
       }catch(err){
         /*ignore errors*/
