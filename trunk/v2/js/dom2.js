@@ -37,6 +37,9 @@ _body>0>1>d:blah
 _body>div:0>div:1>d=blah
 
 
+jq-content>p=
+
+
 _body>>0>>1>>d0>>blah
 _body>>0>>1>>[1]blah
 */
@@ -46,7 +49,9 @@ function wk_getChildren2(e,tag){
   var m = [], k = e.childNodes, v = k.length, u;
   for(var x = 0; x < v; x++){
     u = k[x];
-    if(u.nodeType == 1 && u.tagName.toLowerCase() == tag) m.push(u)
+    if(u.nodeType == 1 && 
+      (u.tagName == tag || u.tagName.toLowerCase() == tag.toLowerCase())
+    ) m.push(u)
   }
   return m;
 }
@@ -85,13 +90,13 @@ function wk_splitdata(text){
   ]
 }
 
-function wk_getID(e){
+function wk_getID2(e){
   var a = "", //declare string that holds ID components
       k = [] //declare temporary cache thing
   while(e != wk_doc.body && !e.id){
-    k = wk_getChildren(e.parentNode);
+    k = wk_getChildren2(e.parentNode,e.tagName);
     for(var i = 0; k[i] != e; i++);
-    a = ">"+i+a;
+    a = (">"+k[i].tagName+":"+i)+a;
     e = e.parentNode;
   }
   return (e.id?e.id:"_body") + a
@@ -108,7 +113,7 @@ function wk_capture(){
     if(!wk_in_list("script,noscript,style,link,frame,iframe",all[i].tagName.toLowerCase()) && 
         all[i].id.indexOf("firebug") == -1){
       try{
-        cap[wk_getID(all[i])] = wk_getText(all[i]);
+        cap[wk_getID2(all[i])] = [wk_getText(all[i]),all[i].innerHTML];
       }catch(err){
         /*ignore errors*/
       }
@@ -120,20 +125,37 @@ function wk_capture(){
   return cap;
 }
 
-function wk_diff(){
+function wk_diff2(){
   var cap = wk_capture(),
       ignore = "",
       changes = [];
   
   for(var i in cap){
     if(!wk_in_list(ignore, i) && //make sure it's not 
-       wk_snapshot[i] != cap[i]
+       wk_snapshot[i][0] != cap[i][0] //and it's changed...
     ){
       var el = wk_fromID(i), //get element
           ch = el.getElementsByTagName("*") //get children
-      for(var x = 0; x < ch.length; x++)
+      for(var x = 0; x < ch.length; x++) //loop all children
         ignore += ","+wk_getID(ch[x]); //add element to ignore list
-      changes.push(i+"[::]"+el.innerHTML)
+        
+      //i is the ID, el is the element
+      //id>type=text
+      if(window.diff_match_patch){ //check if advanced patcherator is available
+        var dmp = new diff_match_patch();
+        var diff = dmp.diff_main(wk_snapshot[i][1],el.innerHTML)
+        var patch_list = dmp.patch_make(wk_snapshot[i][1],el.innerHTML,diff)
+        var patch_text = dmp.patch_toText(patch_list);
+        if(el.innerHTML.length < patch_text){
+          //if innerHTML dump is more efficient
+          changes.push(i+">d="+el.innerHTML)
+        }else{
+          //if super-patch is more efficient
+          changes.push(i+">p="+patch_text)
+        }
+      }else{
+        changes.push(i+">d="+el.innerHTML)
+      }
     }
   }
   return changes.join("[++]")
@@ -144,6 +166,7 @@ function wk_parse(changes){
   for(var i = 0; i < changes.length; i++){
     if(changes[i] != ''){
       try{
+      
       var edit = changes[i].split("[::]");
       wk_fromID(edit[0]).innerHTML = edit[1]
       }catch(err){
@@ -151,14 +174,4 @@ function wk_parse(changes){
       }
     }
   }
-}
-
-function wk_autosnapshot(c){
-  setTimeout(function(){
-        if((new Date()).getTime() - wk_lastsnapshot > 300){
-          wk_snapshot = wk_capture();
-          wk_lastsnapshot = (new Date()).getTime();
-        }
-        if(c) c();
-  },1337/10);
 }
