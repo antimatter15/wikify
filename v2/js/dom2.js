@@ -147,6 +147,7 @@ function wk_parse(changes){
     if(changes[i] != ''){
       try{
         var edit = wk_splitdata(changes[i]);
+        
         //0: patch type, 1: patch element, 2: patch data
         if(edit[0] == "p"){
           //patch
@@ -162,6 +163,9 @@ function wk_parse(changes){
           wk_fromIDLegacy(edit[1]).innerHTML = edit[2]
         }
       }catch(err){
+        alert(edit.join(";"))
+        alert(err)
+        //console.error(err)
         /*ignore errors*/
       }
     }

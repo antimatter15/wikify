@@ -1,5 +1,7 @@
+//not technically legacy, more of an intermediate format
+
 function wk_fromIDLegacy(text){
-  var a = text.split(">>")
+  var a = text.split(">")
   var e = (a[0]=="_body")?wk_doc.body: //body
       wk_doc.getElementById(a[0]); //or id
   

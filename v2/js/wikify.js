@@ -26,7 +26,8 @@
 /*Not-Really variables*/
 var wk_readyqueue = [];
 var wk_original_data = "";
-var wk_mini = false;
+var wk_ui = 0;
+var wk_cache = {};
 
 function wk_onlaunch(){
   wk_remode(); //woot!
@@ -760,8 +761,11 @@ function wk_patch_links(){
 function wk_load(callback){
   wk_get_data(wk_server, {url: wk_url, channel: wk_channel, action: "load"}, 
     function(data){
+      wk_cache[wk_channel] = data;
       var edits = [];
       for(var i = 0; i < data.edits.length; i++){
+        
+        
         /*Backwards Compatability*/
         
         data.edits[i].data = wk_upgrade(data.edits[i].data)
@@ -1012,6 +1016,7 @@ function wk_parse(changes){
     if(changes[i] != ''){
       try{
         var edit = wk_splitdata(changes[i]);
+        
         //0: patch type, 1: patch element, 2: patch data
         if(edit[0] == "p"){
           //patch
@@ -1027,6 +1032,9 @@ function wk_parse(changes){
           wk_fromIDLegacy(edit[1]).innerHTML = edit[2]
         }
       }catch(err){
+        alert(edit.join(";"))
+        alert(err)
+        //console.error(err)
         /*ignore errors*/
       }
     }
