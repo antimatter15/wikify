@@ -672,8 +672,10 @@ function wk_get_channels(callback){
 
  /*wikify file: js/legacy.js */ 
 
+//not technically legacy, more of an intermediate format
+
 function wk_fromIDLegacy(text){
-  var a = text.split(">>")
+  var a = text.split(">")
   var e = (a[0]=="_body")?wk_doc.body: //body
       wk_doc.getElementById(a[0]); //or id
   
@@ -1032,8 +1034,8 @@ function wk_parse(changes){
           wk_fromIDLegacy(edit[1]).innerHTML = edit[2]
         }
       }catch(err){
-        alert(edit.join(";"))
-        alert(err)
+        //alert(edit.join(";"))
+        //alert(err)
         //console.error(err)
         /*ignore errors*/
       }

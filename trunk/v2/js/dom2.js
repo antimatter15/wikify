@@ -163,8 +163,8 @@ function wk_parse(changes){
           wk_fromIDLegacy(edit[1]).innerHTML = edit[2]
         }
       }catch(err){
-        alert(edit.join(";"))
-        alert(err)
+        //alert(edit.join(";"))
+        //alert(err)
         //console.error(err)
         /*ignore errors*/
       }
