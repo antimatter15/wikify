@@ -2,16 +2,41 @@ var wk_snapshot = null;
 var wk_lastsnapshot = 0;
 var wk_doc = null;
 
-/*
+/*Wikify Format Legacy:
+
+Element ID (or _xdby)
+</,/> Parent Node Index (as needed)
+</,/> Parent Node Index (as needed)
+[[]] (marks beginning of data
+<!!!> split patches
+
+_xdby</,/>0</,/>1[[]]blah
+
+
 Wikify Format:
 
 Element ID (or _body)
 >> Parent Node Index (as needed)
 >> Parent Node Index (as needed)
 [::] (marks beginning of data
+[++] split patches
 
+_body>>0>>1[::]blah
 
+Wikify Format v2:
 
+Element ID (or _body)
+>> Parent Node Index (as needed)
+>> Parent Node Index (as needed)
+>>d0>> (marks beginning of data (format, d0, d1, d2)
+[++] split patches
+
+_body,0,1(d0):blah
+
+_body>0>1>d:blah
+
+_body>>0>>1>>d0>>blah
+_body>>0>>1>>[1]blah
 */
 
 function wk_getChildren(e){
