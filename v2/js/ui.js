@@ -27,16 +27,24 @@ function wk_expand(){
 function wk_resize(){
   if($(window).width() < 500){
     wk_ui = 2;
-    $(".wk_btn_original").text("Org")
-    $(".wk_btn_view").text("Viw")
-    $(".wk_btn_edit").text("Edt")
-  }else{ 
+    wk_render_channels();
+    if($(window).width() < 370){
+      $(".wk_btn_original").text("O")
+      $(".wk_btn_view").text("V")
+      $(".wk_btn_edit").text("E")
+    }else{
+      $(".wk_btn_original").text("Org")
+      $(".wk_btn_view").text("Viw")
+      $(".wk_btn_edit").text("Edt")
+    }
+  }else{
     $(".wk_btn_original").text("Original")
     $(".wk_btn_view").text("View")
     $(".wk_btn_edit").text("Edit")    
   }
   if($(window).width() < 800){
     wk_ui = 1;
+    if($(window).width() < 500){wk_ui = 2}
     wk_render_channels()
     $("#wk_help").css("height","55px")
     $("li.wk_space").hide("slow")
