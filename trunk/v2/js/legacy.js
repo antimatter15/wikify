@@ -17,3 +17,28 @@ function wk_getChildrenLegacy(e){
   }
   return m;
 }
+
+//_body>>   0>>   1>>    2 [::] blah (old)
+//_body>    0>    1>     2 >o=  blah (intermediate)
+//_body>div:0>div:1>span:2 >d=  blah (modern)
+
+
+function wk_upgrade_v0(data){
+  if(unescape(data).indexOf("</,/>") != -1 &&
+     unescape(data).indexOf("[[]]") != -1 &&
+     unescape(data).indexOf("[::]") == -1){
+       data = unescape(data)
+           .split("</,/>").join(">>")
+           .split("<!!!>").join("[++]")
+           .split("[[]]").join("[::]")
+           .split("_xdby").join("_body")
+           .split(">>[::]").join("[::]")
+  }
+  return data
+}
+
+function wk_upgrade_v1(data){
+  return data
+    .split(">>").join(">")
+    .split("[::]").join(">o=")
+}
