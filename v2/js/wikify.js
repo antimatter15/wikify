@@ -780,7 +780,7 @@ function wk_load(callback){
         data.edits[i].data = wk_upgrade(data.edits[i].data)
         edits.push(unescape(data.edits[i].data))
       }
-      wk_cache[wk_channel] = data;
+      wk_cache[wk_channel] = unescape(data);
       wk_parse(edits);
       wk_log("Loaded Data: ",data)
       if(callback) callback();
