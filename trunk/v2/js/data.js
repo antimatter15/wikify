@@ -21,8 +21,11 @@ function wk_patch_links(){
 function wk_load(callback){
   wk_get_data(wk_server, {url: wk_url, channel: wk_channel, action: "load"}, 
     function(data){
+      wk_cache[wk_channel] = data;
       var edits = [];
       for(var i = 0; i < data.edits.length; i++){
+        
+        
         /*Backwards Compatability*/
         
         data.edits[i].data = wk_upgrade(data.edits[i].data)
