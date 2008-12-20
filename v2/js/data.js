@@ -24,6 +24,7 @@ function wk_load(callback){
       var edits = [];
       for(var i = 0; i < data.edits.length; i++){
         /*Backwards Compatability*/
+        
         data.edits[i].data = wk_upgrade(data.edits[i].data)
 
         edits.push(unescape(data.edits[i].data))
@@ -34,19 +35,7 @@ function wk_load(callback){
     })
 }
 
-function wk_upgrade(data){
-  if(unescape(data).indexOf("</,/>") != -1 &&
-     unescape(data).indexOf("[[]]") != -1 &&
-     unescape(data).indexOf("[::]") == -1){
-       data = unescape(data)
-           .split("</,/>").join(">>")
-           .split("<!!!>").join("[++]")
-           .split("[[]]").join("[::]")
-           .split("_xdby").join("_body")
-           .split(">>[::]").join("[::]")
-  }
-  return data
-}
+
 
 function wk_diffsave(callback){
   if(!wk_snapshot){wk_log("Error: No Snapshot!")}
