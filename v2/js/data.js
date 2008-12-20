@@ -29,6 +29,8 @@ function wk_load(callback){
         data.edits[i].data = unescape(wk_upgrade(data.edits[i].data))
         edits.push(data.edits[i].data)
       }
+      
+      wk_cache[wk_channel] = data;
 
       wk_parse(edits);
       if(callback) callback();
