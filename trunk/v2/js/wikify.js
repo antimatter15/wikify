@@ -1110,7 +1110,7 @@ wk_coreinit = function(){
   }
 
   
-  if(!$("html")[0] || !$("body")[0] || !("head")[0]){
+  if(!$("html")[0] || !$("body")[0] || !$("head")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Required Document Elements)")
   }
   
