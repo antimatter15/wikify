@@ -1137,6 +1137,7 @@ wk_coreinit = function(){
   m.innerHTML="Loading..." 
   document.body.appendChild(m);
   
+
   var l = document.createElement("link")
   l.rel = "stylesheet";
   l.type = "text/css";
@@ -1163,7 +1164,7 @@ wk_coreinit = function(){
 
 }
 
-//wk_coreinit();
+wk_coreinit();
 
 
 
