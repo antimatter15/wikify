@@ -24,7 +24,7 @@ Example:
 */
 
 
-function wk_getChildren2(e,tag){
+function wk_getChildren(e,tag){
   var m = [], k = e.childNodes, v = k.length, u;
   for(var x = 0; x < v; x++){
     u = k[x];
@@ -45,7 +45,7 @@ function wk_getText(e){
 }
 
 
-function wk_fromID2(text){
+function wk_fromID(text){
   var a = text.split(">"),
       k = [],
       e = (a[0]=="_body")?wk_doc.body: //body
@@ -69,11 +69,11 @@ function wk_splitdata(text){
   ]
 }
 
-function wk_getID2(e){
+function wk_getID(e){
   var a = "", //declare string that holds ID components
       k = [] //declare temporary cache thing
   while(e != wk_doc.body && !e.id){
-    k = wk_getChildren2(e.parentNode,e.tagName);
+    k = wk_getChildren(e.parentNode,e.tagName);
     for(var i = 0; k[i] != e; i++);
     a = (">"+k[i].tagName+":"+i)+a;
     e = e.parentNode;
@@ -92,7 +92,7 @@ function wk_capture(){
     if(!wk_in_list("script,noscript,style,link,frame,iframe",all[i].tagName.toLowerCase()) && 
         all[i].id.indexOf("firebug") == -1){
       try{
-        cap[wk_getID2(all[i])] = [wk_getText(all[i]),all[i].innerHTML];
+        cap[wk_getID(all[i])] = [wk_getText(all[i]),all[i].innerHTML];
       }catch(err){
         /*ignore errors*/
       }
@@ -104,7 +104,7 @@ function wk_capture(){
   return cap;
 }
 
-function wk_diff2(){
+function wk_diff(){
   var cap = wk_capture(),
       ignore = "",
       changes = [];
@@ -165,4 +165,15 @@ function wk_parse(changes){
       }
     }
   }
+}
+
+
+function wk_autosnapshot(c){
+  setTimeout(function(){
+        if((new Date()).getTime() - wk_lastsnapshot > 300){
+          wk_snapshot = wk_capture();
+          wk_lastsnapshot = (new Date()).getTime();
+        }
+        if(c) c();
+  },1337/10);
 }
