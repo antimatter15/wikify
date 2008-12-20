@@ -46,7 +46,7 @@ function wk_getChildren2(e,tag){
   var m = [], k = e.childNodes, v = k.length, u;
   for(var x = 0; x < v; x++){
     u = k[x];
-    if(u.nodeType != 3 && u.tagName == tag) m.push(u)
+    if(u.nodeType == 1 && u.tagName.toLowerCase() == tag) m.push(u)
   }
   return m;
 }
@@ -62,13 +62,27 @@ function wk_getText(e){
 
 
 function wk_fromID2(text){
-  var a = text.split(">")
-  var e = (a[0]=="_body")?wk_doc.body: //body
-      wk_doc.getElementById(a[0]); //or id
+  var a = text.split(">"),
+      k = [],
+      e = (a[0]=="_body")?wk_doc.body: //body
+        wk_doc.getElementById(a[0]); //or id
   
-  while(a.length > 1)
-    e = wk_getChildren2(e)[a.splice(1,1)];
+  while(a.length > 1){
+    k = a.splice(1,1)[0].split(":")
+    e = wk_getChildren2(e,k[0])[k[1]];
+  }
   return e;
+}
+
+function wk_splitdata(text){
+  var x = text.indexOf("="),
+      k = text.substr(0,x),
+      l = k.lastIndexOf(">")
+  return [
+    k.substr(l+1),
+    k.substr(0,l),
+    text.substr(x+1)
+  ]
 }
 
 function wk_getID(e){
