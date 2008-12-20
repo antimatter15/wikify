@@ -53,7 +53,7 @@ function wk_fromID(text){
   
   while(a.length > 1){
     k = a.splice(1,1)[0].split(":")
-    e = wk_getChildren2(e,k[0])[k[1]];
+    e = wk_getChildren(e,k[0])[k[1]];
   }
   return e;
 }
@@ -100,7 +100,7 @@ function wk_capture(){
       /*invalid elements*/
     }
   }
-  cap["_body"] = wk_getText(wk_doc.body);
+  cap["_body"] = [wk_getText(wk_doc.body),wk_doc.body.innerHTML];
   return cap;
 }
 
@@ -111,6 +111,7 @@ function wk_diff(){
   
   for(var i in cap){
     if(!wk_in_list(ignore, i) && //make sure it's not 
+       wk_snapshot[i] && cap[i] && //stuff...
        wk_snapshot[i][0] != cap[i][0] //and it's changed...
     ){
       var el = wk_fromID(i), //get element
@@ -151,11 +152,11 @@ function wk_parse(changes){
           //patch
           var dmp = new diff_match_patch();
           var patches = dmp.patch_fromText(edit[2]);
-          var results = dmp.patch_apply(patches, wk_fromID2(edit[1]).innerHTML);
-          wk_fromID2(edit[1]).innerHTML = results[0];
+          var results = dmp.patch_apply(patches, wk_fromID(edit[1]).innerHTML);
+          wk_fromID(edit[1]).innerHTML = results[0];
         }else if(edit[0] == "d"){
           //normal
-          wk_fromID2(edit[1]).innerHTML = edit[2]
+          wk_fromID(edit[1]).innerHTML = edit[2]
         }else if(edit[0] == "o"){
           //legacy
           wk_fromIDLegacy(edit[1]).innerHTML = edit[2]
