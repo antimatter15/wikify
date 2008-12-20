@@ -34,19 +34,23 @@ Element ID (or _body)
 _body,0,1(d0):blah
 
 _body>0>1>d:blah
+_body>div:0>div:1>d=blah
+
 
 _body>>0>>1>>d0>>blah
 _body>>0>>1>>[1]blah
 */
 
-function wk_getChildren(e){
+
+function wk_getChildren2(e,tag){
   var m = [], k = e.childNodes, v = k.length, u;
   for(var x = 0; x < v; x++){
     u = k[x];
-    if(u.nodeType != 3) m.push(u)
+    if(u.nodeType != 3 && u.tagName == tag) m.push(u)
   }
   return m;
 }
+
 
 function wk_getText(e){
   for(var i = e.childNodes.length, text = ""; i--;){
@@ -56,13 +60,14 @@ function wk_getText(e){
   return text;
 }
 
-function wk_fromID(text){
+
+function wk_fromID2(text){
   var a = text.split(">")
   var e = (a[0]=="_body")?wk_doc.body: //body
       wk_doc.getElementById(a[0]); //or id
   
   while(a.length > 1)
-    e = wk_getChildren(e)[a.splice(1,1)];
+    e = wk_getChildren2(e)[a.splice(1,1)];
   return e;
 }
 
