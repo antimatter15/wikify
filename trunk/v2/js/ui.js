@@ -26,6 +26,7 @@ function wk_expand(){
 
 function wk_resize(){
   if($(window).width() < 500){
+    wk_ui = 2;
     $(".wk_btn_original").text("Org")
     $(".wk_btn_view").text("Viw")
     $(".wk_btn_edit").text("Edt")
@@ -35,7 +36,7 @@ function wk_resize(){
     $(".wk_btn_edit").text("Edit")    
   }
   if($(window).width() < 800){
-    wk_mini = true;
+    wk_ui = 1;
     wk_render_channels()
     $("#wk_help").css("height","55px")
     $("li.wk_space").hide("slow")
@@ -44,7 +45,7 @@ function wk_resize(){
       width: 32
     });
   }else{
-    wk_mini = false;
+    wk_ui = 0;
     $("li.wk_space").show("slow")
     $("#wk_help").css("height","")
     wk_render_channels()
