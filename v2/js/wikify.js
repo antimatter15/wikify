@@ -773,16 +773,16 @@ function wk_patch_links(){
 function wk_load(callback){
   wk_get_data(wk_server, {url: wk_url, channel: wk_channel, action: "load"}, 
     function(data){
+      wk_log("Got Edit Data: ",data)
       var edits = [];
       for(var i = 0; i < data.edits.length; i++){
         /*Backwards Compatability*/
    
-        data.edits[i].data = wk_upgrade(data.edits[i].data)
-        edits.push(unescape(data.edits[i].data))
+        data.edits[i].data = unescape(wk_upgrade(data.edits[i].data))
+        edits.push(data.edits[i].data)
       }
-      wk_cache[wk_channel] = unescape(data);
+
       wk_parse(edits);
-      wk_log("Loaded Data: ",data)
       if(callback) callback();
     })
 }
