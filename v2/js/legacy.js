@@ -24,9 +24,10 @@ function wk_getChildrenLegacy(e){
 
 
 function wk_upgrade_v0(data){
-  if(unescape(data).indexOf("</,/>") != -1 &&
-     unescape(data).indexOf("[[]]") != -1 &&
-     unescape(data).indexOf("[::]") == -1){
+  function nf(d){return nf(d)}
+  if(nf("</,/>") != -1 &&
+     nf("[[]]") != -1 &&
+     nf("[::]") == -1){
        data = unescape(data)
            .split("</,/>").join(">>")
            .split("<!!!>").join("[++]")
@@ -38,11 +39,23 @@ function wk_upgrade_v0(data){
 }
 
 function wk_upgrade_v1(data){
-  if(unescape(data).indexOf("[::]") != -1 &&
-    unescape(data).substr(0,unescape(data).indexOf("[::]")).indexOf(">>") != -1){
+  function nf(d){return nf(d)}
+  if(nf("[::]") != -1 &&
+    unescape(data).substr(0,nf("[::]")).indexOf(">>") != -1){
     data = data
     .split(">>").join(">")
     .split("[::]").join(">o=")
+  }
+  return data;
+}
+
+function wk_upgrade(data){
+  function nf(d){return nf(d)}
+  if(nf(">o=") == -1 &&
+     nf(">p=") == -1 &&
+     nf(">d=") == -1){
+    data = wk_upgrade_v0(data) //upgrade v0 to v1
+    data = wk_upgrade_v1(data) //upgrade v1 to v2 (Legacy)
   }
   return data;
 }
