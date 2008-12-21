@@ -11,6 +11,7 @@
       "Spam": {edits: 0},
       "Update": {edits: 0}
     },
+    wk_dev: false,
     wk_runinit: true //development stuff
   });
   for(var i in wk_conf){
@@ -43,6 +44,7 @@ function wk_onlaunch(){
 if(window.console && !($.browser.msie && $.browser.version == 6)){
   try{
     console.log();
+    console.log("Loading Wikify")
   }catch(err){}
 }
 
@@ -1100,9 +1102,12 @@ wk_ready(function(){
  /*wikify file: js/init.js */ 
 
 wk_coreinit = function(){
+  //check if jQuery is loaded
   if(!jQuery || !$ ||!jQuery() || !$() || !$().jquery){
     return alert("Project Wikify has encountered a fatal error\n(JS Loader failed initializing dependencies)")
   }
+  
+  //test for some strange oddities
   if(!$("head")[0] || !jQuery("<div>Something_Very_Strange</div>").html()){
     var blank = '<html><head><title></title></head><body></body></html>';
     document.open()
@@ -1110,57 +1115,66 @@ wk_coreinit = function(){
     document.close();
   }
 
-  
+  //check for required document elements
   if(!$("html")[0] || !$("body")[0] || !$("head")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Required Document Elements)")
   }
   
+  //remove scripts
   if(wk_removescripts){
-    //$("script").remove(); //remove all scripts (strangely doesn't work on ajaxian)
     $(document.getElementsByTagName("script")).remove()
   }else{
     $("script.wk_initsc").remove(); //remove the loader scripts
   }
   
-  $("#wk_premask").remove();
-  wk_original_data = document.documentElement.innerHTML;
+  $("#wk_premask").remove(); //remove premask created by preloader
+  wk_original_data = document.documentElement.innerHTML; //dump html
   
 
   for(var s=document.styleSheets, i=s.length;i--;){ //loop through styles
     s[i].disabled = true; //and kill them
   }
  
-  document.body.innerHTML = wk_toolbar.split("img/").join(wk_img)
+  document.body.innerHTML = wk_toolbar.split("img/").join(wk_img); //load wikify gui
 
+  //re-add premask
   var m = document.createElement("div");
   m.id = "wk_premask";
   m.setAttribute("style","font-family:Tahoma,Verdana,'Trebuchet MS',Arial,Helvetica,sans-serif;color:#000;background-color:#8095AA;position:absolute;width:100%;height:100%;top:0;left:0;font-size:100px;z-index:51000;text-align:center")
   m.innerHTML="Loading..." 
   document.body.appendChild(m);
   
-
+  //add styles
   var l = document.createElement("link")
   l.rel = "stylesheet";
   l.type = "text/css";
   l.media = "screen";
   l.href = wk_style;
-  
-  $("head").append(l)
+  document.getElementsByTagName("head")[0].appendChild(l)
 
+  //check for other oddities
   if(!$("#wk_iframe")[0] || !$("#wk_toolbar")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Generated Elements)")
   }
 
-  for(var i = 0; i < wk_readyqueue.length; i++){
-    wk_readyqueue[i](); //run readyqueue
+  //loop thorugh init queue
+  for(var i = 0; i < wk_readyqueue.length; i++){ 
+    try{
+      wk_readyqueue[i](); //run readyqueue
+    }catch(err){
+      alert("Project Wikify has encountered an error. \n"+err)
+      //console.error(err)
+    }
   }
-  if(document.title == ""){
+  
+  
+  if(document.title == ""){ //set titles
     document.title = "Wikify: Untitled";
   }else{
     document.title = "Wikify: "+document.title
   }
   wk_get_channels() //load channels
-  wk_remode();
+  wk_remode(); //ligths, camera, action!
 
 
 }

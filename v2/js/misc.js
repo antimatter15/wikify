@@ -3,6 +3,7 @@
 if(window.console && !($.browser.msie && $.browser.version == 6)){
   try{
     console.log();
+    console.log("Loading Wikify")
   }catch(err){}
 }
 
