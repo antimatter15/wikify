@@ -236,3 +236,15 @@ body {
   font-family: Tahoma, Verdana, 'Trebuchet MS', Arial, Helvetica, sans-serif;  
   padding-top: 5px;
 }
+
+#wk_credits {
+  float: left;
+  position: absolute;
+  top: 180px;
+}
+
+#wk_history {
+  float: right;
+  position: absolute;
+  top: 180px;
+}
