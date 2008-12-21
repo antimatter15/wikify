@@ -1,25 +1,29 @@
-(function(x){
-  var d=document,w=window;
-  w.wk_loader = [3];
-  if(w.wk_onlaunch && x==5) return wk_onlaunch();
-  if(!w.wk_tl){
-    w.wk_wl = w.wk_tl = [
-      "http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js",
-      "http://localhost/Wikify/v2/etc/compile_js.php"
-    ];
+(function(){
+  var w = window;
+  if(document.body.tagName.toLowerCase()!="body"){
+    w = frames['content'];
+  }
+  var d=w.document,b=d.body;
+  if(w.wk_onlaunch) return wk_onlaunch();
+  function l(u) {
+   var s = d.createElement('SCRIPT');
+   s.type = 'text/javascript';
+   s.src = u;
+   s.className = "wk_initsc";
+   b.appendChild(s);
+  }
+  if(!w.loadmode){
+    w.loadmode = 1;
     var m = d.createElement("div");
     m.id = "wk_premask";
     m.setAttribute("style","font-family:Tahoma,Verdana,'Trebuchet MS',Arial,Helvetica,sans-serif;color:#000;background-color:#8095AA;position:absolute;width:100%;height:100%;top:0;left:0;font-size:100px;z-index:51000;text-align:center")
     m.innerHTML="Loading..." 
-    d.body.appendChild(m);
+    b.appendChild(m);
+    l("http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js")
   }
-  if(wk_tl[0]){
-    var s = d.createElement("script"),
-        h = d.getElementsByTagName("head")[0];
-    s.type = 'text/javascript';
-    s.src = wk_tl.splice(0,1)[0];
-    s.className = "wk_initsc";
-    s.onreadystatechange = s.onload = arguments.callee;
-    (h?h:d.body).appendChild(s);
+  if(!window.jQuery){
+    setTimeout(arguments.callee, 100);
+  }else{
+    l("http://wikify.antimatter15.com/static3/wikify2.js")
   }
-})(5)
+})()
