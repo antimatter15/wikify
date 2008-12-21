@@ -39,11 +39,11 @@ wk_ready(function(){
   })
   
   $("#wk_credits").click(function(){
-  
+    alert("Under Construction XD")
   })
   
   $("#wk_history").click(function(){
-  
+    alert("Under Construction XD")
   })
   
 })
