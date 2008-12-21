@@ -1,3 +1,2 @@
 cmd /C "cd etc && minify"
-cd ../appengine/
-commit
+cmd /C "cd ../appengine/ && commit"
