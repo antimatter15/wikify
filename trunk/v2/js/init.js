@@ -43,16 +43,25 @@ wk_coreinit = function(){
   l.type = "text/css";
   l.media = "screen";
   l.href = wk_style;
-  
-  $("head").append(l)
+  document.getElementsByTagName("head")[0].appendChild(l)
 
   if(!$("#wk_iframe")[0] || !$("#wk_toolbar")[0]){
     return alert("Project Wikify has encountered a fatal error\n(Missing Generated Elements)")
   }
 
   for(var i = 0; i < wk_readyqueue.length; i++){
-    wk_readyqueue[i](); //run readyqueue
+    if(wk_dev){
+      try{
+        wk_readyqueue[i](); //run readyqueue
+      }catch(err){
+        console.error(err)
+      }
+    }else{
+      wk_readyqueue[i](); //run readyqueue
+    }
   }
+  
+  
   if(document.title == ""){
     document.title = "Wikify: Untitled";
   }else{
@@ -64,5 +73,7 @@ wk_coreinit = function(){
 
 }
 
-wk_coreinit();
+if(wk_runinit){
+  wk_coreinit();
+}
 
