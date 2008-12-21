@@ -62,6 +62,9 @@ function wk_resize(){
     $("#wk_logo").stop(true).animate({
       width: 190
     });
+    $(".wk_btn_original").text("Original")
+    $(".wk_btn_view").text("View")
+    $(".wk_btn_edit").text("Edit")    
   }
   $("#wk_about").stop(true).animate({
     top: ($(window).height()/2) - ($("#wk_about").height()/2),
