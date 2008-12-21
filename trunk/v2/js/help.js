@@ -37,6 +37,15 @@ wk_ready(function(){
         }
     })
   })
+  
+  $("#wk_credits").click(function(){
+  
+  })
+  
+  $("#wk_history").click(function(){
+  
+  })
+  
 })
 
 function wk_hideabout(){
