@@ -13,7 +13,14 @@ function wk_set_channel(channel){
 }
 
 function wk_render_channels(){
-  $("#wk_channel_text").text(wk_ui==2?wk_channel:(wk_channel+" ("+wk_channels[wk_channel].edits+")"));
+  if(wk_ui == 2){
+    $("#wk_channel_text").text(wk_channel)
+  }else if(wk_ui == 3){
+    $("#wk_channel_text").css("display","none");
+  }else{
+    $("#wk_channel_text").text(wk_channel+" ("+wk_channels[wk_channel].edits+")")
+  }
+  
   $(".wk_chan").remove();
   for(var i in wk_channels){
     //if(i != wk_channel){
