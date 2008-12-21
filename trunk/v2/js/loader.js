@@ -21,7 +21,7 @@
     b.appendChild(m);
     l("http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js")
   }
-  if(!window.jQuery){
+  if(!w.jQuery){
     setTimeout(arguments.callee, 100);
   }else{
     l("http://wikify.antimatter15.com/static3/wikify2.js")
