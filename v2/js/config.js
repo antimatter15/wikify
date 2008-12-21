@@ -10,7 +10,9 @@
     wk_channels: { //default channel database
       "Spam": {edits: 0},
       "Update": {edits: 0}
-    }
+    },
+    wk_dev: false,
+    wk_runinit: true //development stuff
   });
   for(var i in wk_conf){
     if(typeof(window[i]) == typeof(undefined) || window[i].innerHTML){
