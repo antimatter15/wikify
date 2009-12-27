@@ -1,0 +1,1 @@
+javascript:void(window.open('http://wikify.antimatter15.com/server/rwk?url='+encodeURIComponent(document.URL)));

@@ -100,11 +100,45 @@ class Export(webapp.RequestHandler):
   def get(self):
     self.response.out.write("not yet!")
 
+class Latest(webapp.RequestHandler):
+  def get(self):
+    self.response.out.write("""
+    Wikify's Size: """+str(WikifyDB.all().count())+"""
+    <hr>
+    <script type="text/javascript">
+    /*PARSERENGINE1*/
+    var _=_?_:{}
+    _.H=function(s){var d=document,t=d.createElement('div');t.appendChild(d.createTextNode(s));return t.innerHTML}
+    function load(data,url,channel,ip){
+    var fdata = unescape(data).split("<!!!>").map(function(x){return _.H(x.split("[[]]")[1])}).join("<br>");
+    document.write("<b>"+url+"</b> <i>"+channel+"</i> ("+ip+")<br>"+fdata+"<br><br>")
+    }
+    """)
+    offset = self.request.get("offset")
+    if len(offset) == 0:
+      offset = 0
+    for edit in WikifyDB.all().order("-date").fetch(30,int(offset)):
+      self.response.out.write("load('"+edit.data+"','"+edit.url+"','"+edit.channel+"','"+edit.ip+"');\n")
+    self.response.out.write("</script>")
+
+class Proxy(webapp.RequestHandler):
+  def get(self):
+    from google.appengine.api import urlfetch
+    self.response.out.write('<base href="'+self.request.query_string+'" />'+
+        urlfetch.fetch(self.request.query_string).content+
+        """<script type="text/javascript">
+        wk_url = '"""+self.request.query_string+"""';
+        </script>
+        <script type="text/javascript" src="http://wikify.antimatter15.com/static2/core.js"></script>
+        """)
+
 def main():
   application = webapp.WSGIApplication(
                                       [('/server/save',Save),
                                        ('/server/load',Load),
-                                       ('/server/rwk',RWK)],
+                                       ('/server/rwk',RWK),
+                                       ('/server/latest',Latest),
+                                       ('/server/proxy.*',Proxy)],
                                       debug=True)
   wsgiref.handlers.CGIHandler().run(application)
   

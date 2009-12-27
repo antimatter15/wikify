@@ -1,6 +1,6 @@
 /* Wikify Core
  * (c) Copyright 2008 Antimatter15
- * Prototype 5, Revision 4
+ * Prototype 5, Revision 9
  */
 
 /*
@@ -18,13 +18,15 @@ channel: "main"
 if(!window.Wikify){
 window.Wikify = {
 
+location: "",
+
 config: {
 saveurl: "",
 loadurl: "",
 channel: ""
 },
 
-version: "Prototype 5, Revision 4",
+version: "Prototype 5, Revision 9",
 home: "http://wikify.antimatter15.com/bookmarklet",
 
 DOMSnapshot: {}, //snapshot of document contents
@@ -192,7 +194,7 @@ Wikify.log.push("Diff Size: "+a.length);
 if(a != ""){ //if it's not empty
 Wikify.editable(false)
 
-Wikify.sendData(Wikify.config.saveurl, {url:window.location.href,channel:Wikify.config.channel.toLowerCase(),dat:escape(a)}, function(){
+Wikify.sendData(Wikify.config.saveurl, {url: Wikify.location,channel:Wikify.config.channel.toLowerCase(),dat:escape(a)}, function(){
 Wikify.uisaved()
 });
 
@@ -205,7 +207,7 @@ return true;
 load: function(){ //try getting/loading data from server
 Wikify.mask(true);
 Wikify.editable(false);
-Wikify.loadData(Wikify.config.loadurl, {url: window.location.href, channel: Wikify.config.channel.toLowerCase()});
+Wikify.loadData(Wikify.config.loadurl, {url: Wikify.location, channel: Wikify.config.channel.toLowerCase()});
 },
 
 
@@ -241,9 +243,12 @@ Wikify.writeFrame();
 for(var i = 0; i < Wikify.history.length; i++){
 Wikify.parse(Wikify.history[i][0]);
 }
+
 Wikify.editable(true);
+
 Wikify.DOMSnapshot = Wikify.capture();
-Wikify.uiloaded()
+
+Wikify.uiloaded();
 },
 
 
@@ -271,13 +276,21 @@ x.disabled=true; //DIE!!!!
 }catch(err){/*OMG!*/}
 })()
 
-document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0" frameborder="0" marginwidth="0" style="top:0;left:0;position:absolute;width:100%;height:100%" width="100%" height="100%"></iframe><div id="Wikify_Mask" style="width:100%;height:100%;position:absolute;left:0;top:0;opacity:0.85;filter:alpha(opacity=85);background-color:#DDDDDD"><h1 style="padding-left:50px">Please Wait...</h1><br><br><div id="Wikify_MaskInfo" style="padding-left:40px"></div></div><div style="'+divstyle+'"><span style="left:0;position:absolute"><span style="color:#FFFF00">&nbsp;Wikify&nbsp;-&nbsp;</span><span id="Wikify_Status" style="color:#66FF00">Loading</span></span><span style="right:3px;position:absolute">'+links+'</span></div><div style="display:none" id="Wikify_Comm"></div>'
+document.body.innerHTML = '<iframe id="Wikify_Frame" align="top" marginheight="0" frameborder="0" marginwidth="0" style="top:0;left:0;position:absolute;width:100%;height:100%" width="100%" height="100%"></iframe><div id="Wikify_Mask" style="width:100%;height:100%;position:absolute;left:0;top:0;opacity:0.85;filter:alpha(opacity=85);background-color:#DDDDDD"><h1 style="padding-left:50px">Please Wait...</h1><br><br><div id="Wikify_MaskInfo" style="padding-left:40px"></div></div><div style="'+divstyle+'"><span style="left:0;position:absolute"><span style="color:#FFFF00">&nbsp;Wikify&nbsp;-&nbsp;</span><span id="Wikify_Status" style="color:#66FF00">Loading</span></span><span style="right:3px;position:absolute">'+links+'</span></div><div style="display:none" id="Wikify_Comm"></div>';
 
 var p = document.getElementById("Wikify_Frame");
+
+if(!p){
+alert("Project Wikify has encountered a fatal error.")
+}
+
 Wikify.DWin = (p.contentWindow)? p.contentWindow: (p.contentDocument.document)? p.contentDocument.document: p.contentDocument
 
 Wikify.writeFrame();
+
+setTimeout(function(){
 Wikify.load()
+},100);
 
 setTimeout(function(){
 if(Wikify.mask().style.display!="none" && Wikify.history.length == 0){
@@ -299,20 +312,53 @@ return s.replace(/<script/ig,"<noscript").replace(/<\/script/ig,"</noscript"); /
 
 
 editable: function(option){
-if(!Wikify.DWin) return; //phailz when theres no DWin!
+
+
 if(option==null){return Wikify.docedit}
+
+
+
+if(!Wikify.DWin || !Wikify.DWin.document || !Wikify.DWin.document.body || !Wikify.DWin.document.body.innerHTML){
+return //phailz when theres no DWin!
+};
+
 if(option==true){
 Wikify.docedit = true;
+try{
 Wikify.DWin.document.designMode = "on"; //everything
-Wikify.DWin.document.body.contentEditable=true; //IE
-}else if(option == false){
-Wikify.docedit = false;
-Wikify.DWin.document.designMode = "off"; //everything
-Wikify.DWin.document.body.contentEditable=false; //IE
+}catch(e){
+alert("xT1 System Error: "+e.message)
+
+alert(Wikify.DWin.document.body.innerHTML)
 }
+
+try{
+Wikify.DWin.document.body.contentEditable = "true"; //IE
+}catch(e){
+alert("xT2 System Error: "+e.message)
+alert(Wikify.DWin.document.body.innerHTML)
+}
+
+}else{
+
+Wikify.docedit = false;
+try{
+Wikify.DWin.document.designMode = "off"; //everything
+}catch(e){alert("xF1 System Error: "+e.message)
+alert(Wikify.DWin.document.body.innerHTML)}
+
+try{
+Wikify.DWin.document.body.contentEditable = "false"; //IE
+}catch(e){alert("xF2 System Error: "+e.message)
+alert(Wikify.DWin.document.body.innerHTML)}
+}
+
 },
 
-status: function(text){document.getElementById("Wikify_Status").innerHTML = text},
+status: function(text){
+if(!document.getElementById("Wikify_Status")) return;
+document.getElementById("Wikify_Status").innerHTML = text
+},
 mask: function(mode){
 if(mode==null){return document.getElementById("Wikify_Mask")}
 Wikify.mask().style.display=(mode==true)?"block":"none";
@@ -357,6 +403,8 @@ uisaved: function(){Wikify.status("Saved");Wikify.editable(true);Wikify.mask(fal
 
 
 Wikify.config = window.WKConf;
+
+Wikify.location = window.WKLocat?window.WKLocat:(window.location.href.replace("?view=wikify","").replace("view=wikify",""));
 
 if(window.top == window && !window.NO_WIKIFY_UI){
 Wikify.createUI();
