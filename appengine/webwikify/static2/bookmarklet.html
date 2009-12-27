@@ -32,7 +32,7 @@ return ("You can bookmark the bookmarklet by right-clicking on “Wikify” and 
 <img src="/static2/wikifylogo.png" width="301" height="73" alt="Project Wikify (Beta)" />
 </div>
 <div class="content">
-<a href='javascript:(function(e){window.WKConf={coreurl:"http://wikify.antimatter15.com/static2/core.js",saveurl:"http://wikify.antimatter15.com/server/save",loadurl:"http://wikify.antimatter15.com/server/load",channel:"Main"};e=document.createElement("script");e.src=WKConf.coreurl;document.getElementsByTagName("head")[0].appendChild(e)})()' style="float: right; padding-right: 30px; padding-top: 40px"><img src="/static2/bookmarklet.jpg" onclick="bkAlert();return false;" alt="Wikify" width="150" height="34" /></a>
+<a href='javascript:(function(s){s=document.createElement("script");s.type="text/javascript";s.src="http://wikify.antimatter15.com/static2/core.js";document.body.appendChild(s)})()' style="float: right; padding-right: 30px; padding-top: 40px"><img src="/static2/bookmarklet.jpg" onclick="bkAlert();return false;" alt="Wikify" width="150" height="34" /></a>
 <h1>Install</h1>
 <p>Installing Project Wikify is as easily as bookmarking a web page. </p>
 <p>On <strong>Mozilla Firefox</strong>, and <strong>Apple Safari</strong>, you can simply drag the Wikify link to your browser's bookmark toolbar. On <strong>Google Chrome</strong>, you must enable &quot;Always Show Bookmarks Bar&quot;, and then you can follow the directions for Firefox. For <strong>Microsoft Internet Explorer</strong>, you can right-click on the Wikify link and select &quot;Add to Favorites&quot;, and on <strong>Opera</strong>, you can right-click on the link and select &quot;Bookmark Link&quot;.</p>
@@ -55,6 +55,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 A Bookmarklet is like a cross between a piece of software (plugin) and a simple link. It behaves somewhat like both, it's cross-browser, like a bookmark, and it does some plugin like things as well. When you click on a bookmarklet, instead of taking you to a page, it runs some small javascript code and modifies the existing page, in this case, it makes it editable to you and shows a tiny toolbar to control it.
 </p>
 <h1>Help</h1>
+<p>This site is outdated. The site is going to be redone soon. The following instructions probably are of no value, as the entire interface has been redesigned. For help, try using the help button</p> 
 <p>To use, simply run the bookmarklet (see install), and the Wikify toolbar should appear on the top right corner of your browser window. The page will automatically become editable as if it were a document in any word processor.</p>
 <p>The Wikify toolbar includes a statusbar, &quot;Save&quot;, &quot;Update&quot;, &quot;Toggle&quot;, &quot;Switch&quot;, &quot;Info&quot; and &quot;Help&quot;. </p>
 <ul>
@@ -70,5 +71,7 @@ A Bookmarklet is like a cross between a piece of software (plugin) and a simple 
 &copy; 2008 Antimatter15
 </div>
 </div>
+<script>var wk_mode = 0;</script>
+<script src="http://wikify.antimatter15.com/static2/core.js"></script>
 </body>
 </html>

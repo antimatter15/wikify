@@ -1,0 +1,17 @@
+
+    (function(){
+    var g = function(q){ 
+    q = unescape(q);
+    var w = q.split("<!!!>");
+    for(var i = 0;i < w.length; i++){ try{
+    var f = w[i].split("[[]]"), 
+    u = f[0].split("</,/>")
+    var e = (u[0]=="_xdby")?document.body:document.getElementById(u[0]), a=u.slice(1);
+    if(!(a[0]=="" && a.length == 1) && a){
+    while(a.length>0) e=e.childNodes[a.splice(0,1)];
+    }
+    e.innerHTML = f[1]
+    }catch(err){}}};
+/*NO DATA ON URL*/
+
+})();

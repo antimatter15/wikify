@@ -1,24 +1,30 @@
 application: webwikify
-version: 1
+version: 2
 runtime: python
 api_version: 1
 
 handlers:
+- url: /wkserver.*
+  script: main2.py
+
 - url: /server/.*
   script: main.py
   
 - url: /static2
   static_dir: static2
-
-- url: /technology.*
+  
+- url: /static3
+  static_dir: static3
+  
+- url: /technology
   static_files: static2/technology.html
   upload: static2/technology.html
   
-- url: /bookmarklet.*
+- url: /bookmarklet
   static_files: static2/bookmarklet.html
   upload: static2/bookmarklet.html
 
-- url: /more.*
+- url: /more
   static_files: static2/more.html
   upload: static2/more.html
   
@@ -30,6 +36,9 @@ handlers:
   static_files: static2/oldcore.js
   upload: static2/oldcore.js
   
-- url: /.*
+- url: /intro
   static_files: static2/intro.html
   upload: static2/intro.html
+
+- url: /.*
+  script: redirect.py

@@ -1,0 +1,28 @@
+title: jquery.timepickr
+version: 0.6a
+svnrev: true
+dest: standalone/ui-timepickr/dist/
+modules:
+  - file: src/ui.timepickr.js
+    destfile: jquery.timepickr.js
+    depends:
+      - src: src/jquery.utils.js
+      - src: src/jquery.ui.all.js
+      - src: src/jquery.strings.js
+      # src: src/jquery.i18n.js
+      - src: src/ui.dropslide.js
+merge:
+  - dest: dist/jquery.timepickr.css
+    files:
+      - src: src/css/ui.dropslide.css
+      - src: src/css/ui.timepickr.css
+zip:
+  - dest: standalone/ui-timepickr/downloads/jquery.timepickr-%v-standalone.zip
+    src: standalone/ui-timepickr/
+    exclude: [".svn", "downloads", "build.yml", "demo"]
+
+gzip:
+  - dest: standalone/ui-timepickr/downloads/jquery.timepickr-%v-standalone.tar.gz
+    src: standalone/ui-timepickr/
+    exclude: [".svn", "downloads", "build.yml", "demo"]
+

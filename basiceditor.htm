@@ -1,0 +1,22 @@
+<script>
+  function editor(el){
+    var r = "e"+Math.ceil(Math.random()*999999);
+    editor[r] = this;
+    el.innerHTML = '<iframe onload="editor[\''+r+'\'].init(this)"></iframe>';
+  }
+  
+  editor.prototype.init = function(e){
+    this.iF = e;
+    this.ie = !this.iF.contentDocument;
+    this.iD = this.ie?this.iF.contentWindow.document:this.iF.contentDocument;
+    this.iD.designMode = "On";
+    if(this.ie){this.iD = this.iF.contentWindow.document;}
+    this.iD.execCommand("useCSS", false, false);
+  }
+  
+  window.onload = function(){
+    window.edit = new editor(document.getElementById("editor"))
+  }
+</script>
+
+<div id="editor"></div>

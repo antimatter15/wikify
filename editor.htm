@@ -1,0 +1,17 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+<div id="poop">poooooppoooooppoooooppoooooppoooooppoooooppooooop</div>
+<script>
+  $(function(){
+    $("#poop").click(function(e){
+      var k = document.createRange();
+      k.selectNode(this);
+      console.log(k)
+      //k.setStart(this,5);
+      //k.setEnd(this,7);
+      var f = document.createTextNode('asdf')
+      this.insertBefore(f,k)
+      console.log(this,e)
+      $(this).append("poop")
+    })
+  })
+</script>

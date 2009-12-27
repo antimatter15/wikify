@@ -1,0 +1,83 @@
+<body>
+</body>
+<script>
+  var offset = 0;
+  function htmlentities(s){
+    var d = document, f = d.createElement("div");
+    f.appendChild(d.createTextNode(s));
+    return f.innerHTML;
+  }
+
+
+
+
+
+function wk_upgrade_v0(data){
+  function nf(d){return unescape(data).indexOf(d)}
+  if(nf("</,/>") != -1 &&
+     nf("[[]]") != -1 &&
+     nf("[::]") == -1){
+       data = unescape(data)
+           .split("</,/>").join(">>")
+           .split("<!!!>").join("[++]")
+           .split("[[]]").join("[::]")
+           .split("_xdby").join("_body")
+           .split(">>[::]").join("[::]")
+  }
+  return data
+}
+
+function wk_upgrade_v1(data){
+  function nf(d){return unescape(data).indexOf(d)}
+  if(nf("[::]") != -1){
+    data = data
+    .split(">>").join(">")
+    .split("[::]").join(">o=")
+  }
+  return data;
+}
+
+function wk_upgrade(data){
+  function nf(d){return unescape(data).indexOf(d)}
+  if(nf(">o=") == -1 &&
+     nf(">p=") == -1 &&
+     nf(">d=") == -1){
+    data = wk_upgrade_v0(data) //upgrade v0 to v1
+    data = wk_upgrade_v1(data) //upgrade v1 to v2 (Legacy)
+  }
+  return data;
+}
+  
+ 
+  
+  function load(data){
+    var write = "";
+    write += "Wikify Size: "+data.size+", Offset: "
+    write += offset+" <a href='javascript:reload(-30)'>&lt;-</a> <a href='javascript:reload(30)'>--&gt;</a><hr>";
+    for(var i = 0; i < data.edits.length; i++){
+      edit = data.edits[i];
+      var ed = wk_upgrade(unescape(edit.data)).split("[++]");
+      var out = [];
+      for(var k = 0; k < ed.length; k++){
+        ed[k] = htmlentities(ed[k].split("=")[1])
+        if(ed[k].length > 1){
+          out.push(ed[k])
+        }
+      }
+      write += "<b>"+edit.url+"</b> <i>("+edit.channel+")</i><p>"+out.join("<br>")+"</p>"
+    }
+    write += "<hr>"+offset+" <a href='javascript:reload(-30)'>&lt;-</a> <a href='javascript:reload(30)'>--&gt;</a>";
+    document.body.innerHTML = write;
+  }
+  
+  function reload(o){
+    if(offset+o < 0){
+      return alert("No negative offsets!")
+    }
+    var d = document, s = d.createElement("script");
+    offset += o
+    s.src = "http://wikify.antimatter15.com/wkserver?action=latest&callback=load&offset="+offset
+    d.body.appendChild(s)
+  }
+</script>
+<script src="http://wikify.antimatter15.com/wkserver?action=latest&callback=load"></script>
