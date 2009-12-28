@@ -11,6 +11,7 @@ $scripts = array(
 "js/button.js",
 "js/ui.js",
 "js/help.js",
+"js/news.js",
 "js/channel.js",
 "js/legacy.js",
 "js/data.js",

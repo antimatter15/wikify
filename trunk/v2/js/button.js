@@ -12,8 +12,15 @@ wk_ready(function($){
   $(".wk_btn_news").click(function(){
     wk_hideabout()
     $("#wk_help").slideUp().queue(function(){
-      $("#wk_news").slideToggle();
+     if($("#wk_news").is(":hidden")){
+	
+		wk_local()
+		wk_global()
+
+		} 
+	 $("#wk_news").slideToggle();
       $(this).dequeue();
+		
     })
   })
 
