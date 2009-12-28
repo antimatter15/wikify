@@ -1,12 +1,15 @@
 var wk_curmsgid = -1;
 
 function wk_hidemsg(){
+	
+  var $ = jQuery;
   $("#wk_msg").stop(true).animate({
     left: "-100%"
   })
 }
 
 function wk_showmsg(message){
+var $ = jQuery;
   $("#wk_msgtext").text(message)
   $("#wk_msg").stop(true).animate({
     left: "0%"
@@ -21,7 +24,7 @@ function wk_showmsg(message){
 }
 
 
-wk_ready(function(){
+wk_ready(function($){
   $(".wk_dismiss").click(function(){
     wk_hidemsg();
   })

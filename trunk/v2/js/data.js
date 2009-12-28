@@ -1,4 +1,6 @@
 function wk_write_data(data){
+  var $ = jQuery;
+
   wk_doc = $("#wk_iframe").contentDocument();
   wk_doc.open();
   wk_doc.write(data);
@@ -10,7 +12,10 @@ function wk_write_original(){
 }
 
 function wk_patch_links(){
+  var $ = jQuery;
   setTimeout(function(){
+    var $ = jQuery;
+
     $(wk_doc).find("a") //find all links
       .click(function(){ //on click event
         window.parent.location = this.href; //make them open up in the parent

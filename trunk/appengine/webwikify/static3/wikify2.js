@@ -44,7 +44,7 @@ function wk_onlaunch(){
 
 /*I just feel like blaming this whole file on microsoft*/
 
-if(window.console && !($.browser.msie && $.browser.version == 6)){
+if(window.jQuery && window.console && !(jQuery.browser.msie && $.browser.version == 6)){
   try{
     console.log();
     console.log("Loading Wikify")
@@ -52,7 +52,7 @@ if(window.console && !($.browser.msie && $.browser.version == 6)){
 }
 
 function wk_log(){
-  if(window.console && !($.browser.msie && $.browser.version == 6)){
+  if(window.jQuery && window.console && !(jQuery.browser.msie && jQuery.browser.version == 6)){
     //because console.log.apply only works on firefox :(
     var a = arguments, l = a.length;
     if(l == 42) console.log("TEH WORLDZ ASPLODE!")
@@ -68,7 +68,7 @@ function wk_ready(fn){
 }
 
 
-wk_ready(function(){ //dumbie!
+wk_ready(function($){ //dumbie!
   if($.browser.msie){
     $.getScript("http://wikify.googlecode.com/svn-history/r161/trunk/v2/js/jquery.pngFix.js",
       function(){
@@ -80,9 +80,6 @@ wk_ready(function(){ //dumbie!
 })
 
 
-setInterval(function(){
-  $ = jQuery;
-},500)
 
 
 
@@ -240,6 +237,8 @@ function diff_match_patch(){this.Diff_Timeout=1;this.Diff_EditCost=4;this.Diff_D
  /*wikify file: js/editor.js */ 
 
 function wk_enable_edit(){
+  var $ = jQuery;
+  
   $('#wk_iframe').data('hasEdit', true)
   wk_doc = $("#wk_iframe").contentDocument();
   
@@ -265,6 +264,7 @@ function wk_enable_edit(){
 }
 
 function wk_keyboard(){
+  var $ = jQuery;
   if(!$('#wk_iframe').data('wkhd')){
     $(wk_doc.documentElement).keypress(function(e){
       if(wk_mode < 2){
@@ -280,6 +280,7 @@ function wk_keyboard(){
 }
 
 function wk_html_edit(){
+var $ = jQuery;
   if(!$('#wk_iframe').data('inshtl')){
     $(wk_doc.documentElement).keypress(function(e){
       if(e.ctrlKey && e.charCode == 104){
@@ -293,6 +294,7 @@ function wk_html_edit(){
 
 
 function wk_disable_edit(){
+var $ = jQuery;
   if($("#wk_iframe").data("hasEdit") == true){
     if(!$('#wk_iframe').data('useDesignMode')){
       wk_doc.body.contentEditable = false;
@@ -304,10 +306,11 @@ function wk_disable_edit(){
 
 
 function wk_mozeditfix(){
+var $ = jQuery;
   if(!$('#wk_iframe').data('hasEvent')){
     $(wk_doc.documentElement).keypress(function(e){
       var key = String.fromCharCode(e.charCode).toLowerCase();
-      if("biu".indexOf(key) != -1 && e.ctrlKey){
+      if("biu".indexOf(key) != -1 && (e.ctrlKey || e.metaKey || e.altKey)){
         $("#wk_iframe").execCommand(({
           b: "bold",
           i: "italic",
@@ -335,6 +338,8 @@ $(document).ready(function(){
  /*wikify file: js/mode.js */ 
 
 function wk_original(){
+	
+  var $ = jQuery;
     $(".wk_btn_save").fadeOut()
     wk_mode = 0;
     wk_write_original();
@@ -347,6 +352,7 @@ function wk_original(){
 }
 
 function wk_view(){
+var $ = jQuery;
     $(".wk_btn_save").fadeOut()
     wk_mode = 1
     wk_write_original();
@@ -361,6 +367,7 @@ function wk_view(){
 }
 
 function wk_edit(){
+var $ = jQuery;
     $(".wk_btn_save").fadeIn()
     wk_mode = 2
     wk_write_original();
@@ -381,10 +388,11 @@ function wk_setmode(mode){
 }
 
 function wk_remode(){
+var $ = jQuery;
   $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click(); //woot!
 }
 
-wk_ready(function(){
+wk_ready(function($){
   $(".wk_mode").click(function(){
     $(".wk_mode").animate({color: "#858585"})
     wk_mask(true)
@@ -401,7 +409,7 @@ wk_ready(function(){
 
  /*wikify file: js/button.js */ 
 
-wk_ready(function(){
+wk_ready(function($){
   $(".wk_btn_save").click(function(){
     wk_saving(true);
     wk_diffsave(function(){
@@ -474,6 +482,7 @@ wk_ready(function(){
  /*wikify file: js/ui.js */ 
 
 function wk_collapse(){
+var $ = jQuery;
   $("#wk_news").slideUp()
   $("#wk_help").slideUp()
   $(".wk_down").slideUp();
@@ -489,6 +498,7 @@ function wk_collapse(){
 }
 
 function wk_expand(){
+var $ = jQuery;
   $("#wk_toolbar").animate({
     left: "0%"
   })
@@ -500,6 +510,7 @@ function wk_expand(){
 }
 
 function wk_resize(){
+var $ = jQuery;
   if($(window).width() < 800){
     if($(window).width() < 500){
       wk_ui = 2;
@@ -554,6 +565,7 @@ function wk_resize(){
 
 
 function wk_saving(mode){
+var $ = jQuery;
   if(mode == true){
     $("#wk_save").hide()
     $("#wk_saving").show();
@@ -564,6 +576,7 @@ function wk_saving(mode){
 }
 
 function wk_mask(mode){
+var $ = jQuery;
   if(mode == true){
     $("#wk_mask").slideDown()
     $("#wk_news").slideUp()
@@ -575,7 +588,7 @@ function wk_mask(mode){
   }
 }
 
-wk_ready(function(){
+wk_ready(function($){
   $("#wk_logo").click(wk_collapse)
   $("#wk_expand").click(wk_expand)
   $(window).resize(wk_resize);
@@ -587,7 +600,8 @@ wk_ready(function(){
 
  /*wikify file: js/help.js */ 
 
-wk_ready(function(){
+wk_ready(function($){
+	
   var areas = {
     "#wk_logo": [1,"Click on this logo to minimize the toolbar"],
     "#wk_channel_visible": [2,"Switch Wikify channels."],
@@ -638,6 +652,7 @@ wk_ready(function(){
 })
 
 function wk_hideabout(){
+var $ = jQuery;
   $("#wk_about").animate({top: -$("#wk_about").height()})
     .queue(function(){
       $(this).css("display", "none")
@@ -651,6 +666,8 @@ function wk_hideabout(){
  /*wikify file: js/channel.js */ 
 
 function wk_set_channel(channel){
+  var $ = jQuery;
+
   wk_channel = channel;
   if(!wk_channels[wk_channel]){
     wk_channels[wk_channel] = {edits: 0};
@@ -665,6 +682,8 @@ function wk_set_channel(channel){
 }
 
 function wk_render_channels(){
+  var $ = jQuery;
+
   if(wk_ui == 2){
     $("#wk_channel_text").text(wk_channel)
   }else if(wk_ui == 3){
@@ -693,6 +712,7 @@ function wk_render_channels(){
 
 
 function wk_get_channels(callback){
+
   wk_get_data(wk_server, {url: wk_url, action: "channel"}, function(e){
     wk_log("Got Channel Data", e)
     for(var x in e.channels){
@@ -774,6 +794,8 @@ function wk_upgrade(data){
  /*wikify file: js/data.js */ 
 
 function wk_write_data(data){
+  var $ = jQuery;
+
   wk_doc = $("#wk_iframe").contentDocument();
   wk_doc.open();
   wk_doc.write(data);
@@ -785,7 +807,10 @@ function wk_write_original(){
 }
 
 function wk_patch_links(){
+  var $ = jQuery;
   setTimeout(function(){
+    var $ = jQuery;
+
     $(wk_doc).find("a") //find all links
       .click(function(){ //on click event
         window.parent.location = this.href; //make them open up in the parent
@@ -1094,12 +1119,15 @@ function wk_autosnapshot(c){
 var wk_curmsgid = -1;
 
 function wk_hidemsg(){
+	
+  var $ = jQuery;
   $("#wk_msg").stop(true).animate({
     left: "-100%"
   })
 }
 
 function wk_showmsg(message){
+var $ = jQuery;
   $("#wk_msgtext").text(message)
   $("#wk_msg").stop(true).animate({
     left: "0%"
@@ -1114,7 +1142,7 @@ function wk_showmsg(message){
 }
 
 
-wk_ready(function(){
+wk_ready(function($){
   $(".wk_dismiss").click(function(){
     wk_hidemsg();
   })
@@ -1126,9 +1154,12 @@ wk_ready(function(){
 
 wk_coreinit = function(){
   //check if jQuery is loaded
-  if(!jQuery || !$ ||!jQuery() || !$() || !$().jquery){
+
+  if(!jQuery || !jQuery().jquery){
     return alert("Project Wikify has encountered a fatal error\n(JS Loader failed initializing dependencies)")
   }
+
+  var $ = jQuery;
   
   //test for some strange oddities
   if(!$("head")[0] || !jQuery("<div>Something_Very_Strange</div>").html()){
@@ -1183,7 +1214,7 @@ wk_coreinit = function(){
   //loop thorugh init queue
   for(var i = 0; i < wk_readyqueue.length; i++){ 
     try{
-      wk_readyqueue[i](); //run readyqueue
+      wk_readyqueue[i](jQuery); //run readyqueue
     }catch(err){
       alert("Project Wikify has encountered an error. \n"+err)
       //console.error(err)

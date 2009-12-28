@@ -5,7 +5,7 @@
 
 /**
  * Cross-browser function to access a DOM:Document element
- * Example: $('#foo').contentDocument();
+ * Example: jQuery('#foo').contentDocument();
  *
  * @uses jQuery
  *
@@ -26,7 +26,7 @@ jQuery.fn.contentDocument = function() {
 
 /**
  * Cross-browser function to set the designMode property
- * Example: $('#foo').designMode('on');
+ * Example: jQuery('#foo').designMode('on');
  *
  * @uses jQuery, jQuery.fn.contentDocument
  *
@@ -38,7 +38,7 @@ jQuery.fn.designMode = function(mode) {
 	// Default mode is 'on'
 	var mode = mode || 'on';
 	this.each(function() {
-		var frame = $(this);
+		var frame = jQuery(this);
 		var doc = frame.contentDocument();
 		if (doc && doc.designMode != mode) {
 		
@@ -47,7 +47,7 @@ jQuery.fn.designMode = function(mode) {
 			// commented, causes IE to give me a seizure!
 			/*
 			frame.load(function() {
-				$(this).contentDocument().designMode = mode;
+				jQuery(this).contentDocument().designMode = mode;
 			});
 			*/
 		}
@@ -57,7 +57,7 @@ jQuery.fn.designMode = function(mode) {
 
 /**
  * Cross-browser function to execute designMode commands
- * Example: $('#foo').execCommand('formatblock', '<p>');
+ * Example: jQuery('#foo').execCommand('formatblock', '<p>');
  *
  * @uses jQuery, jQuery.fn.contentDocument
  *
@@ -68,7 +68,7 @@ jQuery.fn.designMode = function(mode) {
  */
 jQuery.fn.execCommand = function(cmd, param) {
 	this.each(function() {
-		var doc = $(this).contentDocument();
+		var doc = jQuery(this).contentDocument();
 		if (doc) {
 			// Use try-catch in case of invalid or unsupported commands
     		try {

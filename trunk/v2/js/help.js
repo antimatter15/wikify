@@ -1,4 +1,5 @@
-wk_ready(function(){
+wk_ready(function($){
+	
   var areas = {
     "#wk_logo": [1,"Click on this logo to minimize the toolbar"],
     "#wk_channel_visible": [2,"Switch Wikify channels."],
@@ -49,6 +50,7 @@ wk_ready(function(){
 })
 
 function wk_hideabout(){
+var $ = jQuery;
   $("#wk_about").animate({top: -$("#wk_about").height()})
     .queue(function(){
       $(this).css("display", "none")

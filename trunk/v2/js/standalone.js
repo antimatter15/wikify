@@ -1,14 +1,14 @@
-$.get("etc/content.htm",{}, function(e){
+jQuery.get("etc/content.htm",{}, function(e){
   wk_original_data = e;
-  $(document).ready(function(){
+  jQuery(document).ready(function(){
     wk_get_channels()
     wk_remode()
   })
 })
 
-$(document).ready(function(){
-  $.each(wk_readyqueue, function(){
-    this();
+jQuery(document).ready(function(){
+  jQuery.each(wk_readyqueue, function(){
+    this(jQuery);
   })
 })
 

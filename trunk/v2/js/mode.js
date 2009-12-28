@@ -1,4 +1,6 @@
 function wk_original(){
+	
+  var $ = jQuery;
     $(".wk_btn_save").fadeOut()
     wk_mode = 0;
     wk_write_original();
@@ -11,6 +13,7 @@ function wk_original(){
 }
 
 function wk_view(){
+var $ = jQuery;
     $(".wk_btn_save").fadeOut()
     wk_mode = 1
     wk_write_original();
@@ -25,6 +28,7 @@ function wk_view(){
 }
 
 function wk_edit(){
+var $ = jQuery;
     $(".wk_btn_save").fadeIn()
     wk_mode = 2
     wk_write_original();
@@ -45,10 +49,11 @@ function wk_setmode(mode){
 }
 
 function wk_remode(){
+var $ = jQuery;
   $([".wk_btn_original",".wk_btn_view",".wk_btn_edit"][wk_mode]).click(); //woot!
 }
 
-wk_ready(function(){
+wk_ready(function($){
   $(".wk_mode").click(function(){
     $(".wk_mode").animate({color: "#858585"})
     wk_mask(true)
