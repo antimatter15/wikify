@@ -40,11 +40,11 @@ wk_ready(function($){
   })
   
   $("#wk_credits").click(function(){
-    alert("Under Construction XD")
+    alert("Almost all the code is written by antimatter15, the source code is licensed under GPLv3. Relies on libraries such as jQuery, and the color, pngFix and designMode extensions. Text diffing is powered by the google-diff-match-patch library.")
   })
   
   $("#wk_history").click(function(){
-    alert("Under Construction XD")
+    alert("This project started in late 2008 by antimatter15 and mostly died since, if people actually used it, this history section might be longer.")
   })
   
 })
