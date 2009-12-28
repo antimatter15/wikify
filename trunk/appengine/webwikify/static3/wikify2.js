@@ -85,7 +85,7 @@ wk_ready(function($){ //dumbie!
 
  /*wikify file: js/toolbar.js */ 
 
-var wk_toolbar = '<div id="wk_toolbar"><ul><li class="wk_logo" id="wk_logo"><img src="img/wikify.png" alt="Project Wikify (beta)" title="Collapse Toolbar"></li><li class="wk_space">&nbsp;</li><li id="wk_channel"><ul class="wk_down"><li class="wk_custom">Custom</li></ul><ul id="wk_channel_visible"><li id="wk_channel_text" title="Change Channel">Loading...</li><li class="wk_arrow"><img src="img/down.png" style="padding-top: 5px;"></li></ul></li><li class="wk_space">&nbsp;</li><li class="wk_btn wk_mode wk_btn_original" title="Original">Original</li><li class="wk_btn wk_mode wk_btn_view" title="View">View</li><li class="wk_btn wk_mode wk_btn_edit" title="Edit">Edit</li></ul><ul style="float: right" class="wk_btn wk_btn_news" title="News"><li class="wk_right"><img src="img/package_editors.png"></li><li class="wk_right wk_btn_txt">News</li></ul><ul style="float: right" class="wk_btn wk_btn_help" title="Help"><li class="wk_right"><img src="img/info.png"></li><li class="wk_right wk_btn_txt">Help</li></ul><ul style="float: right" class="wk_btn wk_btn_save" title="Save"><li id="wk_save" class="wk_right"><img src="img/3floppy_unmount.png"></li><li id="wk_saving" class="wk_right" style="display: none"><img src="img/loading.gif"></li><li class="wk_right wk_btn_txt">Save</li></ul></div><div id="wk_expand">&gt;</div><div id="wk_mask"><h1 class="wk_load">Loading...</h1></div><iframe id="wk_iframe" class="wk_fill" border="0"></iframe><div id="wk_news"><div style="float: left; width: 50%"><h3>This Page</h3></div><div style="float: right; width: 50%"><h3>Wikify Global</h3></div></div><div id="wk_help"><span class="wk_note">Move your mouse cursor over the toolbar items to see what they do.</span><div id="wk_tooltip">&nbsp;</div></div><div id="wk_about"><h3>About Project Wikify</h3><p>&copy; 2008-2009 Antimatter15. Please don\'t sue me.</p><p style="font-size: x-small">And no, you can\'t edit this message :P</p><button id="wk_credits">Credits</button><button id="wk_history">History</button></div><div id="wk_msg"><img src="img/info.png" alt="Alert" class="wk_alerticon"><img src="img/button_cancel.png" alt="Dismiss" title="Dismiss Message" class="wk_dismiss"><div id="wk_msgtext">None.</div></div>';
+var wk_toolbar = '<div id="wk_toolbar"><ul><li class="wk_logo" id="wk_logo"><img src="img/wikify.png" alt="Project Wikify (beta)" title="Collapse Toolbar"></li><li class="wk_space">&nbsp;</li><li id="wk_channel"><ul class="wk_down"><li class="wk_custom">Custom</li></ul><ul id="wk_channel_visible"><li id="wk_channel_text" title="Change Channel">Loading...</li><li class="wk_arrow"><img src="img/down.png" style="padding-top: 5px;"></li></ul></li><li class="wk_space">&nbsp;</li><li class="wk_btn wk_mode wk_btn_original" title="Original">Original</li><li class="wk_btn wk_mode wk_btn_view" title="View">View</li><li class="wk_btn wk_mode wk_btn_edit" title="Edit">Edit</li></ul><ul style="float: right" class="wk_btn wk_btn_news" title="News"><li class="wk_right"><img src="img/package_editors.png"></li><li class="wk_right wk_btn_txt">News</li></ul><ul style="float: right" class="wk_btn wk_btn_help" title="Help"><li class="wk_right"><img src="img/info.png"></li><li class="wk_right wk_btn_txt">Help</li></ul><ul style="float: right" class="wk_btn wk_btn_save" title="Save"><li id="wk_save" class="wk_right"><img src="img/3floppy_unmount.png"></li><li id="wk_saving" class="wk_right" style="display: none"><img src="img/loading.gif"></li><li class="wk_right wk_btn_txt">Save</li></ul></div><div id="wk_expand">&gt;</div><div id="wk_mask"><h1 class="wk_load">Loading...</h1></div><iframe id="wk_iframe" class="wk_fill" border="0"></iframe><div id="wk_news"><div style="float: left; width: 50%"><h3>Page Edits</h3><div id="local" style="overflow: auto; text-align: left;">Loading...</div></div><div style="float: right; width: 50%"><h3>All Edits</h3><div id="global" style="overflow: auto; text-align: left">Loading...</div></div></div><div id="wk_help"><span class="wk_note">Move your mouse cursor over the toolbar items to see what they do.</span><div id="wk_tooltip">&nbsp;</div></div><div id="wk_about"><h3>About Project Wikify</h3><p>&copy; 2008-2009 Antimatter15. Please don\'t sue me.</p><p style="font-size: x-small">And no, you can\'t edit this message :P</p><button id="wk_credits">Credits</button><button id="wk_history">History</button></div><div id="wk_msg"><img src="img/info.png" alt="Alert" class="wk_alerticon"><img src="img/button_cancel.png" alt="Dismiss" title="Dismiss Message" class="wk_dismiss"><div id="wk_msgtext">None.</div></div>';
 
 
 
@@ -150,7 +150,7 @@ var wk_toolbar = '<div id="wk_toolbar"><ul><li class="wk_logo" id="wk_logo"><img
 
 /**
  * Cross-browser function to access a DOM:Document element
- * Example: $('#foo').contentDocument();
+ * Example: jQuery('#foo').contentDocument();
  *
  * @uses jQuery
  *
@@ -171,7 +171,7 @@ jQuery.fn.contentDocument = function() {
 
 /**
  * Cross-browser function to set the designMode property
- * Example: $('#foo').designMode('on');
+ * Example: jQuery('#foo').designMode('on');
  *
  * @uses jQuery, jQuery.fn.contentDocument
  *
@@ -183,7 +183,7 @@ jQuery.fn.designMode = function(mode) {
 	// Default mode is 'on'
 	var mode = mode || 'on';
 	this.each(function() {
-		var frame = $(this);
+		var frame = jQuery(this);
 		var doc = frame.contentDocument();
 		if (doc && doc.designMode != mode) {
 		
@@ -192,7 +192,7 @@ jQuery.fn.designMode = function(mode) {
 			// commented, causes IE to give me a seizure!
 			/*
 			frame.load(function() {
-				$(this).contentDocument().designMode = mode;
+				jQuery(this).contentDocument().designMode = mode;
 			});
 			*/
 		}
@@ -202,7 +202,7 @@ jQuery.fn.designMode = function(mode) {
 
 /**
  * Cross-browser function to execute designMode commands
- * Example: $('#foo').execCommand('formatblock', '<p>');
+ * Example: jQuery('#foo').execCommand('formatblock', '<p>');
  *
  * @uses jQuery, jQuery.fn.contentDocument
  *
@@ -213,7 +213,7 @@ jQuery.fn.designMode = function(mode) {
  */
 jQuery.fn.execCommand = function(cmd, param) {
 	this.each(function() {
-		var doc = $(this).contentDocument();
+		var doc = jQuery(this).contentDocument();
 		if (doc) {
 			// Use try-catch in case of invalid or unsupported commands
     		try {
@@ -423,8 +423,15 @@ wk_ready(function($){
   $(".wk_btn_news").click(function(){
     wk_hideabout()
     $("#wk_help").slideUp().queue(function(){
-      $("#wk_news").slideToggle();
+     if($("#wk_news").is(":hidden")){
+	
+		wk_local()
+		wk_global()
+
+		} 
+	 $("#wk_news").slideToggle();
       $(this).dequeue();
+		
     })
   })
 
@@ -659,6 +666,47 @@ var $ = jQuery;
       $(this).dequeue()
     })
     wk_hidemsg();
+}
+
+
+
+ /*wikify file: js/news.js */ 
+
+function wk_local(){
+	var $ = jQuery;
+	$("#local").text("Loading...")
+	wk_get_data(wk_server, {url: wk_url, action: "page"}, 
+    function(data){
+      wk_log("Got Local Edit Data: ",data)
+      var edits = [];
+	$("#local").text("")
+      for(var i = 0; i < data.edits.length; i++){
+		var d = unescape(unescape(unescape(unescape(data.edits[i].data))))
+		$("#local").append("<center><i>"+data.edits[i].channel+"</i> ("+data.edits[i].date.split(".")[0]+")</center><pre>"+
+		d.substr(0,140)+(d.length>140?"...":"")+"</pre><br>") //tweet-sized turns out to be a great truncation length
+      }
+    })
+	
+}
+
+function wk_global(){
+	var $ = jQuery;
+	$("#global").text("Loading...")
+	wk_get_data(wk_server, {action: "latest"}, 
+    function(data){
+      wk_log("Got Global Edit Data: ",data)
+	$("#global").text("");
+      
+	for(var i = 0; i < data.edits.length; i++){
+		var d = unescape(unescape(unescape(unescape(data.edits[i].data))))
+		$("#global").append("<center><a href='"+data.edits[i].url+"'>"+data.edits[i].url+"</a> "+ //xss flaw, too bored to fix
+		"<i>"+data.edits[i].channel+"</i> ("+data.edits[i].date.split(".")[0]+")</center><pre>"+
+		d.substr(0,140)+(d.length>140?"...":"")+"</pre><br>") //tweet-sized turns out to be a great truncation length
+		
+      }
+
+     
+    })
 }
 
 
@@ -908,6 +956,7 @@ function wk_send_data(url, params, callback){
 
 
 function wk_get_data(url, params, callback){
+  var $ = jQuery;
   if(window.location.href.indexOf("about:") != 0){
     $.get(url, params, callback, "jsonp"); //thx jQuery!
   }else{
