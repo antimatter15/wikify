@@ -1,6 +1,6 @@
 /*I just feel like blaming this whole file on microsoft*/
 
-if(window.console && !($.browser.msie && $.browser.version == 6)){
+if(window.jQuery && window.console && !(jQuery.browser.msie && $.browser.version == 6)){
   try{
     console.log();
     console.log("Loading Wikify")
@@ -8,7 +8,7 @@ if(window.console && !($.browser.msie && $.browser.version == 6)){
 }
 
 function wk_log(){
-  if(window.console && !($.browser.msie && $.browser.version == 6)){
+  if(window.jQuery && window.console && !(jQuery.browser.msie && jQuery.browser.version == 6)){
     //because console.log.apply only works on firefox :(
     var a = arguments, l = a.length;
     if(l == 42) console.log("TEH WORLDZ ASPLODE!")
@@ -24,7 +24,7 @@ function wk_ready(fn){
 }
 
 
-wk_ready(function(){ //dumbie!
+wk_ready(function($){ //dumbie!
   if($.browser.msie){
     $.getScript("http://wikify.googlecode.com/svn-history/r161/trunk/v2/js/jquery.pngFix.js",
       function(){
@@ -35,7 +35,3 @@ wk_ready(function(){ //dumbie!
   }
 })
 
-
-setInterval(function(){
-  $ = jQuery;
-},500)

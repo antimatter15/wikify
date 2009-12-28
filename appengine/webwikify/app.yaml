@@ -16,18 +16,9 @@ handlers:
 - url: /static3
   static_dir: static3
   
-- url: /technology
-  static_files: static2/technology.html
-  upload: static2/technology.html
-  
-- url: /bookmarklet
-  static_files: static2/bookmarklet.html
-  upload: static2/bookmarklet.html
+- url: /Project_Wikify_files
+  static_dir: site/Project_Wikify_files
 
-- url: /more
-  static_files: static2/more.html
-  upload: static2/more.html
-  
 - url: /favicon.ico
   static_files: static2/favicon.ico
   upload: static2/favicon.ico
@@ -36,9 +27,9 @@ handlers:
   static_files: static2/oldcore.js
   upload: static2/oldcore.js
   
-- url: /intro
-  static_files: static2/intro.html
-  upload: static2/intro.html
+- url: /
+  static_files: site/Project_Wikify.html
+  upload: site/Project_Wikify.html
 
-- url: /.*
+- url: /.+
   script: redirect.py

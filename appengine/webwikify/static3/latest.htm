@@ -64,7 +64,7 @@ function wk_upgrade(data){
           out.push(ed[k])
         }
       }
-      write += "<b>"+edit.url+"</b> <i>("+edit.channel+")</i><p>"+out.join("<br>")+"</p>"
+      write += "<b>"+edit.url+"</b> <i>("+edit.channel+")</i> "+edit.date+"<p>"+out.join("<br>")+"</p>"
     }
     write += "<hr>"+offset+" <a href='javascript:reload(-30)'>&lt;-</a> <a href='javascript:reload(30)'>--&gt;</a>";
     document.body.innerHTML = write;

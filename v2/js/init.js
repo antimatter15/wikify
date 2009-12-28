@@ -1,8 +1,11 @@
 wk_coreinit = function(){
   //check if jQuery is loaded
-  if(!jQuery || !$ ||!jQuery() || !$() || !$().jquery){
+
+  if(!jQuery || !jQuery().jquery){
     return alert("Project Wikify has encountered a fatal error\n(JS Loader failed initializing dependencies)")
   }
+
+  var $ = jQuery;
   
   //test for some strange oddities
   if(!$("head")[0] || !jQuery("<div>Something_Very_Strange</div>").html()){
@@ -57,7 +60,7 @@ wk_coreinit = function(){
   //loop thorugh init queue
   for(var i = 0; i < wk_readyqueue.length; i++){ 
     try{
-      wk_readyqueue[i](); //run readyqueue
+      wk_readyqueue[i](jQuery); //run readyqueue
     }catch(err){
       alert("Project Wikify has encountered an error. \n"+err)
       //console.error(err)

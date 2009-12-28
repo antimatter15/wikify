@@ -1,4 +1,6 @@
 function wk_enable_edit(){
+  var $ = jQuery;
+  
   $('#wk_iframe').data('hasEdit', true)
   wk_doc = $("#wk_iframe").contentDocument();
   
@@ -24,6 +26,7 @@ function wk_enable_edit(){
 }
 
 function wk_keyboard(){
+  var $ = jQuery;
   if(!$('#wk_iframe').data('wkhd')){
     $(wk_doc.documentElement).keypress(function(e){
       if(wk_mode < 2){
@@ -39,6 +42,7 @@ function wk_keyboard(){
 }
 
 function wk_html_edit(){
+var $ = jQuery;
   if(!$('#wk_iframe').data('inshtl')){
     $(wk_doc.documentElement).keypress(function(e){
       if(e.ctrlKey && e.charCode == 104){
@@ -52,6 +56,7 @@ function wk_html_edit(){
 
 
 function wk_disable_edit(){
+var $ = jQuery;
   if($("#wk_iframe").data("hasEdit") == true){
     if(!$('#wk_iframe').data('useDesignMode')){
       wk_doc.body.contentEditable = false;
@@ -63,10 +68,11 @@ function wk_disable_edit(){
 
 
 function wk_mozeditfix(){
+var $ = jQuery;
   if(!$('#wk_iframe').data('hasEvent')){
     $(wk_doc.documentElement).keypress(function(e){
       var key = String.fromCharCode(e.charCode).toLowerCase();
-      if("biu".indexOf(key) != -1 && e.ctrlKey){
+      if("biu".indexOf(key) != -1 && (e.ctrlKey || e.metaKey || e.altKey)){
         $("#wk_iframe").execCommand(({
           b: "bold",
           i: "italic",

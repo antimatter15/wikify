@@ -1,4 +1,6 @@
 function wk_set_channel(channel){
+  var $ = jQuery;
+
   wk_channel = channel;
   if(!wk_channels[wk_channel]){
     wk_channels[wk_channel] = {edits: 0};
@@ -13,6 +15,8 @@ function wk_set_channel(channel){
 }
 
 function wk_render_channels(){
+  var $ = jQuery;
+
   if(wk_ui == 2){
     $("#wk_channel_text").text(wk_channel)
   }else if(wk_ui == 3){
@@ -41,6 +45,7 @@ function wk_render_channels(){
 
 
 function wk_get_channels(callback){
+
   wk_get_data(wk_server, {url: wk_url, action: "channel"}, function(e){
     wk_log("Got Channel Data", e)
     for(var x in e.channels){

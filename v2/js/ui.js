@@ -1,4 +1,5 @@
 function wk_collapse(){
+var $ = jQuery;
   $("#wk_news").slideUp()
   $("#wk_help").slideUp()
   $(".wk_down").slideUp();
@@ -14,6 +15,7 @@ function wk_collapse(){
 }
 
 function wk_expand(){
+var $ = jQuery;
   $("#wk_toolbar").animate({
     left: "0%"
   })
@@ -25,6 +27,7 @@ function wk_expand(){
 }
 
 function wk_resize(){
+var $ = jQuery;
   if($(window).width() < 800){
     if($(window).width() < 500){
       wk_ui = 2;
@@ -79,6 +82,7 @@ function wk_resize(){
 
 
 function wk_saving(mode){
+var $ = jQuery;
   if(mode == true){
     $("#wk_save").hide()
     $("#wk_saving").show();
@@ -89,6 +93,7 @@ function wk_saving(mode){
 }
 
 function wk_mask(mode){
+var $ = jQuery;
   if(mode == true){
     $("#wk_mask").slideDown()
     $("#wk_news").slideUp()
@@ -100,7 +105,7 @@ function wk_mask(mode){
   }
 }
 
-wk_ready(function(){
+wk_ready(function($){
   $("#wk_logo").click(wk_collapse)
   $("#wk_expand").click(wk_expand)
   $(window).resize(wk_resize);

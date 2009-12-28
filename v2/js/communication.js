@@ -47,6 +47,7 @@ function wk_send_data(url, params, callback){
 
 
 function wk_get_data(url, params, callback){
+  var $ = jQuery;
   if(window.location.href.indexOf("about:") != 0){
     $.get(url, params, callback, "jsonp"); //thx jQuery!
   }else{

@@ -28,7 +28,7 @@ def WikifyLoad(self):
     edits = []
     if changes.count() > 0:
       for edit in changes:
-        edits.append({'data': edit.data})
+        edits.append({'data': edit.data, 'date': str(edit.date)})
     jsonp(self, {'edits': edits})
   else:
     self.response.out.write("Missing required parameters.")        
@@ -48,8 +48,19 @@ def WikifyLatest(self):
   offset = self.request.get("offset")
   if len(offset) == 0: offset = 0
   for edit in WikifyDB.all().order("-date").fetch(30, int(offset)):
-    edits.append({'data': edit.data, 'url': edit.url, 'channel': edit.channel})
+    edits.append({'data': edit.data, 'url': edit.url, 'channel': edit.channel, 'date': str(edit.date)})
   jsonp(self, {'size': size, 'edits': edits})
+
+
+def WikifyPage(self):
+  size = WikifyDB.all().filter("url =", self.request.get("url")).count()
+  edits = []
+  offset = self.request.get("offset")
+  if len(offset) == 0: offset = 0
+  for edit in WikifyDB.all().filter("url =", self.request.get("url")).order("-date").fetch(30, int(offset)):
+    edits.append({'data': edit.data, 'channel': edit.channel, 'date': str(edit.date)})
+  jsonp(self, {'size': size, 'edits': edits})
+
 
 def WikifyChannel(self):
   if self.request.get("url"):
@@ -85,6 +96,8 @@ class WikifyServer(webapp.RequestHandler):
       WikifyLoad(self)
     elif action == "channel":
       WikifyChannel(self)
+    elif action == "page":
+      WikifyPage(self)
     elif action == "backup":
       f = WikifyDB.all().fetch(1000)
       y = []
