@@ -1,0 +1,1 @@
+Imagine applying the public Wiki content model to all static content on the internet, relying on the community to update content, and fix simple errors. Forming a community around all content of the internet, truly "upgrading" the internet.
